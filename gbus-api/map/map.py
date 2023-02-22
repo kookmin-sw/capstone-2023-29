@@ -44,6 +44,9 @@ def store_bus_data():
                 plate_no = data["plateNo"]
                 remain_seat_cnt = data["remainSeatCnt"]
                 station_id = data["stationId"]
+                if str(station_id) not in station_map:
+                    print(station_id)
+                    continue
                 station_name = station_map[str(station_id)]
                 station_seq = data["stationSeq"]
                 result.append([now, plate_no, route_name, remain_seat_cnt, station_id, station_name, station_seq])
