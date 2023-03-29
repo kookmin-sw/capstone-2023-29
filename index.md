@@ -1,37 +1,28 @@
-## Welcome to GitHub Pages
+# 자리있어? - 경기도 광역버스 좌석 예측 시스템
 
-You can use the [editor on GitHub](https://github.com/kookmin-sw/cap-template/edit/master/index.md) to maintain and preview the content for your website in Markdown files.
+## 1. 프로젝트 소개
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+최근 경기도 광역버스의 입석이 금지되어 경기도에서 출퇴근 하시는 많은 분들이 불편함을 겪고 있습니다. 
 
-### Markdown
+저희의 서비스 **_자리있어?_**는 이러한 불편함을 겪고 계시는 분들의 불편함을 해소해드리고자 합니다.
+**정확하게는 광역버스가 내가 타고 싶은 정류장에 왔을 때 몇좌석이 남아있을지 예측해드립니다!**
+현재 버스 좌석을 보여주는 서비스들은 내가 버스를 타야하는 정류장이 아닌 버스의 현재 좌석을 알려줍니다. 저희는 현재 버스 좌석이 아닌 내가 타고 싶은 버스가 내가 타야하는 정류장에 왔을 때 몇 자리가 남았을지 예측해 드립니다!
 
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
 
-```markdown
-Syntax highlighted code block
+## 2. 팀 소개
 
-# Header 1
-## Header 2
-### Header 3
+- 백소양 
+  - 학번 : **0092
+  - 역할 : 팀장, 데이터 분석 및 모델 개발
 
-- Bulleted
-- List
+- 서기선
+  - 학번 : **1624
+  - 역할 : 데이터 분석 및 모델 개발
 
-1. Numbered
-2. List
+- 최승준
+  - 학번 : **1699
+  - 역할 : DB관리, 백엔드 개발
 
-**Bold** and _Italic_ and `Code` text
-
-[Link](url) and ![Image](src)
-```
-
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
-
-### Jekyll Themes
-
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/kookmin-sw/cap-template/settings). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
-
-### Support or Contact
-
-Having trouble with Pages? Check out our [documentation](https://help.github.com/categories/github-pages-basics/) or [contact support](https://github.com/contact) and we’ll help you sort it out.
+- 이정안
+  - 학번 : **1293
+  - 역할 : 프론트엔드 개발
