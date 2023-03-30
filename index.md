@@ -33,9 +33,14 @@
 
 
 2. 서비스 스크린 샷
-  [frontend]
-  <img src="/path/to/img.jpg“></img>
-    <img src="/path/to/img.jpg“></img>
-      <img src="/path/to/img.jpg“></img>
-        <img src="/path/to/img.jpg“></img>
+
+-frontend
   
+![실행화면1234](https://user-images.githubusercontent.com/105616772/228748891-f049f4e2-b8ab-43cc-b3ec-b272db0ba248.jpg)
+
+1) 초기 화면에 검색폼, 즐겨찾기한 버스번호와 최근검색어 탭이 나타납니다.
+2) 해당 숫자를 검색하면 버스 번호에 해당 숫자를 포함하는 버스 데이터들이 나타납니다.
+3) 버스를 누르면, 버스 노선이 뜹니다.
+(3-1추가 예정) 해당 정류장을 누르면 버스의 도착 정보와 착석 가능 확률을 보여줍니다.)
+4) 검색했던 버스는 최근 검색어 목록에 저장됩니다.
+
