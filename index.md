@@ -34,4 +34,8 @@
 
 2. 서비스 스크린 샷
   [frontend]
+  <img src="/path/to/img.jpg“></img>
+    <img src="/path/to/img.jpg“></img>
+      <img src="/path/to/img.jpg“></img>
+        <img src="/path/to/img.jpg“></img>
   
