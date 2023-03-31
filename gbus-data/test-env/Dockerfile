@@ -6,8 +6,5 @@ ENV POSTGRES_USER=myuser
 ENV POSTGRES_PASSWORD=mypassword
 ENV POSTGRES_DB=mydb
 
-# PostgreSQL 데이터를 지속하기 위한 Docker 볼륨 생성
-VOLUME /var/lib/postgresql/data
-
 # Copy the SQL scripts to create the tables and insert the data
 COPY ./sql/create_table.sql /docker-entrypoint-initdb.d/

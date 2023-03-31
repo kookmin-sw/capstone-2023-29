@@ -1,0 +1,26 @@
+[tool.poetry]
+name = "fastapi_app"
+version = "0.1.0"
+description = "My FastAPI application"
+authors = ["Your Name <yourname@example.com>"]
+
+[tool.poetry.dependencies]
+python = "=3.9.16"
+fastapi = "^0.92.0"
+uvicorn = "^0.20.0"
+black = "23.1.0"
+arrow = "^1.2.3"
+passlib = "^1.7.4"
+SQLAlchemy = "^1.4.31"
+requests = "^2.27.1"
+PyMySQL = "^1.0.2"
+PyJWT = "^2.3.0"
+mangum = "^0.17.0"
+loguru = "^0.6.0"
+starlette-context = "^0.3.4"
+
+[tool.poetry.dev-dependencies]
+pytest = "^6.2.4"
+
+[tool.poetry.scripts]
+start = "uvicorn app.main:app --reload"
