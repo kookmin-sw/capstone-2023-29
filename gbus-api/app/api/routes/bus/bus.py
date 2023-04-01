@@ -1,16 +1,27 @@
-from typing import Tuple
+from fastapi import APIRouter, Depends
 
-from fastapi import APIRouter
-
-from app.db.repository.bus import BusRepository
+from app.services.bus import BusService
 
 router = APIRouter()
 
 
-@router.get("/bus/{bus_id}")
-async def get_bus(bus_id: int) -> Tuple[int, str]:
-    busRepository = BusRepository()
-    result = busRepository.get_bus(bus_id)
+@router.get("/bus/{bus_name}")
+def get_bus_by_name(
+    bus_name: str,
+    bus_service: BusService = Depends(BusService),
+):
+    result = bus_service.get_bus(bus_name)
     if result is None:
         return {"message": "Bus not found"}
-    return {"id": result[0], "name": result[1]}
+    return result
+
+
+@router.get("/bus/bus_stop/{bus_name}")
+def get_bus_stop_by_name(
+    bus_name: str,
+    bus_service: BusService = Depends(BusService),
+):
+    result = bus_service.get_bus_stop(bus_name)
+    if result is None:
+        return {"message": "Bus stop not found"}
+    return result
