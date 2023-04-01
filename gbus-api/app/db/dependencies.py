@@ -19,7 +19,6 @@ def init_db(db_url: str) -> None:
             "pool_size": 16,
             "max_overflow": 32,
             "pool_timeout": 120,
-            "convert_unicode": True,
             "pool_pre_ping": True,
         }
     )
