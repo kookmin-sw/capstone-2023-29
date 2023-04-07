@@ -1,0 +1,19 @@
+import React from "react";
+import { useSelector } from "react-redux";
+import ListGroup from 'react-bootstrap/ListGroup';
+
+
+function SearchResult(){
+
+    let productData = useSelector((state)=>{return state.productData})
+    console.log(productData)
+
+    return(
+        <ListGroup>
+            {SearchResult.map((item) => (
+                <ListGroup.Item key={item.id}>{item.name}</ListGroup.Item>
+                ))}
+        </ListGroup>
+    )
+}
+export default SearchResult;

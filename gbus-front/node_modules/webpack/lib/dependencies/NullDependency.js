@@ -9,23 +9,19 @@ const Dependency = require("../Dependency");
 const DependencyTemplate = require("../DependencyTemplate");
 
 /** @typedef {import("webpack-sources").ReplaceSource} ReplaceSource */
-/** @typedef {import("../ChunkGraph")} ChunkGraph */
-/** @typedef {import("../Dependency").UpdateHashContext} UpdateHashContext */
+/** @typedef {import("../Dependency").TRANSITIVE} TRANSITIVE */
 /** @typedef {import("../DependencyTemplate").DependencyTemplateContext} DependencyTemplateContext */
-/** @typedef {import("../ModuleGraph")} ModuleGraph */
-/** @typedef {import("../util/Hash")} Hash */
 
 class NullDependency extends Dependency {
 	get type() {
 		return "null";
 	}
 
-	serialize({ write }) {
-		write(this.loc);
-	}
-
-	deserialize({ read }) {
-		this.loc = read();
+	/**
+	 * @returns {boolean | TRANSITIVE} true, when changes to the referenced module could affect the referencing module; TRANSITIVE, when changes to the referenced module could affect referencing modules of the referencing module
+	 */
+	couldAffectReferencingModule() {
+		return false;
 	}
 }
 

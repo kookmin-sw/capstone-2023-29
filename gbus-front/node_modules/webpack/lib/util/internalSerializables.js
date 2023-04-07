@@ -45,6 +45,8 @@ module.exports = {
 		require("../dependencies/AMDRequireItemDependency"),
 	"dependencies/CachedConstDependency": () =>
 		require("../dependencies/CachedConstDependency"),
+	"dependencies/CreateScriptUrlDependency": () =>
+		require("../dependencies/CreateScriptUrlDependency"),
 	"dependencies/CommonJsRequireContextDependency": () =>
 		require("../dependencies/CommonJsRequireContextDependency"),
 	"dependencies/CommonJsExportRequireDependency": () =>
@@ -65,6 +67,16 @@ module.exports = {
 		require("../dependencies/ContextElementDependency"),
 	"dependencies/CriticalDependencyWarning": () =>
 		require("../dependencies/CriticalDependencyWarning"),
+	"dependencies/CssImportDependency": () =>
+		require("../dependencies/CssImportDependency"),
+	"dependencies/CssLocalIdentifierDependency": () =>
+		require("../dependencies/CssLocalIdentifierDependency"),
+	"dependencies/CssSelfLocalIdentifierDependency": () =>
+		require("../dependencies/CssSelfLocalIdentifierDependency"),
+	"dependencies/CssExportDependency": () =>
+		require("../dependencies/CssExportDependency"),
+	"dependencies/CssUrlDependency": () =>
+		require("../dependencies/CssUrlDependency"),
 	"dependencies/DelegatedSourceDependency": () =>
 		require("../dependencies/DelegatedSourceDependency"),
 	"dependencies/DllEntryDependency": () =>
@@ -91,6 +103,8 @@ module.exports = {
 		require("../dependencies/HarmonyImportSideEffectDependency"),
 	"dependencies/HarmonyImportSpecifierDependency": () =>
 		require("../dependencies/HarmonyImportSpecifierDependency"),
+	"dependencies/HarmonyEvaluatedImportSpecifierDependency": () =>
+		require("../dependencies/HarmonyEvaluatedImportSpecifierDependency"),
 	"dependencies/ImportContextDependency": () =>
 		require("../dependencies/ImportContextDependency"),
 	"dependencies/ImportDependency": () =>
@@ -114,6 +128,8 @@ module.exports = {
 		require("../dependencies/ImportMetaHotAcceptDependency"),
 	"dependencies/ImportMetaHotDeclineDependency": () =>
 		require("../dependencies/ImportMetaHotDeclineDependency"),
+	"dependencies/ImportMetaContextDependency": () =>
+		require("../dependencies/ImportMetaContextDependency"),
 	"dependencies/ProvidedDependency": () =>
 		require("../dependencies/ProvidedDependency"),
 	"dependencies/PureExpressionDependency": () =>
@@ -154,6 +170,7 @@ module.exports = {
 		require("../dependencies/WebpackIsIncludedDependency"),
 	"dependencies/WorkerDependency": () =>
 		require("../dependencies/WorkerDependency"),
+	"json/JsonData": () => require("../json/JsonData"),
 	"optimize/ConcatenatedModule": () =>
 		require("../optimize/ConcatenatedModule"),
 	DelegatedModule: () => require("../DelegatedModule"),
@@ -161,6 +178,7 @@ module.exports = {
 	DllModule: () => require("../DllModule"),
 	ExternalModule: () => require("../ExternalModule"),
 	FileSystemInfo: () => require("../FileSystemInfo"),
+	InitFragment: () => require("../InitFragment"),
 	InvalidDependenciesModuleWarning: () =>
 		require("../InvalidDependenciesModuleWarning"),
 	Module: () => require("../Module"),
@@ -171,6 +189,7 @@ module.exports = {
 	ModuleParseError: () => require("../ModuleParseError"),
 	ModuleWarning: () => require("../ModuleWarning"),
 	NormalModule: () => require("../NormalModule"),
+	RawDataUrlModule: () => require("../asset/RawDataUrlModule"),
 	RawModule: () => require("../RawModule"),
 	"sharing/ConsumeSharedModule": () =>
 		require("../sharing/ConsumeSharedModule"),
@@ -185,6 +204,7 @@ module.exports = {
 	UnsupportedFeatureWarning: () => require("../UnsupportedFeatureWarning"),
 	"util/LazySet": () => require("../util/LazySet"),
 	UnhandledSchemeError: () => require("../UnhandledSchemeError"),
+	NodeStuffInWebError: () => require("../NodeStuffInWebError"),
 	WebpackError: () => require("../WebpackError"),
 
 	"util/registerExternalSerializer": () => {
