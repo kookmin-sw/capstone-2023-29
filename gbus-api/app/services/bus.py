@@ -1,5 +1,6 @@
 from fastapi import Depends
 
+from app.db.models.bus import TblBus
 from app.db.repository.bus.bus import BusRepository
 
 
@@ -16,14 +17,7 @@ class BusService:
     def get_bus_stop(self, bus_name: str):
         return self.bus_repository.get_bus_stop(bus_name=bus_name)
 
-    def get_bus_by_id(self, id):
-        pass
-
-    def create_bus(self, data):
-        pass
-
-    def update_bus(self, id, data):
-        pass
-
-    def delete_bus(self, id):
-        pass
+    def get_buses_by_partial_number(self, partial_number: str) -> list[TblBus]:
+        return self.bus_repository.get_buses_by_partial_number(
+            partial_number=partial_number
+        )

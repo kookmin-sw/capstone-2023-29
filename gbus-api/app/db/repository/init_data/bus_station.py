@@ -32,7 +32,6 @@ def save_bus_stops():
         if route_name in red_bus_map:
             red_buses.append([route_id, route_name, 1])
 
-    print(red_buses)
     base_url = "http://openapi.gbis.go.kr/ws/rest/busrouteservice/station?serviceKey=1234567890&routeId={}"
     result = []
     for red_bus in red_buses:
@@ -55,14 +54,12 @@ def save_bus_stops():
             result.append(
                 [route_id, route_name, data["stationId"], data["stationName"], order]
             )
-            print([route_id, route_name, data["stationId"], data["stationName"], order])
             order += 1
 
     # Bulk add bus data to db
     add_bus_stops(result)
     add_buses(red_buses)
     add_stations(stations)
-    print(result)
 
 
 save_bus_stops()

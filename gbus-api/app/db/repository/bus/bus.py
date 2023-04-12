@@ -23,3 +23,11 @@ class BusRepository:
 
         stations = [bus_stop.station_name for bus_stop in bus_stops]
         return stations
+
+    def get_buses_by_partial_number(self, partial_number: str):
+        return (
+            self._session.query(TblBus)
+            .filter(TblBus.bus_name.like(f"%{partial_number}%"))
+            .order_by(TblBus.bus_name)
+            .all()
+        )

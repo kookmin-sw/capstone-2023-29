@@ -16,6 +16,17 @@ def get_bus_by_name(
     return result
 
 
+@router.get("/search/bus")
+def get_buses_by_partial_number(
+    partial_number: str,
+    bus_service: BusService = Depends(BusService),
+):
+    results = bus_service.get_buses_by_partial_number(partial_number)
+    if not results:
+        return {"message": "No buses found"}
+    return results
+
+
 @router.get("/bus/bus_stop/{bus_name}")
 def get_bus_stop_by_name(
     bus_name: str,

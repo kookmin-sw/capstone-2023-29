@@ -25,6 +25,7 @@ def add_buses(result):
     buses = []
 
     for data in result:
+        print(f"Adding bus: {data[0]}, {data[1]}, {data[2]}, type: {type(data[2])}")
         bus = TblBus(bus_id=data[0], bus_name=data[1], plate=data[2])
         buses.append(bus)
 
@@ -49,9 +50,14 @@ def add_bus_stops(result):
     bus_stop = []
 
     for data in result:
-        bus_st = TblBusStop(bus_id=data[0], bus_name=data[1], station_id=data[2], station_name=data[3], stop_order=data[4])
+        bus_st = TblBusStop(
+            bus_id=data[0],
+            bus_name=data[1],
+            station_id=data[2],
+            station_name=data[3],
+            stop_order=data[4],
+        )
         bus_stop.append(bus_st)
 
     session.add_all(bus_stop)
     session.commit()
-

@@ -4,7 +4,7 @@ from app.db.db import Base
 
 
 class TblBus(Base):
-    __tablename__ = 'bus'
+    __tablename__ = "bus"
 
     id = Column(Integer, primary_key=True)
     bus_id = Column(String(64))

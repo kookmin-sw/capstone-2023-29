@@ -27,4 +27,7 @@ class StationRepository:
         )
 
         buses = [bus_stop.bus_name for bus_stop in bus_stops]
-        return buses
+
+        # remove duplicates
+        unique_buses = list(set(buses))
+        return unique_buses
