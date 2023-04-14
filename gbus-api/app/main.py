@@ -16,11 +16,7 @@ def get_application() -> FastAPI:
     # application = FastAPI(**settings.fastapi_kwargs)
     application.include_router(api_router)
 
-    origins = [
-        "http://localhost",
-        "http://localhost:8080",
-        "http://localhost:3000"
-    ]
+    origins = ["http://localhost", "http://localhost:8080", "http://localhost:3000"]
 
     application.add_middleware(
         CORSMiddleware,
@@ -31,7 +27,6 @@ def get_application() -> FastAPI:
     )
 
     init_db("postgresql://myuser:mypassword@localhost/mydb")
-
 
     return application
 
