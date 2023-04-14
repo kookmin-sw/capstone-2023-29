@@ -31,3 +31,11 @@ class StationRepository:
         # remove duplicates
         unique_buses = list(set(buses))
         return unique_buses
+
+    def get_stations_by_partial_name(self, partial_name: str):
+        return (
+            self._session.query(TblStation)
+            .filter(TblStation.station_name.like(f"%{partial_name}%"))
+            .order_by(TblStation.station_name)
+            .all()
+        )

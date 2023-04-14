@@ -14,3 +14,8 @@ class StationService:
 
     def get_buses_by_station(self, station_name: str):
         return self.station_repository.get_buses_by_station(station_name=station_name)
+
+    def get_stations_by_partial_name(self, partial_name: str):
+        return self.station_repository.get_stations_by_partial_name(
+            partial_name=partial_name
+        )
