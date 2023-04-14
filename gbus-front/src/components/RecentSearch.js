@@ -1,12 +1,21 @@
-import { useSelector } from "react-redux";
+import React from "react";
+import { useDispatch, useSelector } from "react-redux";
+import ListGroup from 'react-bootstrap/ListGroup';
+import { removeRS } from "../Store";
 
 function RecentSearch(){
 
     let recentSearch = useSelector((state)=>{return state.recentSearch})
-    console.log(recentSearch)
+    let dispatch = useDispatch()
 
     return(
-        <div>최근검색어</div>
+        <ListGroup>
+         {recentSearch.map((search, index) => (
+        <ListGroup.Item key={index}>{search} 
+        <button onClick={()=>{dispatch(removeRS(index))}}>x</button>
+        </ListGroup.Item>
+         ))}
+        </ListGroup>
     )
 }
 export default RecentSearch;

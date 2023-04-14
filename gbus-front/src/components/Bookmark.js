@@ -1,19 +1,39 @@
 import React from "react";
-import { useSelector } from "react-redux";
-import ListGroup from 'react-bootstrap/ListGroup';
+import { useDispatch, useSelector } from "react-redux";
+import Table from 'react-bootstrap/Table';
+import { removeBM, setBM } from "../Store";
 
 
 function Bookmark(){
 
     let bookmark = useSelector((state)=>{return state.bookmark})
-    console.log(bookmark)
+    let dispatch = useDispatch()
 
     return(
-        <ListGroup>
-            {bookmark.map((item) => (
-                <ListGroup.Item key={item.id}>{item.keyword}</ListGroup.Item>
-                ))}
-        </ListGroup>
+        <Table>
+      <thead>
+        <tr>
+          <th>버스 번호</th>
+          <th>정류장</th>
+          <th>즐겨 찾기</th>
+        </tr>
+      </thead>
+      <tbody>
+        {bookmark.map((item, index) => (
+            <tr key={index}>
+            <td>{item.name}</td>
+            <td>-</td>
+            <td>
+              <button onClick={()=>{
+                dispatch(removeBM(index));
+                dispatch(setBM(index));
+                }}>
+                즐찾해제</button>
+              </td>
+            </tr>
+        ))}
+        </tbody>
+    </Table>
     )
 }
 export default Bookmark;
