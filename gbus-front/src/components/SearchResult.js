@@ -41,12 +41,6 @@ function SearchResult({searchResultList},{title}){
                     <tr>
                     <td>{result[1]}</td>
                     </tr>
-                    <tr>
-                    <td>{result[2]}</td>
-                    </tr>
-                    <tr>
-                    <td>{result[3]}</td>
-                    </tr>
                 </tbody>
                 </>
                 :
