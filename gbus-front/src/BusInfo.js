@@ -74,7 +74,7 @@ function BusInfo(){
         placeholder="버스 검색"
        ></input>
       <button onClick={(handleGetBusListbyName)}>버스리스트</button>
-  
+      {busListData &&<div>{JSON.stringify(busListData)}</div>}
     </div>
   );
 
