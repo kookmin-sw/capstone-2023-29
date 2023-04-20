@@ -38,12 +38,13 @@ RUN curl -fsSL https://deb.nodesource.com/setup_16.x \
     && apt-get install -y nodejs npm
 
 
+EXPOSE 3000
+EXPOSE 5001
+
 # Set the environment variables for the PostgreSQL user and database
 ENV POSTGRES_USER=myuser
 ENV POSTGRES_PASSWORD=mypassword
 ENV POSTGRES_DB=mydb
-
-EXPOSE 3000
 
 # PostgreSQL 데이터를 지속하기 위한 Docker 볼륨 생성
 VOLUME /var/lib/postgresql/data
