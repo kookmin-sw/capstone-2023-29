@@ -19,3 +19,6 @@ class StationService:
         return self.station_repository.get_stations_by_partial_name(
             partial_name=partial_name
         )
+
+    def get_bus_stop_by_id(self, station_id: str):
+        return self.station_repository.get_bus_stop_by_id(station_id=station_id)

@@ -39,3 +39,15 @@ class StationRepository:
             .order_by(TblStation.station_name)
             .all()
         )
+
+    def get_bus_stop_by_id(self, station_id: str):
+        bus_stops = (
+            self._session.query(TblBusStop)
+            .filter(TblBusStop.station_id == station_id)
+            .order_by(TblBusStop.stop_order)
+            .all()
+        )
+
+        buses = [bus_stop.bus_name for bus_stop in bus_stops]
+        buses = list(set(buses))
+        return buses

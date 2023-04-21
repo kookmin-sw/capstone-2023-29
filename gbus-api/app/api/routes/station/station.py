@@ -33,3 +33,14 @@ def get_stations_by_partial_name(
     if not results:
         return {"message": "No buses found"}
     return results
+
+
+@router.get("/station/bus_stop/{station_id}")
+def get_bus_stop_by_id(
+    station_id: str,
+    station_service: StationService = Depends(StationService),
+):
+    result = station_service.get_bus_stop_by_id(station_id)
+    if result is None:
+        return {"message": "Bus stop not found"}
+    return result

@@ -19,7 +19,10 @@ class BusService:
         return self.bus_repository.get_bus(bus_name=bus_name)
 
     def get_bus_stop(self, bus_name: str):
-        return self.bus_repository.get_bus_stop(bus_name=bus_name)
+        return self.bus_repository.get_bus_stop_by_name(bus_name=bus_name)
+
+    def get_bus_stop(self, bus_id: str):
+        return self.bus_repository.get_bus_stop_by_id(bus_id=bus_id)
 
     def get_buses_by_partial_number(self, partial_number: str) -> list[TblBus]:
         return self.bus_repository.get_buses_by_partial_number(
