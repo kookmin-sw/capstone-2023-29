@@ -1,13 +1,11 @@
-import {React,useState} from "react";
-import Form from 'react-bootstrap/Form';
-import InputGroup from 'react-bootstrap/InputGroup';
+import {React} from "react";
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import Tab from 'react-bootstrap/Tab';
 import Tabs from 'react-bootstrap/Tabs';
-import BusNumList from "./searchcomponents/BusNumList.js";
-import BusStopList from "./searchcomponents/BusStopList";
+import BusNumList from "./BusNumList.js";
+import BusStopList from "./BusStopList.js";
 
 function Search(){
        

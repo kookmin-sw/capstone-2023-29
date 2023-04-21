@@ -31,6 +31,21 @@ export async function getBusListByName(busName) {
   }
 }
 
+export async function getStationListByName(stationName) {
+  try {
+    const response = await fetch(`${API_BASE_URL}/v1/search/station?partial_name=${stationName}`);
+    const data = await response.json();
+    if (response.ok) {
+      return data;
+    } else {
+      throw new Error(data.message || 'An error occurred while fetching the station data.');
+    }
+  } catch (error) {
+    console.error('Error fetching station data:', error.message);
+    throw error;
+  }
+}
+
 
 export async function getBusStopByName(busName) {
   try {

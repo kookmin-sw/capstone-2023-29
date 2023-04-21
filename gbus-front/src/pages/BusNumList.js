@@ -2,8 +2,9 @@ import React, { useState } from "react";
 import Form from 'react-bootstrap/Form';
 import InputGroup from 'react-bootstrap/InputGroup';
 import Table from 'react-bootstrap/Table';
-import BusStationList from "./BusStationList"
-import { getBusListByName } from '../../api.js';
+import { getBusListByName } from '../api.js';
+import { useDispatch } from "react-redux";
+import { addBusNumRS, consoleLog } from "../Store.js";
 
 function BusNumList(){
 
@@ -12,7 +13,10 @@ function BusNumList(){
     const [busListArr, setBusListArr] = useState([])
     const [busNameListArr, setBusNameListArr] = useState([])
     const [busIdListArr, setBusIdListArr] =useState([])
+    const [busId, setBusId] =useState(null)
+    const [busName, setBusName] = useState(null)
     let [busInfo, setBusInfo] =useState(false)
+    let dispatch = useDispatch()
 
     function handleSubmit(e){
         e.preventDefault();
@@ -31,7 +35,7 @@ function BusNumList(){
           const busListArr =JSON.parse(JSON.stringify(data));
           setBusListArr(busListArr)
           setBusNameListArr(busListArr.map(bus => bus.bus_name))
-          setBusIdListArr(busListArr.map(bus => bus.id))
+          setBusIdListArr(busListArr.map(bus => bus.bus_id))
         } catch (error) {
           console.error('Error fetching bus stop data:', error.message);
         }
@@ -40,7 +44,6 @@ function BusNumList(){
 
     return(
       <>
-
       {!busInfo ?
       (
         <>
@@ -70,7 +73,13 @@ function BusNumList(){
         <tbody>
           {busNameListArr.map((busName, index) => (
             <tr key={index}>
-            <td onClick={()=>setBusInfo(true)}>{busName}</td>
+            <td onClick={()=>{
+              setBusInfo(true)
+              setBusName((busNameListArr[index]))
+              setBusId((busIdListArr[index]))
+              dispatch(addBusNumRS(busId))
+              dispatch(consoleLog())
+              }}>{busName}</td>
             <td>{busIdListArr[index]}</td>
         </tr>
         ))}
@@ -79,7 +88,10 @@ function BusNumList(){
 
         </>
       ):(
-        <BusStationList busInfo={busInfo}/>
+        <>
+        <div onClick={()=>{setBusInfo(false)}}>{busName}</div>
+        <div>{busId}</div>
+        </>
       )}
       </>
       

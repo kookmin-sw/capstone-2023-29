@@ -8,7 +8,8 @@ import {Container , Nav, Navbar} from 'react-bootstrap/';
 import Search from './pages/Search.js'
 import Login from './pages/Login.js';
 import BusInfo from './BusInfo';
-import Table from 'react-bootstrap/Table';
+import Bookmark from './pages/Bookmark';
+import RecentSearch from './pages/RecentSearch';
 
 function App() {
 
@@ -40,39 +41,12 @@ function App() {
             fill
              >
           <Tab eventKey="bookMark" title="즐겨찾기">
-
+            <Bookmark/>
            </Tab>
           <Tab eventKey="recent" title="최근검색어" >
-
+            <RecentSearch/>
           </Tab>
           </Tabs>
-
-          <Table >
-      <thead>
-        <tr>
-          <th>버스번호</th>
-          <th>정류장</th>
-          <th>즐겨찾기여부</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>110</td>
-          <td>안산시</td>
-          <td>즐찾</td>
-        </tr>
-        <tr>
-          <td>1100</td>
-          <td>고양시</td>
-          <td>즐찾</td>
-        </tr>
-        <tr>
-          <td>1100</td>
-          <td>남양주시</td>
-          <td>즐찾</td>
-        </tr>
-        </tbody>
-    </Table>
             </div>
           </>
       

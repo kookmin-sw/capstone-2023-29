@@ -1,20 +1,39 @@
 import { configureStore, createSlice } from '@reduxjs/toolkit'
 
 
-let recentSearch = createSlice({
-  name:'recentSearch',
+let busNumRS = createSlice({
+  name:'busNumRS',
   initialState: [],
   reducers: {
-    addRS(state, action){
+    addBusNumRS(state, action){
       state.push(action.payload)
     },
-    removeRS(state, action){
+    removeBusNumRS(state, action){
       state.splice(action.payload,1)
+    },
+    consoleLog(state){
+      console.log(state)
     }
   }
 })
 
-export let {addRS, removeRS} =recentSearch.actions
+
+export let {addBusNumRS, removeBusNumRS, consoleLog} =busNumRS.actions
+
+let busStationRS= createSlice({
+  name: 'busStationRS',
+  initialState: [],
+  reducers: {
+    addBusStationRS(state, action){
+      state.push(action.payload)
+    },
+    removeBusStationRS(state, action){
+      state.splice(action.payload,1)
+    },
+  }
+})
+
+export let {addBusStationRS, removeBusStationRS} =busStationRS.actions
 
 let bookmark = createSlice({
   name: 'bookmark',
@@ -36,7 +55,8 @@ export let {addBM, removeBM} = bookmark.actions
 export default configureStore({
   reducer: { 
     bookmark: bookmark.reducer,
-    recentSearch: recentSearch.reducer,
+    busNumRS: busNumRS.reducer,
+    busStationRS: busStationRS.reducer,
   }
 })
 

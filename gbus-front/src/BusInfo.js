@@ -1,11 +1,11 @@
 import {React, useState} from 'react';
-import { getBusByName, getBusListByBusStop, getBusStopByName, getBusListByName } from './api.js';
+import { getBusByName, getBusListByBusStop, getBusStopByName, getBusListByName, getStationListByName } from './api.js';
 
 
 
 function BusInfo(){
   const [busName, setBusName] = useState('');
-  const [station_name, setStationname] = useState('');
+  const [stationName, setStationName] = useState('');
   const [busData, setBusData] = useState(null);
   const [busListData, setBusListData] = useState(null);
   const [busStopData, setBusStopData] = useState(null);
@@ -27,10 +27,19 @@ function BusInfo(){
       console.error('Error fetching bus stop data:', error.message);
     }
   }
+  
+  async function handleGetStationStopData() {
+    try {
+      const data = await getStationListByName(stationName);
+      setBusStopData(data);
+    } catch (error) {
+      console.error('Error fetching bus stop data:', error.message);
+    }
+  }
 
   async function handleGetBusDatabyBusStop() {
     try {
-      const data = await getBusListByBusStop(station_name);
+      const data = await getBusListByBusStop(stationName);
       setBusListData(data);
     } catch (error) {
       console.error('Error fetching bus stop data:', error.message);
@@ -61,11 +70,11 @@ function BusInfo(){
       {busStopData && <div>{JSON.stringify(busStopData)}</div>}
       <input
         type="text"
-        value={station_name}
-        onChange={(e) => setStationname(e.target.value)}
+        value={stationName}
+        onChange={(e) => setStationName(e.target.value)}
         placeholder="Enter station name"
       />
-      <button onClick={(handleGetBusDatabyBusStop)}>Get Bus by Bus Stop</button>
+      <button onClick={(handleGetStationStopData)}>Get Bus Station by Bus Stop</button>
       {busListData &&<div>{JSON.stringify(busListData)}</div>}
       <input
         type="text"
