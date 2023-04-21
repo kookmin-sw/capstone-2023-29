@@ -6,6 +6,8 @@ from pydantic import BaseSettings
 """
 중요 정보
 """
+
+
 class AppSettings(BaseSettings):
     DEBUG: bool = False
     REDOC_URL: Optional[str] = None
