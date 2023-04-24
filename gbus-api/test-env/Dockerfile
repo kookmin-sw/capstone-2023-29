@@ -33,9 +33,12 @@ RUN apt-get update && apt-get install -y python3-pip \
 RUN git clone https://github.com/kookmin-sw/capstone-2023-29.git
 ENV PYTHONPATH "${PYTHONPATH}:/capstone-2023-29/gbus-api"
 
-RUN curl -fsSL https://deb.nodesource.com/setup_16.x \
-    && apt-get update \
-    && apt-get install -y nodejs npm
+RUN curl -fsSL https://deb.nodesource.com/setup_14.x -o setup_14.x.sh
+
+# Execute the downloaded script
+RUN bash setup_14.x.sh && \
+    apt-get update && \
+    apt-get install -y nodejs
 
 
 EXPOSE 3000
