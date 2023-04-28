@@ -1,5 +1,5 @@
 import {React, useState} from 'react';
-import { getBusByName, getBusListByBusStop, getBusStopByName, getBusListByName, getStationListByName } from './api.js';
+import { getBusByName, getBusListByBusStop, getBusStopByName, getBusListByName, getStationListByName, getBusStopByBusId, getBusListByStationId } from './api.js';
 
 
 
@@ -8,7 +8,10 @@ function BusInfo(){
   const [stationName, setStationName] = useState('');
   const [busData, setBusData] = useState(null);
   const [busListData, setBusListData] = useState(null);
+  const [busStopListData, setBusStopListData] = useState(null);
   const [busStopData, setBusStopData] = useState(null);
+  const [bus_id, setBus_id] = useState('')
+  const [station_id, setStation_id] = useState('')
 
   async function handleGetBusData() {
     try {
@@ -56,6 +59,24 @@ function BusInfo(){
     }
   }
 
+  async function handleGetBusStopByBusId() {
+    try {
+      const data = await getBusStopByBusId(bus_id);
+      setBusStopListData(data);
+    } catch (error) {
+      console.error('Error fetching bus stop data:', error.message);
+    }
+  }
+
+  async function handleGetBusListByStationId() {
+    try {
+      const data = await getBusListByStationId(station_id);
+      setBusListData(data);
+    } catch (error) {
+      console.error('Error fetching bus stop data:', error.message);
+    }
+  }
+
   return (
     <div>
       <input
@@ -84,6 +105,24 @@ function BusInfo(){
        ></input>
       <button onClick={(handleGetBusListbyName)}>버스리스트</button>
       {busListData &&<div>{JSON.stringify(busListData)}</div>}
+      <input
+      type="text"
+      value={bus_id}
+      onChange={(e)=>setBus_id(e.target.value)}
+      placeholder="버스아이디로 검색">
+      </input>
+      <button onClick={(handleGetBusStopByBusId)}>아이디로 정류장 검색</button>
+      {busStopListData && <div>{JSON.stringify(busStopListData)}</div>}
+
+      <input
+      type="text"
+      value={station_id}
+      onChange={(e)=>setStation_id(e.target.value)}
+      placeholder="정류장아이디로 검색">
+      </input>
+      <button onClick={(handleGetBusListByStationId)}>정류장 아이디로 버스 검색</button>
+      {busListData && <div>{JSON.stringify(busListData)}</div>}
+
     </div>
   );
 

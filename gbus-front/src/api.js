@@ -76,3 +76,34 @@ export async function getBusListByBusStop(station_name) {
     throw error;
   }
 }
+
+export async function getBusStopByBusId(bus_id) {
+  try {
+    const response = await fetch(`${API_BASE_URL}/v1/bus/bus_stop/${bus_id}`);
+    const data = await response.json();
+    if (response.ok) {
+      return data;
+    } else {
+      throw new Error(data.message || 'An error occurred while fetching the bus data.');
+    }
+  } catch (error) {
+    console.error('Error fetching bus data:', error.message);
+    throw error;
+  }
+}
+
+
+export async function getBusListByStationId(station_id) {
+  try {
+    const response = await fetch(`${API_BASE_URL}/v1/station/bus_stop/${station_id}`);
+    const data = await response.json();
+    if (response.ok) {
+      return data;
+    } else {
+      throw new Error(data.message || 'An error occurred while fetching the bus data.');
+    }
+  } catch (error) {
+    console.error('Error fetching bus data:', error.message);
+    throw error;
+  }
+}
