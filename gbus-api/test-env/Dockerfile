@@ -30,6 +30,9 @@ RUN wget https://www.python.org/ftp/python/3.10.0/Python-3.10.0.tgz \
 RUN apt-get update && apt-get install -y python3-pip \
     libpq-dev
 
+COPY ../requirements.txt /app/
+RUN pip3 install --no-cache-dir -r /app/requirements.txt
+
 RUN git clone https://github.com/kookmin-sw/capstone-2023-29.git
 ENV PYTHONPATH "${PYTHONPATH}:/capstone-2023-29/gbus-api"
 
