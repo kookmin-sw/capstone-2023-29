@@ -1,8 +1,12 @@
 import requests
+import json
+import xml.etree.ElementTree as ET
+import xmljson as xmljson
 from sqlalchemy.orm import Session
 
 from fastapi import Depends
 from app.db.dependencies import provide_db_session
+from app.models.domain.bus_arrival import BusArrivalDto
 
 
 class BusArrivalRepository:
@@ -21,4 +25,27 @@ class BusArrivalRepository:
             params["staOrder"] = sta_order
 
         response = requests.get(url, params=params)
-        return response.content
+
+        xml_str = response.text
+
+        # Convert the response from xml to json
+        xml_element = ET.fromstring(xml_str)
+        json_data = xmljson.parker.data(xml_element)
+
+        result = []
+        for data in json_data["msgBody"]["busArrivalList"]:
+            route_id = data["routeId"]
+            predictTime1 = data["predictTime1"]
+            predictTime2 = data["predictTime2"]
+            remainSeatCnt1 = data["remainSeatCnt1"]
+            remainSeatCnt2 = data["remainSeatCnt2"]
+            result.append(
+                BusArrivalDto(
+                    route_id=route_id,
+                    predictTime1=predictTime1,
+                    predictTime2=predictTime2,
+                    remainSeatCnt1=remainSeatCnt1,
+                    remainSeatCnt2=remainSeatCnt2,
+                )
+            )
+        return result

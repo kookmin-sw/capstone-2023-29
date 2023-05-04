@@ -1,10 +1,10 @@
 from sqlalchemy import Column, Integer, String
 
-from app.db.db import Base
+from app.db.dependencies import Base
 
 
 class TblBusStop(Base):
-    __tablename__ = 'bus_stop'
+    __tablename__ = "bus_stop"
 
     id = Column(Integer, primary_key=True)
     bus_id = Column(String(64))

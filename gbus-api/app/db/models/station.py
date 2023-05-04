@@ -1,10 +1,10 @@
 from sqlalchemy import Column, Integer, String
 
-from app.db.db import Base
+from app.db.dependencies import Base
 
 
 class TblStation(Base):
-    __tablename__ = 'station'
+    __tablename__ = "station"
     id = Column(Integer, primary_key=True)
     station_id = Column(String(64))
     station_name = Column(String(64))

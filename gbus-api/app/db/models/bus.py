@@ -1,6 +1,6 @@
 from sqlalchemy import Column, Integer, String
 
-from app.db.db import Base
+from app.db.dependencies import Base
 
 
 class TblBus(Base):
