@@ -1,6 +1,7 @@
 import { configureStore, createSlice } from '@reduxjs/toolkit'
 
 
+
 let busNumRS = createSlice({
   name:'busNumRS',
   initialState: [],
@@ -18,7 +19,7 @@ let busNumRS = createSlice({
 })
 
 
-export let {addBusNumRS, removeBusNumRS, consoleLog} =busNumRS.actions
+export let {addBusNumRS, removeBusNumRS, consoleLog} = busNumRS.actions
 
 let busStationRS= createSlice({
   name: 'busStationRS',

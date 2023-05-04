@@ -13,16 +13,16 @@ function RecentSearch(){
       </thead>
       <tbody>
         <tr>
-          <td>110</td>
-          <td>안산시</td>
+          <td>1000</td>
+          <td>214000244</td>
         </tr>
         <tr>
-          <td>1100</td>
-          <td>고양시</td>
+          <td>1000-1</td>
+          <td>234001511</td>
         </tr>
         <tr>
-          <td>1100</td>
-          <td>남양주시</td>
+          <td>2000</td>
+          <td>222000075</td>
         </tr>
         </tbody>
     </Table>
@@ -35,16 +35,16 @@ function RecentSearch(){
       </thead>
       <tbody>
         <tr>
-          <td>110</td>
-          <td>안산시</td>
+          <td>미사역</td>
+          <td>227000682</td>
         </tr>
         <tr>
-          <td>1100</td>
-          <td>고양시</td>
+          <td>미사역사일가공원.센텀펠리스.하남고</td>
+          <td>227000266</td>
         </tr>
         <tr>
-          <td>1100</td>
-          <td>남양주시</td>
+          <td>미사역사일가공원.동일하이빌.샌텀팰리스</td>
+          <td>227000354</td>
         </tr>
         </tbody>
     </Table>

@@ -10,6 +10,7 @@ import Login from './pages/Login.js';
 import BusInfo from './BusInfo';
 import Bookmark from './pages/Bookmark';
 import RecentSearch from './pages/RecentSearch';
+import Signup from './pages/SignUp';
 
 function App() {
 
@@ -27,7 +28,7 @@ function App() {
                     <Nav.Link href="/">Home</Nav.Link>
                     <Nav.Link href="/login">Login</Nav.Link>
                     <Nav.Link href="/search">Search</Nav.Link>
-                    <Nav.Link href="/businfo">BusInfo</Nav.Link>
+                    <Nav.Link href="/signup">Signup</Nav.Link>
                 </Nav>
                 </Container>
             </Navbar>
@@ -60,6 +61,9 @@ function App() {
       }></Route>
       <Route path = "/businfo" element={
         <BusInfo></BusInfo>
+      }></Route>
+      <Route path = "/signup" element={
+        <Signup/>
       }></Route>
 
       </Routes>

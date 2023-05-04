@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useState} from "react";
 import Form from 'react-bootstrap/Form';
 import InputGroup from 'react-bootstrap/InputGroup';
 import Table from 'react-bootstrap/Table';
 import { getStationListByName, getBusListByStationId } from '../api.js';
+import { useEffect } from 'react';
 
 
 function BusStopList(){
@@ -20,6 +21,7 @@ function BusStopList(){
     const [detail, setDetail] = useState(false)
     const [selected, setSelected] = useState(-1)
 
+    
     function handleSubmit(e){
         e.preventDefault();
         console.log(inputValue);
