@@ -13,6 +13,12 @@ class UserCreateResponseForm(BaseModel):
     success: bool
 
 
+class UserResponse(BaseModel):
+    id: int
+    username: str
+    email: str
+
+
 class Token(BaseModel):
     access_token: str
     token_type: str

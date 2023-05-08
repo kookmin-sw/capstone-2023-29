@@ -10,6 +10,9 @@ class UserRepository:
     def __init__(self, session: Session = Depends(provide_db_session)):
         self._session = session
 
+    def get_user_by_id(self, user_id: str):
+        return self._session.query(TblUser).filter(TblUser.user_id == user_id).first()
+
     def get_user_by_username(self, username: str):
         return self._session.query(TblUser).filter(TblUser.username == username).first()
 

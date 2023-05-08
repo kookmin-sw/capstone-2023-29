@@ -5,7 +5,7 @@ from fastapi import Depends, HTTPException
 
 from app.core.config import get_app_settings
 from app.db.repository.user.user import UserRepository
-from app.models.schema.user import UserCreateForm, UserCreateResponseForm
+from app.models.schema.user import UserCreateForm, UserCreateResponseForm, UserResponse
 import bcrypt
 
 
@@ -23,6 +23,16 @@ class UserService:
     ):
         self.user_repository = user_repository
         self.settings = settings
+
+    def get_user_info(self, user_id: int) -> UserResponse:
+        user = self.user_repository.get_user_by_id(user_id=user_id)
+        if user is None:
+            raise ValueError(f"User with id {user_id} not found")
+        return UserResponse(
+            user_id=user.user_id,
+            username=user.username,
+            email=user.email,
+        )
 
     def authenticate_user(self, username: str, password: str):
         user = self.user_repository.get_user_by_username(username=username)
