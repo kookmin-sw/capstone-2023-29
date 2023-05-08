@@ -13,7 +13,7 @@ CREATE TABLE station (
 );
 
 CREATE TABLE bus_stop (
-    id SERIAL PRIMARY KEY,
+    id serial PRIMARY KEY,
     bus_id varchar(64),
     bus_name varchar(64),
     station_id varchar(64),
@@ -21,4 +21,9 @@ CREATE TABLE bus_stop (
     stop_order INTEGER
 );
 
-
+CREATE TABLE users (
+    id serial PRIMARY KEY,
+    username VARCHAR NOT NULL UNIQUE,
+    email VARCHAR NOT NULL UNIQUE,
+    password VARCHAR NOT NULL
+);
