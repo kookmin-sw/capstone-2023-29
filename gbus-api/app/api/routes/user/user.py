@@ -1,13 +1,33 @@
-from fastapi import APIRouter
+from datetime import timedelta
+
+from fastapi import Depends, HTTPException, APIRouter
+from fastapi.security import OAuth2PasswordRequestForm
+
+from app.models.schema.user import Token, UserCreateForm
+from app.services.user import UserService
 
 router = APIRouter()
 
 
-@router.get("/users/me")
-async def read_user_me():
-    return {"user_id": "the current user"}
+@router.post("/login", response_model=Token)
+def login_for_access_token(
+    form_data: OAuth2PasswordRequestForm = Depends(),
+    user_service: UserService = Depends(UserService),
+):
+    user = user_service.authenticate_user(form_data.username, form_data.password)
+    if not user:
+        raise HTTPException(status_code=400, detail="Incorrect username or password")
+    access_token_expires = timedelta(minutes=30)
+    access_token = user_service.create_access_token(
+        data={"sub": user.username},
+        expires_delta=access_token_expires,
+    )
+    return {"access_token": access_token, "token_type": "bearer"}
 
 
-@router.get("/users/{user_id}")
-async def read_user(user_id: str):
-    return {"user_id": user_id}
+@router.post("/register", response_model=UserCreateForm)
+def register(
+    user: UserCreateForm,
+    user_service: UserService = Depends(UserService),
+):
+    return user_service.create_new_user(user=user)
