@@ -7,6 +7,12 @@ class UserCreateForm(BaseModel):
     password: str
 
 
+class UserCreateResponseForm(BaseModel):
+    username: str
+    email: str
+    success: bool
+
+
 class Token(BaseModel):
     access_token: str
     token_type: str

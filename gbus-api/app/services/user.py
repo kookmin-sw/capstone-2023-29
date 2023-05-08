@@ -1,11 +1,11 @@
 from datetime import timedelta, datetime
 
+import jwt
 from fastapi import Depends, HTTPException
-from jwt import jwt
 
+from app.core.config import get_app_settings
 from app.db.repository.user.user import UserRepository
-from app.main import get_app_settings
-from app.models.schema.user import UserCreateForm
+from app.models.schema.user import UserCreateForm, UserCreateResponseForm
 import bcrypt
 
 
@@ -28,9 +28,9 @@ class UserService:
         user = self.user_repository.get_user_by_username(username=username)
         if not user:
             return False
-        if bcrypt.checkpw(password.encode("utf-8"), user.password.encode("utf-8")):
-            return True
-        return True
+        if not bcrypt.checkpw(password.encode("utf-8"), user.password.encode("utf-8")):
+            return False
+        return user
 
     def create_access_token(self, data: dict, expires_delta: timedelta = None):
         to_encode = data.copy()
@@ -53,4 +53,6 @@ class UserService:
         hashed_password = hash_password(user.password)
         user.password = hashed_password
         created_user = self.user_repository.create_user(user=user)
-        return created_user
+        return UserCreateResponseForm(
+            username=created_user.username, email=created_user.email, success=True
+        )

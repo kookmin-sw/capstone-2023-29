@@ -3,13 +3,13 @@ from datetime import timedelta
 from fastapi import Depends, HTTPException, APIRouter
 from fastapi.security import OAuth2PasswordRequestForm
 
-from app.models.schema.user import Token, UserCreateForm
+from app.models.schema.user import Token, UserCreateResponseForm, UserCreateForm
 from app.services.user import UserService
 
 router = APIRouter()
 
 
-@router.post("/login", response_model=Token)
+@router.post("/user/login", response_model=Token)
 def login_for_access_token(
     form_data: OAuth2PasswordRequestForm = Depends(),
     user_service: UserService = Depends(UserService),
@@ -25,7 +25,7 @@ def login_for_access_token(
     return {"access_token": access_token, "token_type": "bearer"}
 
 
-@router.post("/register", response_model=UserCreateForm)
+@router.post("/user/register")
 def register(
     user: UserCreateForm,
     user_service: UserService = Depends(UserService),

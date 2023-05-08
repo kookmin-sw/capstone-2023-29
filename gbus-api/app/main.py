@@ -1,19 +1,15 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, Depends
 from starlette.middleware.cors import CORSMiddleware
 
 from app.api.routes.api import api_router
+from app.core.config import get_app_settings
 from app.core.settings.app import AppSettings
 from app.db.dependencies import init_db
-
-
-def get_app_settings():
-    return AppSettings()
 
 
 def get_application() -> FastAPI:
     application = FastAPI()
     settings = get_app_settings()
-    # application = FastAPI(**settings.fastapi_kwargs)
     application.include_router(api_router)
 
     origins = ["http://localhost", "http://localhost:8080", "http://localhost:3000"]
