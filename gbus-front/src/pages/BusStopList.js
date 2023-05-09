@@ -2,7 +2,7 @@ import React, { useState} from "react";
 import Form from 'react-bootstrap/Form';
 import InputGroup from 'react-bootstrap/InputGroup';
 import Table from 'react-bootstrap/Table';
-import { getStationListByName, getBusListByStationId } from '../api.js';
+import { getStationListByName, getBusArrivalList } from '../api.js';
 import { useEffect } from 'react';
 
 
@@ -16,6 +16,12 @@ function BusStopList(){
     const [busListData, setBusListData] = useState(null)
     const [busListArr, setBusListArr] = useState([])
     const [busStopId, setBusStopId] =useState(null)
+    const [busIdArr, setBusIdArr] = useState(null)
+    const [predictTime1Arr, setPredictTime1Arr] = useState(null)
+    const [predictTime2Arr, setPredictTime2Arr] = useState(null)
+    const [remainSeat1Arr, setRemainSeat1Arr] = useState(null)
+    const [remainSeat2Arr, setRemainSeat2Arr] = useState(null)
+    const [stationId, setStationId] = useState(null)
     const [busStopName, setBusStopName] = useState(null)
     let [busStopInfo, setBusStopInfo] = useState(false)
     const [detail, setDetail] = useState(false)
@@ -46,16 +52,24 @@ function BusStopList(){
       }
     }
 
-    async function handleGetBusListByStationId() {
+
+    async function handleGetBusArrivalListByStationId() {
       try {
-        const data = await getBusListByStationId(busStopId);
+        const data = await getBusArrivalList(stationId);
         setBusListData(data);
-        const busListArr = JSON.parse(JSON.stringify(data));
+        const busListArr = JSON.parse(JSON.stringify(data))
         setBusListArr(busListArr)
+        setBusIdArr(busListArr.map(bus => bus.route_id))
+        setPredictTime1Arr(busListArr.map(predict1 => predict1.predictTime1))
+        setPredictTime2Arr(busListArr.map(predict2 => predict2.predictTime2))
+        setRemainSeat1Arr(busListArr.map(seat1 => seat1.remainSeatCnt1))
+        setRemainSeat2Arr(busListArr.map(seat2 => seat2.remainSeatCnt2))
+        console.log(busListArr)
       } catch (error) {
-        console.error('Error fetching bus stop data:', error.message);
+        console.error('Error fetching bus data:', error.message);
       }
     }
+
 
 
 
@@ -91,9 +105,8 @@ function BusStopList(){
                  <td onClick={()=>{
                   setBusStopInfo(true)
                   setBusStopName(busStopNameArr[index])
-                  setBusStopId(busStopIdArr[index])
-                  handleGetBusListByStationId();
-                  console.log(busListArr)
+                  setStationId(busListArr[index])
+                  handleGetBusArrivalListByStationId();
                   }}>{busName}</td>
                  <td>{busStopIdArr[index]}</td>
              </tr>
@@ -111,32 +124,14 @@ function BusStopList(){
           <thead>
             <tr>
               <th>Bus</th>
+              <th>Time</th>
+              <th>Seat</th>
             </tr>
           </thead>
+            <td>1</td>
+            <td>2</td>
+            <td>3</td>
           <tbody>
-            {busListArr.map((bus, index) => (
-              <tr key={index}>
-                <td onClick={()=>{
-                  setSelected(index)
-                  setDetail(true)
-                }
-                }>{bus}{' '}
-              {detail && index === selected && (
-                <span>
-                 <br />
-                  <span>Additional Information:</span>
-                <br />
-                <ul>
-                  <li>Bus stop number: 1234</li>
-                  <li>Location: 5th Street</li>
-                  <li>Next bus arriving in: 10 minutes</li>
-                </ul>
-              </span>
-              )}
-                
-                </td>
-              </tr>
-            ))} 
           </tbody>
         </Table>
         </>

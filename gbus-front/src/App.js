@@ -1,5 +1,5 @@
-import {React, useState} from 'react';
-import { Routes, Route, Link, useNavigate, Outlet } from 'react-router-dom'
+import {React, useEffect, useState} from 'react';
+import { Routes, Route} from 'react-router-dom'
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Tab from 'react-bootstrap/Tab';
@@ -13,6 +13,7 @@ import RecentSearch from './pages/RecentSearch';
 import Signup from './pages/SignUp';
 
 function App() {
+
 
 
   return (
@@ -65,6 +66,7 @@ function App() {
       <Route path = "/signup" element={
         <Signup/>
       }></Route>
+
 
       </Routes>
     </div>

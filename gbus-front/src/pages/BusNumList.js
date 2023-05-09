@@ -3,7 +3,8 @@ import Form from 'react-bootstrap/Form';
 import InputGroup from 'react-bootstrap/InputGroup';
 import Table from 'react-bootstrap/Table';
 import { getBusListByName, getBusStopByBusId } from '../api.js';
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { addBusNumRS} from "../Store.js";
 
 function BusNumList(){
 
@@ -19,7 +20,11 @@ function BusNumList(){
     let [busInfo, setBusInfo] =useState(false)
     let [detail, setDetail] = useState(false)
     let [selected, setSelected] = useState(-1);
-    let dispatch = useDispatch()
+
+    const dispatch = useDispatch()
+    const state = useSelector((state)=>state)
+
+    
 
     function handleSubmit(e){
         e.preventDefault();
@@ -29,6 +34,11 @@ function BusNumList(){
 
     function handleInputChange(e){
         setInputValue(e.target.value)
+    }
+
+    function addRS(num){
+      dispatch(addBusNumRS(num))
+      console.log(state.busNumRS)
     }
 
     async function handleGetBusListbyName() {
@@ -92,8 +102,8 @@ function BusNumList(){
               setBusInfo(true)
               setBusName((busNameListArr[index]))
               setBusId((busIdListArr[index]))
+              addRS(busNameListArr[index])
               handleGetBusStopByBusId();
-              console.log(busStopListArr)
               }}>{busName}</td>
             <td>{busIdListArr[index]}</td>
         </tr>

@@ -14,12 +14,15 @@ let busNumRS = createSlice({
     },
     consoleLog(state){
       console.log(state)
+    },
+    returnBusNumRS(state){
+      return(state)
     }
   }
 })
 
 
-export let {addBusNumRS, removeBusNumRS, consoleLog} = busNumRS.actions
+export let {addBusNumRS, removeBusNumRS, consoleLog, returnBusNumRS} = busNumRS.actions
 
 let busStationRS= createSlice({
   name: 'busStationRS',
@@ -31,14 +34,17 @@ let busStationRS= createSlice({
     removeBusStationRS(state, action){
       state.splice(action.payload,1)
     },
+    consoleLogSt(state){
+      console.log(state)
+    }
   }
 })
 
-export let {addBusStationRS, removeBusStationRS} =busStationRS.actions
+export let {addBusStationRS, removeBusStationRS, consoleLogSt} =busStationRS.actions
 
 let bookmark = createSlice({
   name: 'bookmark',
-  initialState: [],
+  initialState:[{}],
   reducers: {
     addBM(state, action){
       state.push(action.payload)
