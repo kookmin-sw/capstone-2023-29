@@ -50,7 +50,6 @@ class FavoriteService:
         return result
 
     def add_favorite_bus(self, user_id: int, bus_id: str) -> FavoriteBusResponse:
-        user = self.user_repository.get_by_id(user_id)
         favorite_bus = self.favorite_repository.add_favorite_bus(
             user_id=user_id, bus_id=bus_id
         )
@@ -59,7 +58,6 @@ class FavoriteService:
     def add_favorite_station(
         self, user_id: int, station_id: str
     ) -> FavoriteStationResponse:
-        user = self.user_repository.get_by_id(user_id)
         favorite_station = self.favorite_repository.add_favorite_station(
             user_id=user_id, station_id=station_id
         )

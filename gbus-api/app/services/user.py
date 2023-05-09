@@ -54,7 +54,7 @@ class UserService:
         )
         return encoded_jwt
 
-    def create_new_user(self, user: UserCreateForm):
+    def create_new_user(self, user: UserCreateForm) -> UserCreateResponseForm:
         existing_user = self.user_repository.get_user_by_username(
             username=user.username
         )
@@ -63,6 +63,4 @@ class UserService:
         hashed_password = hash_password(user.password)
         user.password = hashed_password
         created_user = self.user_repository.create_user(user=user)
-        return UserCreateResponseForm(
-            username=created_user.username, email=created_user.email, success=True
-        )
+        return created_user

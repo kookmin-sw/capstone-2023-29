@@ -7,15 +7,13 @@ from app.db.dependencies import provide_db_session
 from app.db.models.bus import TblBus
 from app.db.models.favorite import TblFavoriteBus, TblFavoriteStation
 from app.db.models.station import TblStation
-from app.db.models.user import TblUser
-from app.models.schema.user import UserCreateForm
 
 
 class FavoriteRepository:
     def __init__(self, session: Session = Depends(provide_db_session)):
         self._session = session
 
-    def get_favorite_bus(self, user_id: int) -> TblFavoriteBus:
+    def get_favorite_bus(self, user_id: int) -> [TblFavoriteBus]:
         return (
             self._session.query(TblFavoriteBus)
             .filter(TblFavoriteBus.user_id == user_id)
@@ -54,7 +52,7 @@ class FavoriteRepository:
         favorite_bus = TblFavoriteBus(
             user_id=user_id,
             bus_id=bus_id,
-            bus_name=bus.name,
+            bus_name=bus.bus_name,
         )
         self._session.add(favorite_bus)
         self._session.commit()

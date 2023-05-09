@@ -19,7 +19,7 @@ def login_for_access_token(
         raise HTTPException(status_code=400, detail="Incorrect username or password")
     access_token_expires = timedelta(minutes=30)
     access_token = user_service.create_access_token(
-        data={"sub": user.username},
+        data={"sub": user.id},
         expires_delta=access_token_expires,
     )
     return {"access_token": access_token, "token_type": "bearer"}
