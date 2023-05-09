@@ -32,15 +32,13 @@ CREATE TABLE favorite_bus (
     id serial PRIMARY KEY,
     user_id INTEGER NOT NULL,
     bus_id VARCHAR NOT NULL,
-    bus_name VARCHAR NOT NULL,
-    FOREIGN KEY (user_id) REFERENCES user (id)
+    bus_name VARCHAR NOT NULL
 );
 
 CREATE TABLE favorite_station (
     id serial PRIMARY KEY,
     user_id INTEGER NOT NULL,
     station_id VARCHAR NOT NULL,
-    station_name VARCHAR NOT NULL,
-    FOREIGN KEY (user_id) REFERENCES user (id)
+    station_name VARCHAR NOT NULL
 );
 
