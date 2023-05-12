@@ -10,9 +10,6 @@ class BusRepository:
     def __init__(self, session: Session = Depends(provide_db_session)):
         self._session = session
 
-    def get_bus(self, bus_name: str):
-        return self._session.query(TblBus).filter(TblBus.bus_name == bus_name).first()
-
     def get_bus_stop_by_name(self, bus_name: str):
         bus_stops = (
             self._session.query(TblBusStop)
@@ -21,7 +18,10 @@ class BusRepository:
             .all()
         )
 
-        stations = [bus_stops[0].station_name, bus_stops[-1].station_name]
+        if len(bus_stops) == 0:
+            stations = []
+        else:
+            stations = [bus_stops[0].station_name, bus_stops[-1].station_name]
         for bus_stop in bus_stops:
             stations.append(bus_stop.station_name)
 
@@ -34,8 +34,10 @@ class BusRepository:
             .order_by(TblBusStop.stop_order)
             .all()
         )
-
-        stations = [bus_stops[0].station_name, bus_stops[-1].station_name]
+        if len(bus_stops) == 0:
+            stations = []
+        else:
+            stations = [bus_stops[0].station_name, bus_stops[-1].station_name]
         for bus_stop in bus_stops:
             stations.append(bus_stop.station_name)
         """

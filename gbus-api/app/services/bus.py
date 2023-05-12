@@ -17,9 +17,6 @@ class BusService:
         self.bus_arrival_repository = bus_arrival_repository
         self.service_key = "5Y1vKkq9+6RqZKFBlomJU9uIG1nG0qvTr4ny+3qE/oTsIyGh0VTFKdRfFfH8bQ2cf604CCBtBl2N6gDZ7hjSTA=="
 
-    def get_bus(self, bus_name: str):
-        return self.bus_repository.get_bus(bus_name=bus_name)
-
     def get_bus_stop_by_name(self, bus_name: str):
         return self.bus_repository.get_bus_stop_by_name(bus_name=bus_name)
 

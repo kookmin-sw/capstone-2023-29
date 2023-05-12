@@ -26,11 +26,7 @@ class StationRepository:
             .all()
         )
 
-        buses = [bus_stop.bus_name for bus_stop in bus_stops]
-
-        # remove duplicates
-        unique_buses = list(set(buses))
-        return unique_buses
+        return bus_stops
 
     def get_stations_by_partial_name(self, partial_name: str):
         return (
@@ -48,6 +44,4 @@ class StationRepository:
             .all()
         )
 
-        buses = [bus_stop.bus_name for bus_stop in bus_stops]
-        buses = list(set(buses))
-        return buses
+        return bus_stops
