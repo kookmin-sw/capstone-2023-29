@@ -1,4 +1,4 @@
-# Use the official PostgreSQL image from the Docker Hub
+## Use the official PostgreSQL image from the Docker Hub
 FROM postgres:11-bullseye
 
 # Install build dependencies for Python 3.10
