@@ -15,7 +15,7 @@ from app.services.favorite import FavoriteService
 router = APIRouter()
 
 
-@router.get("/favorite/bus")
+@router.get("/favorite/bus", response_model=List[FavoriteBusResponse])
 def get_favorite_buses(
     service: FavoriteService = Depends(FavoriteService),
     user_info: UserResponse = Depends(get_user_info),

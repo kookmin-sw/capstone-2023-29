@@ -32,7 +32,7 @@ def get_bus_stop_by_name(
     bus_name: str,
     bus_service: BusService = Depends(BusService),
 ):
-    result = bus_service.get_bus_stop(bus_name)
+    result = bus_service.get_bus_stop_by_name(bus_name)
     if result is None:
         return {"message": "Bus stop not found"}
     return result
@@ -43,14 +43,14 @@ def get_bus_stop_by_id(
     bus_id: str,
     bus_service: BusService = Depends(BusService),
 ):
-    result = bus_service.get_bus_stop(bus_id)
+    result = bus_service.get_bus_stop_by_id(bus_id)
     if result is None:
         return {"message": "Bus stop not found"}
     return result
 
 
 @router.get("/bus_arrival_list")
-async def get_bus_arrival_list(
+def get_bus_arrival_list(
     station_id: str,
     route_id: str = None,
     sta_order: str = None,

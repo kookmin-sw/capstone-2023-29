@@ -31,7 +31,7 @@ def get_stations_by_partial_name(
 ):
     results = station_service.get_stations_by_partial_name(partial_name=partial_name)
     if not results:
-        return {"message": "No buses found"}
+        return {"message": "No stations found"}
     return results
 
 
