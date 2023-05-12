@@ -18,7 +18,8 @@ CREATE TABLE bus_stop (
     bus_name varchar(64),
     station_id varchar(64),
     station_name varchar(64),
-    stop_order INTEGER
+    stop_order INTEGER,
+    next_stop varchar(64)
 );
 
 CREATE TABLE users (

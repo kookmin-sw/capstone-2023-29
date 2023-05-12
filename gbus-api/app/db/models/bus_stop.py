@@ -12,3 +12,4 @@ class TblBusStop(Base):
     station_id = Column(String(64))
     station_name = Column(String(64))
     stop_order = Column(Integer)
+    next_stop = Column(String(64))

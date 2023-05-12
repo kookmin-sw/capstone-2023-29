@@ -21,7 +21,10 @@ class BusRepository:
             .all()
         )
 
-        stations = [bus_stop.station_name for bus_stop in bus_stops]
+        stations = [bus_stops[0].station_name, bus_stops[-1].station_name]
+        for bus_stop in bus_stops:
+            stations.append(bus_stop.station_name)
+
         return stations
 
     def get_bus_stop_by_id(self, bus_id: str):
@@ -32,14 +35,19 @@ class BusRepository:
             .all()
         )
 
-        stations = [bus_stop.station_name for bus_stop in bus_stops]
-        stations = list(set(stations))
+        stations = [bus_stops[0].station_name, bus_stops[-1].station_name]
+        for bus_stop in bus_stops:
+            stations.append(bus_stop.station_name)
+        """
+        중복 고려 필요
+        """
         return stations
 
     def get_buses_by_partial_number(self, partial_number: str):
         return (
-            self._session.query(TblBus)
-            .filter(TblBus.bus_name.like(f"%{partial_number}%"))
-            .order_by(TblBus.bus_name)
+            self._session.query(TblBusStop)
+            .filter(TblBusStop.bus_name.like(f"%{partial_number}%"))
+            .filter(TblBusStop.next_stop == "종점")
+            .order_by(TblBusStop.bus_name)
             .all()
         )

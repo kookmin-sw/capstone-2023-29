@@ -34,9 +34,9 @@ class StationRepository:
 
     def get_stations_by_partial_name(self, partial_name: str):
         return (
-            self._session.query(TblStation)
-            .filter(TblStation.station_name.like(f"%{partial_name}%"))
-            .order_by(TblStation.station_name)
+            self._session.query(TblBusStop)
+            .filter(TblBusStop.station_name.like(f"%{partial_name}%"))
+            .order_by(TblBusStop.station_name)
             .all()
         )
 
