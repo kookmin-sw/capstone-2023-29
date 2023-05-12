@@ -1,2 +1,3 @@
 app/core/settings/app.py
 *__pycache__
+../gbus-front
