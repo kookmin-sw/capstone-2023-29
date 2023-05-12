@@ -8,21 +8,19 @@ from bus_station_map import add_bus_stops, add_buses, add_stations
 
 def save_bus_stops():
     # Load the route_map from file
-    with open("../../../../datas/route.json", "r") as f:
+    with open("../route.json", "r") as f:
         route_map = json.load(f)
 
-    with open("../../../../datas/station.json", "r") as f:
-        station_map = json.load(f)
+    # with open("../station.json", "r") as f:
+    #     station_map = json.load(f)
 
-    with open("../../../../datas/red_bus.json", "r") as f:
+    with open("../red_bus.json", "r") as f:
         red_bus_map = json.load(f)
 
     red_buses = []
     stations = []
 
     print(red_bus_map)
-    for station_id, station_name in station_map.items():
-        stations.append([station_id, station_name])
 
     for route_id, route_name in route_map.items():
         if route_name in red_bus_map:
@@ -46,13 +44,19 @@ def save_bus_stops():
         if json_data.get("msgBody") is None:
             continue
 
+        isPass = False
         for data in json_data["msgBody"]["busRouteStationList"]:
+            isPass = True
             result.append(
                 [route_id, route_name, data["stationId"], data["stationName"], order]
             )
+            stations.append([data["stationId"], data["stationName"]])
             order += 1
-        print("pass")
 
+        if not isPass:
+            print(route_name, " don't contain")
+        else:
+            print(route_name, " pass")
     # Bulk add bus data to db
     add_bus_stops(result)
     add_buses(red_buses)

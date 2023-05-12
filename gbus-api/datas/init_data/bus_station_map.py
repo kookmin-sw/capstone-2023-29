@@ -49,13 +49,21 @@ def add_bus_stops(result):
     session = Session()
     bus_stop = []
 
-    for data in result:
+    for index, data in enumerate(result):
+        next_stop = "종점"
+        if index + 1 < len(result):
+            if result[index + 1][4] == 1:
+                next_stop = "종점"
+            else:
+                next_stop = result[index + 1][3]  # 다음 정류장의 station_name 가져오기
+
         bus_st = TblBusStop(
             bus_id=data[0],
             bus_name=data[1],
             station_id=data[2],
             station_name=data[3],
             stop_order=data[4],
+            next_stop=next_stop,  # 다음 정류장의 station_name 추가
         )
         bus_stop.append(bus_st)
 
