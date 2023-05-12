@@ -1,5 +1,5 @@
 import {React, useState} from 'react';
-import { getBusByName, getBusListByBusStop, getBusStopByName, getBusListByName, getStationListByName, getBusStopByBusId, getBusListByStationId, getBusArrivalList } from './api.js';
+import { getBusByName, getBusListByBusStop, getBusStopByName, getBusListByName, getStationListByName, getBusStopByBusId, getBusListByStationId, getBusArrivalList, postLogin, postRegister } from './api.js';
 
 
 
@@ -12,6 +12,10 @@ function BusInfo(){
   const [busStopData, setBusStopData] = useState(null);
   const [bus_id, setBus_id] = useState('')
   const [station_id, setStation_id] = useState('')
+  const [username, setUsername] = useState('')
+  const [password, setPassword] = useState('')
+  const [email, setEmail] = useState('')
+  const [access_token, setAccess_token] = useState(null)
 
   async function handleGetBusData() {
     try {
@@ -86,6 +90,27 @@ function BusInfo(){
     }
   }
 
+  async function handlePostLogin() {
+    try {
+      const data = await postLogin(username, password);
+      console.log("pass")
+      setAccess_token(data);
+    } catch (error) {
+      console.error('Error fetching bus stop data:', error.message);
+    }
+  }
+
+  async function handlePostRegister() {
+    try {
+      const data = await postRegister(username,email, password);
+      console.log("pass")
+      setAccess_token(data);
+      console.log("login");
+    } catch (error) {
+      console.error('Error fetching bus stop data:', error.message);
+    }
+  }
+
 
   return (
     <div>
@@ -141,7 +166,51 @@ function BusInfo(){
       </input>
       <button onClick={(handleGetBusArrivalListByStationId)}>정류장 아이디로 도착 버스 검색</button>
       {busListData && <div>{JSON.stringify(busListData)}</div>}
+    <div>
+      <h2>login</h2>
+      <input
+      type = "text" 
+      placeholder='id'
+      value = {username}
+      onChange={(e)=>setUsername(e.target.value)}
+      ></input>
+      <input 
+      type = "text" 
+      placeholder='password'
+      value = {password}
+      onChange={(e)=>setPassword(e.target.value)}
+      ></input>
+      <button onClick={(handlePostLogin)}>Login</button>
+      {access_token && <div>{JSON.stringify(access_token)}</div>}
+      <h2>Signup</h2>
+      <input
+      type = "text" 
+      placeholder='id'
+      value = {username}
+      onChange={(e)=>setUsername(e.target.value)}
+      ></input>
+      <input 
+      type = "text" 
+      placeholder='password'
+      value = {password}
+      onChange={(e)=>setPassword(e.target.value)}
+      ></input>
+      <input 
+      type = "text" 
+      placeholder='email'
+      value = {email}
+      onChange={(e)=>setEmail(e.target.value)}
+      ></input>
+      <button onClick={(handlePostRegister)}>Signup</button>
+      {access_token && <div>{JSON.stringify(access_token)}</div>}
+
     </div>
+    
+    
+    
+    </div>
+
+  
   );
 
 }

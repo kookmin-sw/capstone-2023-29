@@ -117,38 +117,40 @@ function BusNumList(){
         <span onClick={()=>{setBusInfo(false)}}>
         <h2>{busName}</h2>
         </span>
-        <Table>
-          <thead>
-            <tr>
-              <th>busStop</th>
+        {busStopListData && (
+          <Table>
+            <thead>
+              <tr>
+                <th>busStop</th>
               </tr>
-          </thead>
-          <tbody>
-            {busStopListArr.map((busStop, index) => (
-              <tr key={index}>
-                <td onClick={()=>{
-                  setSelected(index)
-                  setDetail(true)
-              }}>
-            {busStop}{' '}
-            {detail && index === selected && (
-                <span>
-                 <br />
-                  <span  onClick={()=>{setDetail(false)}}>Additional Information:</span>
-                <br />
-                <ul>
-                  <li>Bus stop number: 1234</li>
-                  <li>Location: 5th Street</li>
-                  <li>Next bus arriving in: 10 minutes</li>
-                </ul>
-              </span>
-              )}
-                  
+            </thead>
+            <tbody>
+              {busStopListArr.map((busStop, index) => (
+                <tr key={index}>
+                  <td onClick={() => {
+                    setSelected(index)
+                    setDetail(true)
+                  }}>
+                    {busStop}{' '}
+                    {detail && index === selected && (
+                      <span>
+                        <br />
+                        <span onClick={() => { setDetail(false) }}>Additional Information:</span>
+                        <br />
+                        <ul>
+                          <li>Bus stop number: 1234</li>
+                          <li>Location: 5th Street</li>
+                          <li>Next bus arriving in: 10 minutes</li>
+                        </ul>
+                      </span>
+                    )}
+
                   </td>
-              </tr>
-            ))}
-          </tbody>
-        </Table>
+                </tr>
+              ))}
+            </tbody>
+          </Table>
+        )}
         </>
       )}
       </>

@@ -50,7 +50,7 @@ def get_bus_stop_by_id(
 
 
 @router.get("/bus_arrival_list")
-async def get_bus_arrival_list(
+def get_bus_arrival_list(
     station_id: str,
     route_id: str = None,
     sta_order: str = None,

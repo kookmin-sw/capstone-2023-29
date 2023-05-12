@@ -1,11 +1,21 @@
 import React, { useState } from 'react';
+import { postLogin } from '../api';
+import { useNavigate} from 'react-router-dom'
 
 function Login() {
-    const [Email, setEmail] = useState("");
-    const [Password, setPassword] = useState("");
+    const [username, setUsername] = useState("");
+    const [password, setPassword] = useState("");
+    const [access_token, setAccess_token] = useState(null)
+    
+    const navigate = useNavigate();
 
-    const onEmailHandler = (event) => {
-        setEmail(event.currentTarget.value);
+    const navigateToLogin=()=>{
+        navigate("/")
+    }
+    
+
+    const onUsernameHandler = (event) => {
+        setUsername(event.currentTarget.value);
     }
     const onPasswordHandler = (event) => {
         setPassword(event.currentTarget.value);
@@ -14,15 +24,23 @@ function Login() {
         // 버튼만 누르면 리로드 되는것을 막아줌
         event.preventDefault();
 
-        console.log('Email', Email);
-        console.log('Password', Password);
-        
-        let body = {
-            email: Email,
-            password: Password,
-        }
+        console.log('username', username);
+        console.log('Password', password);
 
     }
+
+    async function handlePostLogin() {
+        try {
+          const data = await postLogin(username, password);
+          setAccess_token(data);
+          console.log("pass");
+          console.log(access_token);
+          navigateToLogin();
+
+        } catch (error) {
+          console.error('Error fetching bus stop data:', error.message);
+        }
+      }
 
     return (
         <div style={{ 
@@ -33,14 +51,16 @@ function Login() {
                 onSubmit={onSubmitHandler}
             >
                 <h1>자리있어?</h1>
-                <label>Email</label>
-                <input type='email' value={Email} onChange={onEmailHandler}/>
+                <label>ID</label>
+                <input  value={username} onChange={onUsernameHandler}/>
                 <label>Password</label>
-                <input type='password' value={Password} onChange={onPasswordHandler}/>
+                <input type='password' value={password} onChange={onPasswordHandler}/>
                 <br />
-                <button formAction=''>
+                <button onClick={(handlePostLogin)}>
                     Login
                 </button>
+                
+                
             </form>
         </div>
     )

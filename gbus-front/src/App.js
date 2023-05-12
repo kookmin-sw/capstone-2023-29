@@ -9,7 +9,6 @@ import Search from './pages/Search.js'
 import Login from './pages/Login.js';
 import BusInfo from './BusInfo';
 import Bookmark from './pages/Bookmark';
-import RecentSearch from './pages/RecentSearch';
 import Signup from './pages/SignUp';
 
 function App() {
@@ -45,9 +44,6 @@ function App() {
           <Tab eventKey="bookMark" title="즐겨찾기">
             <Bookmark/>
            </Tab>
-          <Tab eventKey="recent" title="최근검색어" >
-            <RecentSearch/>
-          </Tab>
           </Tabs>
             </div>
           </>

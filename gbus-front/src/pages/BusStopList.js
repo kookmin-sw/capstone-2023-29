@@ -3,7 +3,6 @@ import Form from 'react-bootstrap/Form';
 import InputGroup from 'react-bootstrap/InputGroup';
 import Table from 'react-bootstrap/Table';
 import { getStationListByName, getBusArrivalList } from '../api.js';
-import { useEffect } from 'react';
 
 
 function BusStopList(){
@@ -21,7 +20,7 @@ function BusStopList(){
     const [predictTime2Arr, setPredictTime2Arr] = useState(null)
     const [remainSeat1Arr, setRemainSeat1Arr] = useState(null)
     const [remainSeat2Arr, setRemainSeat2Arr] = useState(null)
-    const [stationId, setStationId] = useState(null)
+    const [stationId, setStationId] = useState('')
     const [busStopName, setBusStopName] = useState(null)
     let [busStopInfo, setBusStopInfo] = useState(false)
     const [detail, setDetail] = useState(false)
@@ -55,6 +54,7 @@ function BusStopList(){
 
     async function handleGetBusArrivalListByStationId() {
       try {
+        console.log(stationId)
         const data = await getBusArrivalList(stationId);
         setBusListData(data);
         const busListArr = JSON.parse(JSON.stringify(data))
@@ -100,14 +100,15 @@ function BusStopList(){
              </tr>
            </thead>
            <tbody>
-               {busStopNameArr.map((busName, index) => (
+               {busStopNameArr.map((busStopName, index) => (
                  <tr key={index}>
                  <td onClick={()=>{
                   setBusStopInfo(true)
                   setBusStopName(busStopNameArr[index])
-                  setStationId(busListArr[index])
+                  setStationId(busStopIdArr[index])
                   handleGetBusArrivalListByStationId();
-                  }}>{busName}</td>
+                  console.log(stationId)
+                  }}>{busStopName}</td>
                  <td>{busStopIdArr[index]}</td>
              </tr>
              ))}
@@ -128,11 +129,16 @@ function BusStopList(){
               <th>Seat</th>
             </tr>
           </thead>
-            <td>1</td>
-            <td>2</td>
-            <td>3</td>
           <tbody>
+            {busIdArr && busIdArr.map((busId, index) => (
+              <tr key={index}>
+                <td>{busId}</td>
+                <td>{predictTime1Arr[index]}, {predictTime2Arr[index]}</td>
+                <td>{remainSeat1Arr[index]}, {remainSeat2Arr[index]}</td>
+              </tr>
+            ))}
           </tbody>
+          
         </Table>
         </>
       )}
