@@ -46,3 +46,11 @@ def get_bus_arrival_list(
     bus_service: BusService = Depends(BusService),
 ):
     return bus_service.get_bus_arrival_list(station_id, route_id, sta_order)
+
+
+@router.get("/bus_location_list")
+def get_bus_location_list(
+    bus_id: str,
+    bus_service: BusService = Depends(BusService),
+):
+    return bus_service.get_bus_location_list(bus_id=bus_id)

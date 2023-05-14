@@ -12,5 +12,20 @@ class BusArrivalDto(BaseModel):
     remainSeatCnt2: str
 
 
+class BusLocationDto(BaseModel):
+    end_bus: str
+    plateType: int
+    remainSeatCnt: int
+    bus_id: str
+    bus_name: str
+    station_id: str
+    station_name: str
+    stationSeq: int
+
+
 class BusArrivalResponseDto(BaseModel):
     data: list[BusArrivalDto]
+
+
+class BusLocationResponseDto(BaseModel):
+    data: list[BusLocationDto]

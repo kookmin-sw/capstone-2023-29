@@ -18,10 +18,7 @@ class BusRepository:
             .all()
         )
 
-        if len(bus_stops) == 0:
-            stations = []
-        else:
-            stations = [bus_stops[0].station_name, bus_stops[-1].station_name]
+        stations = []
         for bus_stop in bus_stops:
             stations.append(bus_stop.station_name)
 
@@ -34,15 +31,9 @@ class BusRepository:
             .order_by(TblBusStop.stop_order)
             .all()
         )
-        if len(bus_stops) == 0:
-            stations = []
-        else:
-            stations = [bus_stops[0].station_name, bus_stops[-1].station_name]
+        stations = []
         for bus_stop in bus_stops:
             stations.append(bus_stop.station_name)
-        """
-        중복 고려 필요
-        """
         return stations
 
     def get_buses_by_partial_number(self, partial_number: str):

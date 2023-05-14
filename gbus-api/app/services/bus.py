@@ -39,3 +39,8 @@ class BusService:
             route_id=route_id,
             sta_order=sta_order,
         )
+
+    def get_bus_location_list(self, bus_id: str):
+        if not bus_id:
+            raise HTTPException(status_code=400, detail="bus_id is required")
+        return self.bus_arrival_repository.get_bus_location(bus_id=bus_id)
