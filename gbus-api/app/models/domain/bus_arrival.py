@@ -4,7 +4,8 @@ from pydantic import BaseModel
 
 
 class BusArrivalDto(BaseModel):
-    route_id: str
+    bus_id: str
+    bus_name: str
     predictTime1: Optional[str]
     predictTime2: Optional[str]
     remainSeatCnt1: str
