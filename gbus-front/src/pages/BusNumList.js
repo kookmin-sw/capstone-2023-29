@@ -52,7 +52,7 @@ function BusNumList(){
           const busListArr =JSON.parse(JSON.stringify(data));
           setBusListArr(busListArr)
           setBusNameListArr(busListArr.map(bus => bus.bus_name))
-          setBusIdListArr(busListArr.map(bus => bus.bus_id))
+          setBusIdListArr(busListArr.map(bus => bus.station_name))
         } catch (error) {
           console.error('Error fetching bus stop data:', error.message);
         }
@@ -96,7 +96,7 @@ function BusNumList(){
         <thead>
           <tr>
             <th>버스번호</th>
-            <th>ID</th>
+            <th>방면 (종점)</th>
           </tr>
         </thead>
         <tbody>

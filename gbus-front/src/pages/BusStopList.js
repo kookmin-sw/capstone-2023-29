@@ -11,7 +11,7 @@ function BusStopList(){
     const [busStopData, setBusStopData] =useState('')
     const [busStopArr, setBusStopArr] = useState([])
     const [busStopNameArr, setBusStopNameArr] = useState([])
-    const [busStopIdArr, setBusStopIdArr] = useState([])
+    const [busStopWayArr, setBusStopWayArr] = useState([])
     const [busListData, setBusListData] = useState(null)
     const [busListArr, setBusListArr] = useState([])
     const [busStopId, setBusStopId] =useState(null)
@@ -45,7 +45,7 @@ function BusStopList(){
         const busStopListArr =JSON.parse(JSON.stringify(data));
         setBusStopArr(busStopListArr)
         setBusStopNameArr(busStopListArr.map(station => station.station_name))
-        setBusStopIdArr(busStopListArr.map(station => station.station_id))
+        setBusStopWayArr(busStopListArr.map(station => station.next_stop))
       } catch (error) {
         console.error('Error fetching bus stop data:', error.message);
       }
@@ -96,7 +96,7 @@ function BusStopList(){
            <thead>
              <tr>
                <th>정류장</th>
-               <th>info</th>
+               <th>방면</th>
              </tr>
            </thead>
            <tbody>
@@ -105,11 +105,11 @@ function BusStopList(){
                  <td onClick={()=>{
                   setBusStopInfo(true)
                   setBusStopName(busStopNameArr[index])
-                  setStationId(busStopIdArr[index])
+                  setStationId(busStopWayArr[index])
                   handleGetBusArrivalListByStationId();
                   console.log(stationId)
                   }}>{busStopName}</td>
-                 <td>{busStopIdArr[index]}</td>
+                 <td>{busStopWayArr[index]}</td>
              </tr>
              ))}
            </tbody>

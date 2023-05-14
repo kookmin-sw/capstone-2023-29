@@ -114,7 +114,7 @@ function BusInfo(){
   async function handleFetchData() {
     try {
       const data = await fetchData(localStorage.getItem('token'));
-    
+      console.log(data)
     } catch (error) {
       console.error('Error fetching bus stop data:', error.message);
     }

@@ -1,4 +1,4 @@
-import {React, useState} from 'react';
+import {React, useState, useEffect} from 'react';
 import { Routes, Route, Link, useNavigate, Outlet } from 'react-router-dom'
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -68,9 +68,7 @@ function App() {
           <Tab eventKey="bookMark" title="즐겨찾기">
             <Bookmark/>
            </Tab>
-          <Tab eventKey="recent" title="최근검색어" >
-            <RecentSearch/>
-          </Tab>
+          
           </Tabs>
             </div>
           </>
