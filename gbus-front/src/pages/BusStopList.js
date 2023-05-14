@@ -2,8 +2,7 @@ import React, { useState} from "react";
 import Form from 'react-bootstrap/Form';
 import InputGroup from 'react-bootstrap/InputGroup';
 import Table from 'react-bootstrap/Table';
-import { getStationListByName, getBusListByStationId } from '../api.js';
-import { useEffect } from 'react';
+import { getStationListByName, getBusArrivalList } from '../api.js';
 
 
 function BusStopList(){
@@ -12,10 +11,16 @@ function BusStopList(){
     const [busStopData, setBusStopData] =useState('')
     const [busStopArr, setBusStopArr] = useState([])
     const [busStopNameArr, setBusStopNameArr] = useState([])
-    const [busStopIdArr, setBusStopIdArr] = useState([])
+    const [busStopWayArr, setBusStopWayArr] = useState([])
     const [busListData, setBusListData] = useState(null)
     const [busListArr, setBusListArr] = useState([])
     const [busStopId, setBusStopId] =useState(null)
+    const [busIdArr, setBusIdArr] = useState(null)
+    const [predictTime1Arr, setPredictTime1Arr] = useState(null)
+    const [predictTime2Arr, setPredictTime2Arr] = useState(null)
+    const [remainSeat1Arr, setRemainSeat1Arr] = useState(null)
+    const [remainSeat2Arr, setRemainSeat2Arr] = useState(null)
+    const [stationId, setStationId] = useState('')
     const [busStopName, setBusStopName] = useState(null)
     let [busStopInfo, setBusStopInfo] = useState(false)
     const [detail, setDetail] = useState(false)
@@ -40,22 +45,31 @@ function BusStopList(){
         const busStopListArr =JSON.parse(JSON.stringify(data));
         setBusStopArr(busStopListArr)
         setBusStopNameArr(busStopListArr.map(station => station.station_name))
-        setBusStopIdArr(busStopListArr.map(station => station.station_id))
+        setBusStopWayArr(busStopListArr.map(station => station.next_stop))
       } catch (error) {
         console.error('Error fetching bus stop data:', error.message);
       }
     }
 
-    async function handleGetBusListByStationId() {
+
+    async function handleGetBusArrivalListByStationId() {
       try {
-        const data = await getBusListByStationId(busStopId);
+        console.log(stationId)
+        const data = await getBusArrivalList(stationId);
         setBusListData(data);
-        const busListArr = JSON.parse(JSON.stringify(data));
+        const busListArr = JSON.parse(JSON.stringify(data))
         setBusListArr(busListArr)
+        setBusIdArr(busListArr.map(bus => bus.route_id))
+        setPredictTime1Arr(busListArr.map(predict1 => predict1.predictTime1))
+        setPredictTime2Arr(busListArr.map(predict2 => predict2.predictTime2))
+        setRemainSeat1Arr(busListArr.map(seat1 => seat1.remainSeatCnt1))
+        setRemainSeat2Arr(busListArr.map(seat2 => seat2.remainSeatCnt2))
+        console.log(busListArr)
       } catch (error) {
-        console.error('Error fetching bus stop data:', error.message);
+        console.error('Error fetching bus data:', error.message);
       }
     }
+
 
 
 
@@ -82,20 +96,20 @@ function BusStopList(){
            <thead>
              <tr>
                <th>정류장</th>
-               <th>info</th>
+               <th>방면</th>
              </tr>
            </thead>
            <tbody>
-               {busStopNameArr.map((busName, index) => (
+               {busStopNameArr.map((busStopName, index) => (
                  <tr key={index}>
                  <td onClick={()=>{
                   setBusStopInfo(true)
                   setBusStopName(busStopNameArr[index])
-                  setBusStopId(busStopIdArr[index])
-                  handleGetBusListByStationId();
-                  console.log(busListArr)
-                  }}>{busName}</td>
-                 <td>{busStopIdArr[index]}</td>
+                  setStationId(busStopWayArr[index])
+                  handleGetBusArrivalListByStationId();
+                  console.log(stationId)
+                  }}>{busStopName}</td>
+                 <td>{busStopWayArr[index]}</td>
              </tr>
              ))}
            </tbody>
@@ -111,33 +125,20 @@ function BusStopList(){
           <thead>
             <tr>
               <th>Bus</th>
+              <th>Time</th>
+              <th>Seat</th>
             </tr>
           </thead>
           <tbody>
-            {busListArr.map((bus, index) => (
+            {busIdArr && busIdArr.map((busId, index) => (
               <tr key={index}>
-                <td onClick={()=>{
-                  setSelected(index)
-                  setDetail(true)
-                }
-                }>{bus}{' '}
-              {detail && index === selected && (
-                <span>
-                 <br />
-                  <span>Additional Information:</span>
-                <br />
-                <ul>
-                  <li>Bus stop number: 1234</li>
-                  <li>Location: 5th Street</li>
-                  <li>Next bus arriving in: 10 minutes</li>
-                </ul>
-              </span>
-              )}
-                
-                </td>
+                <td>{busId}</td>
+                <td>{predictTime1Arr[index]}, {predictTime2Arr[index]}</td>
+                <td>{remainSeat1Arr[index]}, {remainSeat2Arr[index]}</td>
               </tr>
             ))} 
           </tbody>
+          
         </Table>
         </>
       )}

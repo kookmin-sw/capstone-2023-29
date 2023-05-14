@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import Form from 'react-bootstrap/Form';
 import InputGroup from 'react-bootstrap/InputGroup';
 import Table from 'react-bootstrap/Table';
 import { getBusListByName, getBusStopByBusId } from '../api.js';
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { addBusNumRS} from "../Store.js";
 
 function BusNumList(){
 
@@ -19,7 +20,15 @@ function BusNumList(){
     let [busInfo, setBusInfo] =useState(false)
     let [detail, setDetail] = useState(false)
     let [selected, setSelected] = useState(-1);
-    let dispatch = useDispatch()
+
+    const dispatch = useDispatch()
+    const state = useSelector((state)=>state)
+
+    useEffect(() => {
+      if (busStopListData !== null) {
+        handleGetBusStopByBusId();
+      }
+    }, [busStopListData]);
 
     function handleSubmit(e){
         e.preventDefault();
@@ -31,6 +40,11 @@ function BusNumList(){
         setInputValue(e.target.value)
     }
 
+    function addRS(num){
+      dispatch(addBusNumRS(num))
+      console.log(state.busNumRS)
+    }
+
     async function handleGetBusListbyName() {
         try {
           const data = await getBusListByName(inputValue);
@@ -38,7 +52,7 @@ function BusNumList(){
           const busListArr =JSON.parse(JSON.stringify(data));
           setBusListArr(busListArr)
           setBusNameListArr(busListArr.map(bus => bus.bus_name))
-          setBusIdListArr(busListArr.map(bus => bus.bus_id))
+          setBusIdListArr(busListArr.map(bus => bus.station_name))
         } catch (error) {
           console.error('Error fetching bus stop data:', error.message);
         }
@@ -82,7 +96,7 @@ function BusNumList(){
         <thead>
           <tr>
             <th>버스번호</th>
-            <th>ID</th>
+            <th>방면 (종점)</th>
           </tr>
         </thead>
         <tbody>
@@ -92,8 +106,8 @@ function BusNumList(){
               setBusInfo(true)
               setBusName((busNameListArr[index]))
               setBusId((busIdListArr[index]))
+              addRS(busNameListArr[index])
               handleGetBusStopByBusId();
-              console.log(busStopListArr)
               }}>{busName}</td>
             <td>{busIdListArr[index]}</td>
         </tr>
@@ -107,38 +121,40 @@ function BusNumList(){
         <span onClick={()=>{setBusInfo(false)}}>
         <h2>{busName}</h2>
         </span>
-        <Table>
-          <thead>
-            <tr>
-              <th>busStop</th>
+        {busStopListData && (
+          <Table>
+            <thead>
+              <tr>
+                <th>busStop</th>
               </tr>
-          </thead>
-          <tbody>
-            {busStopListArr.map((busStop, index) => (
-              <tr key={index}>
-                <td onClick={()=>{
-                  setSelected(index)
-                  setDetail(true)
-              }}>
-            {busStop}{' '}
-            {detail && index === selected && (
-                <span>
-                 <br />
-                  <span  onClick={()=>{setDetail(false)}}>Additional Information:</span>
-                <br />
-                <ul>
-                  <li>Bus stop number: 1234</li>
-                  <li>Location: 5th Street</li>
-                  <li>Next bus arriving in: 10 minutes</li>
-                </ul>
-              </span>
-              )}
-                  
+            </thead>
+            <tbody>
+              {busStopListArr.map((busStop, index) => (
+                <tr key={index}>
+                  <td onClick={() => {
+                    setSelected(index)
+                    setDetail(true)
+                  }}>
+                    {busStop}{' '}
+                    {detail && index === selected && (
+                      <span>
+                        <br />
+                        <span onClick={() => { setDetail(false) }}>Additional Information:</span>
+                        <br />
+                        <ul>
+                          <li>Bus stop number: 1234</li>
+                          <li>Location: 5th Street</li>
+                          <li>Next bus arriving in: 10 minutes</li>
+                        </ul>
+                      </span>
+                    )}
+
                   </td>
-              </tr>
-            ))}
-          </tbody>
-        </Table>
+                </tr>
+              ))}
+            </tbody>
+          </Table>
+        )}
         </>
       )}
       </>

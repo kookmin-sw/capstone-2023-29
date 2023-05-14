@@ -1,4 +1,4 @@
-import {React, useState} from 'react';
+import {React, useState, useEffect} from 'react';
 import { Routes, Route, Link, useNavigate, Outlet } from 'react-router-dom'
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -14,24 +14,48 @@ import Signup from './pages/SignUp';
 
 function App() {
 
+  const [token, setToken] = useState(localStorage.getItem('token'))
+  
+  useEffect(() => {
+    if (token) {
+      localStorage.setItem('token', token);
+    } else {
+      localStorage.removeItem('token');
+    }
+  }, [token]);
+  
 
   return (
     <div className="App"> 
     <Routes>
       <Route path="/" element={
             <>
-            {/*header */}
-            <Navbar bg="light" variant="light">
+              {/*header */}
+              <Navbar bg="light" variant="light">
                 <Container>
-                <Navbar.Brand href="#home">자리있어?</Navbar.Brand>
-                <Nav className="me-auto">
+                  <Navbar.Brand href="#home">자리있어?</Navbar.Brand>
+                  <Nav className="me-auto">
                     <Nav.Link href="/">Home</Nav.Link>
-                    <Nav.Link href="/login">Login</Nav.Link>
                     <Nav.Link href="/search">Search</Nav.Link>
-                    <Nav.Link href="/signup">Signup</Nav.Link>
-                </Nav>
+                    {token ? 
+                    (
+                      <Nav.Link
+                        onClick={() => {
+                          localStorage.removeItem('token');
+                          setToken(null);
+                        }}
+                      >
+                        Logout
+                      </Nav.Link>
+                    ) : (
+                      <Nav.Link href="/login">Login</Nav.Link>
+                    )}
+                   
+              
+                  </Nav>
                 </Container>
-            </Navbar>
+              </Navbar>
+
             
       
             <div>
@@ -44,9 +68,7 @@ function App() {
           <Tab eventKey="bookMark" title="즐겨찾기">
             <Bookmark/>
            </Tab>
-          <Tab eventKey="recent" title="최근검색어" >
-            <RecentSearch/>
-          </Tab>
+          
           </Tabs>
             </div>
           </>
