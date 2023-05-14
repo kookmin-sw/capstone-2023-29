@@ -1,5 +1,5 @@
 import {React, useState} from 'react';
-import { getBusByName, getBusListByBusStop, getBusStopByName, getBusListByName, getStationListByName, getBusStopByBusId, getBusListByStationId, getBusArrivalList, postLogin, postRegister } from './api.js';
+import { getBusByName, getBusListByBusStop, getBusStopByName, getBusListByName, getStationListByName, getBusStopByBusId, getBusListByStationId, getBusArrivalList, postLogin, postRegister, fetchData } from './api.js';
 
 
 
@@ -94,7 +94,7 @@ function BusInfo(){
     try {
       const data = await postLogin(username, password);
       console.log("pass")
-      setAccess_token(data);
+      setAccess_token(JSON.stringify(data));
     } catch (error) {
       console.error('Error fetching bus stop data:', error.message);
     }
@@ -106,6 +106,15 @@ function BusInfo(){
       console.log("pass")
       setAccess_token(data);
       console.log("login");
+    } catch (error) {
+      console.error('Error fetching bus stop data:', error.message);
+    }
+  }
+
+  async function handleFetchData() {
+    try {
+      const data = await fetchData(localStorage.getItem('token'));
+    
     } catch (error) {
       console.error('Error fetching bus stop data:', error.message);
     }
@@ -204,6 +213,8 @@ function BusInfo(){
       <button onClick={(handlePostRegister)}>Signup</button>
       {access_token && <div>{JSON.stringify(access_token)}</div>}
 
+      <button onClick={(handleFetchData)}>favorite</button>
+      {access_token && <div>{JSON.stringify(access_token)}</div>}
     </div>
     
     

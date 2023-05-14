@@ -15,7 +15,6 @@ function Search(){
         <Container>
           <Navbar.Brand href="/">자리있어?</Navbar.Brand>
           <Nav className="me-auto">
-            <Nav.Link href="/">Home</Nav.Link>
             <Nav.Link href="/businfo">BusInfo</Nav.Link>
           </Nav>
         </Container>

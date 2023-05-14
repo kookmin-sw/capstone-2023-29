@@ -12,7 +12,9 @@ function Login() {
     const navigateToLogin=()=>{
         navigate("/")
     }
-    
+    const navigateToSignup=()=>{
+        navigate("/signup")
+    }
 
     const onUsernameHandler = (event) => {
         setUsername(event.currentTarget.value);
@@ -32,10 +34,15 @@ function Login() {
     async function handlePostLogin() {
         try {
           const data = await postLogin(username, password);
-          setAccess_token(data);
+          console.log(data.access_token);
+          setAccess_token(JSON.stringify(data.access_token));
           console.log("pass");
           console.log(access_token);
-          navigateToLogin();
+
+          if(data){
+            localStorage.setItem('token',data.access_token)
+            navigateToLogin();
+          }
 
         } catch (error) {
           console.error('Error fetching bus stop data:', error.message);
@@ -59,7 +66,9 @@ function Login() {
                 <button onClick={(handlePostLogin)}>
                     Login
                 </button>
-                
+                <button onClick={(navigateToSignup)}>
+                    sign up
+                </button>
                 
             </form>
         </div>

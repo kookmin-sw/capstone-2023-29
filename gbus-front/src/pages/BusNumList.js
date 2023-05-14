@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import Form from 'react-bootstrap/Form';
 import InputGroup from 'react-bootstrap/InputGroup';
 import Table from 'react-bootstrap/Table';
@@ -24,7 +24,11 @@ function BusNumList(){
     const dispatch = useDispatch()
     const state = useSelector((state)=>state)
 
-    
+    useEffect(() => {
+      if (busStopListData !== null) {
+        handleGetBusStopByBusId();
+      }
+    }, [busStopListData]);
 
     function handleSubmit(e){
         e.preventDefault();

@@ -14,20 +14,7 @@ function Bookmark(){
       </thead>
       <tbody>
         <tr>
-          <td>110</td>
-          <td>안산시</td>
-          <td>즐찾</td>
-        </tr>
-        <tr>
-          <td>1100</td>
-          <td>고양시</td>
-          <td>즐찾</td>
-        </tr>
-        <tr>
-          <td>1100</td>
-          <td>남양주시</td>
-          <td>즐찾</td>
-        </tr>
+         </tr>
         </tbody>
     </Table>
         </>
