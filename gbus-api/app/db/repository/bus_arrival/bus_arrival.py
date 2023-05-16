@@ -5,7 +5,12 @@ import requests
 import xml.etree.ElementTree as ET
 import xmljson as xmljson
 
-from app.models.domain.bus_arrival import BusArrivalDto, BusLocationDto
+from app.models.domain.bus_arrival import (
+    BusArrivalDto,
+    BusLocationDto,
+    BusArrivalResponseDto,
+    BusLocationResponseDto,
+)
 
 
 class BusArrivalRepository:
@@ -19,7 +24,7 @@ class BusArrivalRepository:
 
     def get_bus_arrival_list(
         self, service_key, station_id, route_id=None, sta_order=None
-    ):
+    ) -> BusArrivalResponseDto:
         url = "http://apis.data.go.kr/6410000/busarrivalservice/getBusArrivalList"
         params = {
             "serviceKey": service_key,
@@ -60,7 +65,7 @@ class BusArrivalRepository:
             )
         return result
 
-    def get_bus_location(self, bus_id: str):
+    def get_bus_location(self, bus_id: str) -> BusLocationResponseDto:
         url = "http://openapi.gbis.go.kr/ws/rest/buslocationservice"
         params = {"serviceKey": "1234567890", "routeId": bus_id}
 
@@ -73,16 +78,16 @@ class BusArrivalRepository:
         json_data = xmljson.parker.data(xml_element)
 
         result = []
-        for data in json_data["msgBody"]["busArrivalList"]:
+        for data in json_data["msgBody"]["busLocationList"]:
             if data is None:
                 continue
-            end_bus = data["end_bus"]
+            end_bus = data["endBus"]
             plateType = data["plateType"]
             remainSeatCnt = data["remainSeatCnt"]
             bus_id = data["routeId"]
-            bus_name = self.route_map[bus_id]
+            bus_name = self.route_map[str(bus_id)]
             station_id = data["stationId"]
-            station_name = data[station_id]
+            station_name = self.station_map[str(station_id)]
             stationSeq = data["stationSeq"]
             result.append(
                 BusLocationDto(
