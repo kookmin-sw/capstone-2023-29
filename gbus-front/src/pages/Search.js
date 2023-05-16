@@ -6,37 +6,28 @@ import Tab from 'react-bootstrap/Tab';
 import Tabs from 'react-bootstrap/Tabs';
 import BusNumList from "./BusNumList.js";
 import BusStopList from "./BusStopList.js";
+import Header from '../Header'; // Import the Header component
 
 function Search(){
        
     return(
         <>
-        <Navbar bg="light" variant="light">
-        <Container>
-          <Navbar.Brand href="/">자리있어?</Navbar.Brand>
-          <Nav className="me-auto">
-            <Nav.Link href="/businfo">BusInfo</Nav.Link>
-          </Nav>
-        </Container>
-      </Navbar>
+        <Header /> {/* Use the Header component here */}
        
-      <Tabs
-      defaultActiveKey="busNum"
-      id="fill-tab-example"
-      className="mb-3"
-      fill
-    >
-      <Tab eventKey="busNum" title="버스번호">
-      <BusNumList/>
-
-      </Tab>
-      <Tab eventKey="busStop" title="정류장" >
-      <BusStopList/>
-
-      </Tab>
-    </Tabs>
-
-    </>
+        <Tabs
+          defaultActiveKey="busNum"
+          id="fill-tab-example"
+          className="mb-3"
+          fill
+        >
+          <Tab eventKey="busNum" title="버스번호">
+            <BusNumList/>
+          </Tab>
+          <Tab eventKey="busStop" title="정류장" >
+            <BusStopList/>
+          </Tab>
+        </Tabs>
+        </>
     )
 }
 
