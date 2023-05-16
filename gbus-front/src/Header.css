@@ -1,0 +1,14 @@
+
+.nav-link.active {
+    color: #E2615B !important;
+}
+
+.navbar {
+    padding-top: 0px;
+    padding-bottom: 0px;
+}
+
+.head {
+    height: 58px;
+    background-color: #FFFFFF;
+}
