@@ -30,12 +30,13 @@ function App() {
             {/*header */}
             <Header token={token} setToken={setToken}/> {/* Replace your previous header with this line */}
             
-            <div>
+            <div style={{display: 'flex', flexDirection: 'column', margin: '0'}}>
               <Tabs
                 defaultActiveKey="bookMark"
                 id="fill-tab-example"
                 className="mb-3"
                 fill
+                style={{margin: '0', border: 'none'}}
               >
                 <Tab eventKey="bookMark" title="즐겨찾기">
                   <Bookmark />
@@ -46,7 +47,7 @@ function App() {
         }></Route>
 
         <Route path="/login" element={<Login />} />
-        <Route path="/search" element={<Search />} />
+        <Route path="/search" element={<Search token={token} setToken={setToken} />} />
         <Route path="/businfo" element={<BusInfo />} />
         <Route path="/signup" element={<Signup />} />
       </Routes>

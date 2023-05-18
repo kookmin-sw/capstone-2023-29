@@ -85,17 +85,19 @@ function BusNumList(){
         </InputGroup>
         </Form>
 
-        <Table >
-        <thead>
-          <tr>
-            <th>버스번호</th>
-            <th>방면 (종점)</th>
+        <Table style={{backgroundColor: '#FFFFFF', marginTop: '-16px'}}>
+        <thead style={{backgroundColor: '#E2615B'}}>
+          <tr style={{}}>
+            <th style={{color: '#FFFFFF', width:'40%'}}>버스번호</th>
+            <th style={{color: '#FFFFFF', width:'40%'}}>방면 (종점)</th>
+            <th><img src="/star_white.svg" alt='non_selected_stat' style={{maxWidth:'25px'}}></img></th>
           </tr>
         </thead>
-        <tbody>
+        <tbody style={{borderRadius: '25px', height:'100px'}}>
           {busNameListArr.map((busName, index) => (
             <tr key={index}>
-            <td onClick={()=>{
+            <td
+              onClick={()=>{
               setBusInfo(true)
               setBusName((busNameListArr[index]))
               setBusId((busIdListArr[index]))

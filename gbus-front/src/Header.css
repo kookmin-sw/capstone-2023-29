@@ -12,3 +12,10 @@
     height: 58px;
     background-color: #FFFFFF;
 }
+
+.head_btn {
+    padding-top: 12px;
+    margin-left: 10px;
+    display: flex;
+    justify-content: center;
+}

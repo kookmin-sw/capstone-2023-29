@@ -8,26 +8,28 @@ import BusNumList from "./BusNumList.js";
 import BusStopList from "./BusStopList.js";
 import Header from '../Header'; // Import the Header component
 
-function Search(){
+function Search({token, setToken}){
 
-  const [token, setToken] = useState(localStorage.getItem('token'));
     return(
         <>
         <Header token={token} setToken={setToken}/> {/* Use the Header component here */}
-       
-        <Tabs
-          defaultActiveKey="busNum"
-          id="fill-tab-example"
-          className="mb-3"
-          fill
-        >
-          <Tab eventKey="busNum" title="버스번호">
-            <BusNumList/>
-          </Tab>
-          <Tab eventKey="busStop" title="정류장" >
-            <BusStopList/>
-          </Tab>
-        </Tabs>
+        <div style={{backgroundColor: '#ECECEC'}}>
+          <Tabs
+            defaultActiveKey="busNum"
+            id="fill-tab-example"
+            className="mb-3"
+            fill
+          >
+            <Tab eventKey="busNum" title="버스번호" style={{backgroundColor: '#FFFFFF', borderRadius:'12px', marginTop:'-16px'}}>
+              <div style={{backgroundColor: '#ECECEC'}}>
+              <BusNumList/>
+              </div>
+            </Tab>
+            <Tab eventKey="busStop" title="정류장" style={{backgroundColor: '#FFFFFF', borderRadius:'12px', marginTop:'-16px'}}>
+              <BusStopList/>
+            </Tab>
+          </Tabs>
+        </div>
         </>
     )
 }

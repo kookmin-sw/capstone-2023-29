@@ -190,3 +190,9 @@ form {
 .btn-close::before {
   content: 'X'
 }
+
+
+.nav-tabs .nav-link {
+    margin: 0;
+    border: none;
+}

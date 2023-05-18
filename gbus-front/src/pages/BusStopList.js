@@ -92,14 +92,15 @@ function BusStopList(){
              />
              </InputGroup>
              </Form>
-             <Table >
-           <thead>
+             <Table style={{backgroundColor: '#FFFFFF', marginTop: '-16px'}}>
+           <thead style={{backgroundColor: '#E2615B'}}>
              <tr>
-               <th>정류장</th>
-               <th>방면</th>
+               <th style={{color: '#FFFFFF', width: '40%'}}>정류장</th>
+               <th style={{color: '#FFFFFF', width: '40%'}}>방면</th>
+               <th><img src="/star_white.svg" alt='non_selected_stat' style={{maxWidth:'25px'}}></img></th>
              </tr>
            </thead>
-           <tbody>
+           <tbody style={{borderRadius: '25px', height:'100px'}}>
                {busStopNameArr.map((busStopName, index) => (
                  <tr key={index}>
                  <td onClick={()=>{
