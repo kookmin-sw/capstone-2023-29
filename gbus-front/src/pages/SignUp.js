@@ -86,7 +86,9 @@ function SignUp(props) {
                 <div style={{
                     width: '90%', marginBottom: '40px'
                 }}>
-                    <button className='buttom_button' >BACK</button>
+                    <button 
+                    className='buttom_button'
+                    onClick={(navigateToLogin)} >BACK</button>
                 </div>
 
 

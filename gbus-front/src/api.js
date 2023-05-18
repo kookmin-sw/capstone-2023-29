@@ -82,7 +82,7 @@ export async function getBusListByBusStop(station_name) {
 
 export async function getBusStopByBusId(bus_id) {
   try {
-    const response = await fetch(`${API_BASE_URL}/v1/bus/bus_stop/${bus_id}`);
+    const response = await fetch(`${API_BASE_URL}/v1/bus/bus_stop_id/${bus_id}`);
     const data = await response.json();
     if (response.ok) {
       return data;

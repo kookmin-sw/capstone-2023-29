@@ -84,7 +84,9 @@ function Login() {
                 <div style={{
                     display: 'flex', justifyContent: 'space-between', paddingBottom: '40px', width: '80%'
                 }}>
-                    <button className='buttom_button'>
+                    <button 
+                    className='buttom_button'
+                    onClick={(navigateToLogin)}>
                         START
                     </button>
                     <button className='buttom_button' onClick={(navigateToSignup)}>

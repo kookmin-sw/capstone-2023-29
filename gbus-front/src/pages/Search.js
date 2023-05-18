@@ -1,4 +1,4 @@
-import {React} from "react";
+import {React, useState} from "react";
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
@@ -9,10 +9,11 @@ import BusStopList from "./BusStopList.js";
 import Header from '../Header'; // Import the Header component
 
 function Search(){
-       
+
+  const [token, setToken] = useState(localStorage.getItem('token'));
     return(
         <>
-        <Header /> {/* Use the Header component here */}
+        <Header token={token} setToken={setToken}/> {/* Use the Header component here */}
        
         <Tabs
           defaultActiveKey="busNum"

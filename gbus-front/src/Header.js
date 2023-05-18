@@ -1,5 +1,5 @@
 // Header.js
-import React from 'react';
+import React, {useEffect} from 'react';
 import { Container, Nav, Navbar } from 'react-bootstrap/';
 import { useLocation } from 'react-router-dom';
 import './Header.css'
@@ -7,6 +7,13 @@ import './Header.css'
 function Header({ token, setToken }) {
 
     const location = useLocation();
+
+    useEffect(() => {
+      const storedToken = localStorage.getItem('token');
+      if (storedToken) {
+        setToken(storedToken);
+      }
+    }, [setToken]);
 
   return (
     <Navbar bg="light" variant="light">
