@@ -26,6 +26,7 @@ function BusStopList(){
     let [busStopInfo, setBusStopInfo] = useState(false)
     const [detail, setDetail] = useState(false)
     const [selected, setSelected] = useState(-1)
+    const [arrayNull, setArrayNull] = useState(false)
 
     
     function handleSubmit(e){
@@ -41,6 +42,9 @@ function BusStopList(){
 
     async function handleGetBusListbyName() {
       try {
+        setBusStopArr([]);
+        setBusStopNameArr([]);
+        setArrayNull(false);
         const data = await getStationListByName(inputValue);
         setBusStopData(data);
         const busStopListArr =JSON.parse(JSON.stringify(data));
@@ -50,12 +54,16 @@ function BusStopList(){
         setBusStopWayArr(busStopListArr.map(station => station.next_stop))
       } catch (error) {
         console.error('Error fetching bus stop data:', error.message);
+        setArrayNull(true);
       }
     }
 
 
     async function handleGetBusArrivalListByStationId() {
       try {
+        setBusStopArr([]);
+        setBusStopNameArr([]);
+        setArrayNull(false);
         const data = await getBusArrivalList(stationId);
         setBusListData(data);
         const busListArr = JSON.parse(JSON.stringify(data))
@@ -67,6 +75,7 @@ function BusStopList(){
         setRemainSeat2Arr(busListArr.map(seat2 => seat2.remainSeatCnt2))
       } catch (error) {
         console.error('Error fetching bus data:', error.message);
+        setArrayNull(true);
       }
     }
 
@@ -92,29 +101,42 @@ function BusStopList(){
              />
              </InputGroup>
              </Form>
+             
              <Table style={{backgroundColor: '#FFFFFF', marginTop: '-16px'}}>
-           <thead style={{backgroundColor: '#E2615B'}}>
-             <tr>
-               <th style={{color: '#FFFFFF', width: '40%'}}>정류장</th>
-               <th style={{color: '#FFFFFF', width: '40%'}}>방면</th>
-               <th><img src="/star_white.svg" alt='non_selected_stat' style={{maxWidth:'25px'}}></img></th>
-             </tr>
-           </thead>
-           <tbody style={{borderRadius: '25px', height:'100px'}}>
-               {busStopNameArr.map((busStopName, index) => (
-                 <tr key={index}>
-                 <td onClick={()=>{
-                  setBusStopInfo(true)
-                  setBusStopName(busStopNameArr[index])
-                  setStationId(busStopIdArr[index])
-                  handleGetBusArrivalListByStationId();
-                  console.log(stationId)
-                  }}>{busStopName}</td>
-                 <td>{busStopWayArr[index]}</td>
-             </tr>
-             ))}
-           </tbody>
-         </Table>
+              <thead style={{backgroundColor: '#E2615B'}}>
+                <tr>
+                  <th style={{color: '#FFFFFF', width: '40%'}}>정류장</th>
+                  <th style={{color: '#FFFFFF', width: '40%'}}>방면</th>
+                  <th><img src="/star_white.svg" alt='non_selected_stat' style={{maxWidth:'25px'}}></img></th>
+                </tr>
+              </thead>
+              <tbody style={{borderRadius: '25px', height:'100px'}}>
+                  {busStopNameArr.length > 0 ? (
+                    busStopNameArr.map((busStopName, index) => (
+                      <tr key={index}>
+                        <td onClick={()=>{
+                          setBusStopInfo(true)
+                          setBusStopName(busStopNameArr[index])
+                          setStationId(busStopIdArr[index])
+                          handleGetBusArrivalListByStationId();
+                          console.log(stationId)
+                          }}>{busStopName}</td>
+                        <td>{busStopWayArr[index]}</td>
+                    </tr>
+                    ))
+                  ) : (
+                    arrayNull && (
+                      <tr>
+                        <td colSpan="3">
+                          검색 결과가 없습니다.
+                          {/* 이 위치에 원하는 이미지를 추가하세요. 예: */}
+                          {/* <img src="/path/to/your/image.png" alt="No results" /> */}
+                        </td>
+                      </tr>
+                    )
+                  )}
+              </tbody>
+            </Table>
              </>
 
       ):(
