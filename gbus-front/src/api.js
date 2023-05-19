@@ -1,7 +1,7 @@
 import queryString from 'query-string';
 import { useState } from 'react';
 
-const API_BASE_URL = 'http://localhost:5001';
+const API_BASE_URL = 'http://220.117.11.63:5001';
 
 
 export async function getBusByName(busName) {
