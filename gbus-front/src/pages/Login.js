@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { postLogin } from '../api';
 import { useNavigate} from 'react-router-dom'
+import './login.css';
 
 function Login() {
     const [username, setUsername] = useState("");
@@ -52,23 +53,47 @@ function Login() {
     return (
         <div style={{ 
             display: 'flex', justifyContent: 'center', alignItems: 'center', 
-            width: '100%', height: '100vh'
+            width: '100%', height: '100vh', backgroundColor: '#E2615B'
             }}>
-            <form style={{ display: 'flex', flexDirection: 'column'}}
+            <form style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'space-between', height: '100%'}}
                 onSubmit={onSubmitHandler}
             >
-                <h1>자리있어?</h1>
-                <label>ID</label>
-                <input  value={username} onChange={onUsernameHandler}/>
-                <label>Password</label>
-                <input type='password' value={password} onChange={onPasswordHandler}/>
-                <br />
-                <button onClick={(handlePostLogin)}>
-                    Login
-                </button>
-                <button onClick={(navigateToSignup)}>
-                    sign up
-                </button>
+                <div style={{
+                    justifyItems: 'center', justifyContent: 'center', alignItems: 'center', paddingTop: '140px'
+                    }}>
+
+                    <img src='/logo1.svg' alt='logo' style={{
+                        width: '105px', height: '55px', justifyContent: 'center', alignItems:'center'
+                    }}/>
+
+                </div>
+                
+                <div style={{
+                    display: 'flex', flexDirection: 'column', alignItems: 'center', paddingBottom: '100px'
+                }}>
+                    <input className='user_id_input' placeholder='ID' value={username} onChange={onUsernameHandler}/>
+                    
+                    <input className='user_id_input' placeholder='PASSWORD' type='password' value={password} onChange={onPasswordHandler}/>
+                    <br />
+                    <button className='login_button' onClick={(handlePostLogin)}>
+                        LOGIN
+                    </button>
+                </div>
+
+
+                <div style={{
+                    display: 'flex', justifyContent: 'space-between', paddingBottom: '40px', width: '80%'
+                }}>
+                    <button 
+                    className='buttom_button'
+                    onClick={(navigateToLogin)}>
+                        START
+                    </button>
+                    <button className='buttom_button' onClick={(navigateToSignup)}>
+                        SIGN UP
+                    </button>
+
+                </div>  
                 
             </form>
         </div>

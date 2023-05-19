@@ -1,0 +1,54 @@
+.user_id_input {
+    width: 296px;
+    height: 39px;
+    left: 47px;
+    top: 359px;
+    margin-bottom: 15px;
+    color: #000000;
+    padding-left: 6px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+
+    background: #FFFFFF;
+    border-width: 0ch;
+    border-radius: 7px;
+}
+
+.user_id_input::placeholder {
+    color: #CDCDCD;
+}
+
+.login_button {
+    width: 216px;
+    height: 58px;
+    left: 87px;
+    top: 512px;
+
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 28px;
+    line-height: 34px;
+    color: #E2615B;
+    padding-top: 12px;
+    padding-bottom: 12px;
+
+    background: #FFFFFF;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 39px;
+    border : none;
+}
+
+.buttom_button {
+    left: 40px;
+
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 20px;
+    line-height: 24px;
+
+    color: #FFFFFF;
+    background-color: #E2615B;
+    border : none
+}

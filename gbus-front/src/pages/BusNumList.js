@@ -3,8 +3,6 @@ import Form from 'react-bootstrap/Form';
 import InputGroup from 'react-bootstrap/InputGroup';
 import Table from 'react-bootstrap/Table';
 import { getBusListByName, getBusStopByBusId } from '../api.js';
-import { useDispatch, useSelector } from "react-redux";
-import { addBusNumRS} from "../Store.js";
 
 function BusNumList(){
 
@@ -14,21 +12,20 @@ function BusNumList(){
     const [busNameListArr, setBusNameListArr] = useState([])
     const [busIdListArr, setBusIdListArr] =useState([])
     const [busStopListData,setBusStopListData] = useState(null)
+    const [busStationArr, setBusStationArr] = useState(null)
     const [busStopListArr, setBusStopListArr] =useState([])
     const [busId, setBusId] =useState(null)
     const [busName, setBusName] = useState(null)
+    const [arrayNull, setArrayNull] = useState(false)
     let [busInfo, setBusInfo] =useState(false)
     let [detail, setDetail] = useState(false)
     let [selected, setSelected] = useState(-1);
 
-    const dispatch = useDispatch()
-    const state = useSelector((state)=>state)
-
     useEffect(() => {
-      if (busStopListData !== null) {
+      if (busId) {
         handleGetBusStopByBusId();
       }
-    }, [busStopListData]);
+    }, [busId]);
 
     function handleSubmit(e){
         e.preventDefault();
@@ -40,32 +37,37 @@ function BusNumList(){
         setInputValue(e.target.value)
     }
 
-    function addRS(num){
-      dispatch(addBusNumRS(num))
-      console.log(state.busNumRS)
-    }
 
     async function handleGetBusListbyName() {
         try {
+          setBusNameListArr([]);
+          setBusStationArr([]);
+          setArrayNull(false);
           const data = await getBusListByName(inputValue);
           setBusListData(data);
-          const busListArr =JSON.parse(JSON.stringify(data));
+          const busListArr = JSON.parse(JSON.stringify(data));
           setBusListArr(busListArr)
           setBusNameListArr(busListArr.map(bus => bus.bus_name))
-          setBusIdListArr(busListArr.map(bus => bus.station_name))
+          setBusIdListArr(busListArr.map(bus => bus.bus_id))
+          setBusStationArr(busListArr.map(bus => bus.station_name))
         } catch (error) {
           console.error('Error fetching bus stop data:', error.message);
+          setArrayNull(true);
         }
       }
 
       async function handleGetBusStopByBusId() {
         try {
+          setBusNameListArr([]);
+          setBusStationArr([]);
+          setArrayNull(false);
           const data = await getBusStopByBusId(busId);
           setBusStopListData(data);
           const busStopListArr = JSON.parse(JSON.stringify(data));
           setBusStopListArr(busStopListArr)
         } catch (error) {
           console.error('Error fetching bus stop data:', error.message);
+          setArrayNull(true);
         }
       }
 
@@ -92,28 +94,43 @@ function BusNumList(){
         </InputGroup>
         </Form>
 
-        <Table >
-        <thead>
-          <tr>
-            <th>버스번호</th>
-            <th>방면 (종점)</th>
-          </tr>
-        </thead>
-        <tbody>
-          {busNameListArr.map((busName, index) => (
-            <tr key={index}>
-            <td onClick={()=>{
-              setBusInfo(true)
-              setBusName((busNameListArr[index]))
-              setBusId((busIdListArr[index]))
-              addRS(busNameListArr[index])
-              handleGetBusStopByBusId();
-              }}>{busName}</td>
-            <td>{busIdListArr[index]}</td>
+        <Table style={{backgroundColor: '#FFFFFF', marginTop: '-16px'}}>
+  <thead style={{backgroundColor: '#E2615B'}}>
+    <tr style={{}}>
+      <th style={{color: '#FFFFFF', width:'40%'}}>버스번호</th>
+      <th style={{color: '#FFFFFF', width:'40%'}}>방면 (종점)</th>
+      <th><img src="/star_white.svg" alt='non_selected_stat' style={{maxWidth:'25px'}}></img></th>
+    </tr>
+  </thead>
+  <tbody style={{borderRadius: '25px', height:'100px'}}>
+    {busNameListArr.length > 0 ? (
+      busNameListArr.map((busName, index) => (
+        <tr key={index}>
+          <td
+            onClick={()=>{
+            setBusInfo(true)
+            setBusName((busNameListArr[index]))
+            setBusId((busIdListArr[index]))
+            console.log(busId)
+            handleGetBusStopByBusId();
+            }}>{busName}</td>
+          <td>{busStationArr[index]}</td>
+      </tr>
+      ))
+    ) : (
+      arrayNull && (
+        <tr>
+          <td colSpan="3">
+            검색 결과가 없습니다.
+            {/* 이 위치에 원하는 이미지를 추가하세요. 예: */}
+            {/* <img src="/path/to/your/image.png" alt="No results" /> */}
+          </td>
         </tr>
-        ))}
-      </tbody>
-      </Table>
+      )
+    )}
+  </tbody>
+</Table>
+
 
         </>
       ):(

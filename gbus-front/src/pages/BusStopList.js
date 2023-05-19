@@ -15,6 +15,7 @@ function BusStopList(){
     const [busListData, setBusListData] = useState(null)
     const [busListArr, setBusListArr] = useState([])
     const [busStopId, setBusStopId] =useState(null)
+    const [busStopIdArr,setBusStopIdArr] = useState(null)
     const [busIdArr, setBusIdArr] = useState(null)
     const [predictTime1Arr, setPredictTime1Arr] = useState(null)
     const [predictTime2Arr, setPredictTime2Arr] = useState(null)
@@ -25,6 +26,7 @@ function BusStopList(){
     let [busStopInfo, setBusStopInfo] = useState(false)
     const [detail, setDetail] = useState(false)
     const [selected, setSelected] = useState(-1)
+    const [arrayNull, setArrayNull] = useState(false)
 
     
     function handleSubmit(e){
@@ -40,33 +42,40 @@ function BusStopList(){
 
     async function handleGetBusListbyName() {
       try {
+        setBusStopArr([]);
+        setBusStopNameArr([]);
+        setArrayNull(false);
         const data = await getStationListByName(inputValue);
         setBusStopData(data);
         const busStopListArr =JSON.parse(JSON.stringify(data));
         setBusStopArr(busStopListArr)
         setBusStopNameArr(busStopListArr.map(station => station.station_name))
+        setBusStopIdArr(busStopListArr.map(station => station.station_id))
         setBusStopWayArr(busStopListArr.map(station => station.next_stop))
       } catch (error) {
         console.error('Error fetching bus stop data:', error.message);
+        setArrayNull(true);
       }
     }
 
 
     async function handleGetBusArrivalListByStationId() {
       try {
-        console.log(stationId)
+        setBusStopArr([]);
+        setBusStopNameArr([]);
+        setArrayNull(false);
         const data = await getBusArrivalList(stationId);
         setBusListData(data);
         const busListArr = JSON.parse(JSON.stringify(data))
         setBusListArr(busListArr)
-        setBusIdArr(busListArr.map(bus => bus.route_id))
+        setBusIdArr(busListArr.map(bus => bus.bus_name))
         setPredictTime1Arr(busListArr.map(predict1 => predict1.predictTime1))
         setPredictTime2Arr(busListArr.map(predict2 => predict2.predictTime2))
         setRemainSeat1Arr(busListArr.map(seat1 => seat1.remainSeatCnt1))
         setRemainSeat2Arr(busListArr.map(seat2 => seat2.remainSeatCnt2))
-        console.log(busListArr)
       } catch (error) {
         console.error('Error fetching bus data:', error.message);
+        setArrayNull(true);
       }
     }
 
@@ -92,28 +101,42 @@ function BusStopList(){
              />
              </InputGroup>
              </Form>
-             <Table >
-           <thead>
-             <tr>
-               <th>정류장</th>
-               <th>방면</th>
-             </tr>
-           </thead>
-           <tbody>
-               {busStopNameArr.map((busStopName, index) => (
-                 <tr key={index}>
-                 <td onClick={()=>{
-                  setBusStopInfo(true)
-                  setBusStopName(busStopNameArr[index])
-                  setStationId(busStopWayArr[index])
-                  handleGetBusArrivalListByStationId();
-                  console.log(stationId)
-                  }}>{busStopName}</td>
-                 <td>{busStopWayArr[index]}</td>
-             </tr>
-             ))}
-           </tbody>
-         </Table>
+             
+             <Table style={{backgroundColor: '#FFFFFF', marginTop: '-16px'}}>
+              <thead style={{backgroundColor: '#E2615B'}}>
+                <tr>
+                  <th style={{color: '#FFFFFF', width: '40%'}}>정류장</th>
+                  <th style={{color: '#FFFFFF', width: '40%'}}>방면</th>
+                  <th><img src="/star_white.svg" alt='non_selected_stat' style={{maxWidth:'25px'}}></img></th>
+                </tr>
+              </thead>
+              <tbody style={{borderRadius: '25px', height:'100px'}}>
+                  {busStopNameArr.length > 0 ? (
+                    busStopNameArr.map((busStopName, index) => (
+                      <tr key={index}>
+                        <td onClick={()=>{
+                          setBusStopInfo(true)
+                          setBusStopName(busStopNameArr[index])
+                          setStationId(busStopIdArr[index])
+                          handleGetBusArrivalListByStationId();
+                          console.log(stationId)
+                          }}>{busStopName}</td>
+                        <td>{busStopWayArr[index]}</td>
+                    </tr>
+                    ))
+                  ) : (
+                    arrayNull && (
+                      <tr>
+                        <td colSpan="3">
+                          검색 결과가 없습니다.
+                          {/* 이 위치에 원하는 이미지를 추가하세요. 예: */}
+                          {/* <img src="/path/to/your/image.png" alt="No results" /> */}
+                        </td>
+                      </tr>
+                    )
+                  )}
+              </tbody>
+            </Table>
              </>
 
       ):(
@@ -133,7 +156,7 @@ function BusStopList(){
             {busIdArr && busIdArr.map((busId, index) => (
               <tr key={index}>
                 <td>{busId}</td>
-                <td>{predictTime1Arr[index]}, {predictTime2Arr[index]}</td>
+                <td>{predictTime1Arr[index]}, {predictTime2Arr[index] && predictTime2Arr[index]}</td>
                 <td>{remainSeat1Arr[index]}, {remainSeat2Arr[index]}</td>
               </tr>
             ))} 

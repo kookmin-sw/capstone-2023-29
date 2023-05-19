@@ -4,15 +4,17 @@ import Table from 'react-bootstrap/Table';
 function Bookmark(){
     return(
         <>
-        <Table >
+        <Table style={{
+          backgroundColor: '#E2615B', color: '#FFFFFF', marginTop: '-16px'
+        }}>
       <thead>
         <tr>
-          <th>버스번호</th>
-          <th>정류장</th>
-          <th>즐겨찾기여부</th>
+          <th style={{textAlign: 'center'}}>버스번호</th>
+          <th style={{textAlign: 'center'}}>정류장</th>
+          <th style={{textAlign: 'center'}}><img src='/star_white.svg' alt='star' style={{maxBlockSize: '25px'}} /></th>
         </tr>
       </thead>
-      <tbody>
+      <tbody style={{backgroundColor: '#ECECEC'}}>
         <tr>
          </tr>
         </tbody>

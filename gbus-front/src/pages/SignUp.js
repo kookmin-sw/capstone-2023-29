@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { postRegister } from '../api';
 import { useNavigate } from 'react-router-dom';
+import './login.css';
 
 function SignUp(props) {
 
@@ -55,24 +56,42 @@ function SignUp(props) {
     return (
         <div style={{ 
             display: 'flex', justifyContent: 'center', alignItems: 'center', 
-            width: '100%', height: '100vh'
+            width: '100%', height: '100vh', backgroundColor: '#E2615B'
             }}>
-            <form style={{ display: 'flex', flexDirection: 'column'}}
+            <form style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems:'center', height: '100%', justifyContent: 'space-between'}}
                 onSubmit={onSubmitHandler}
             >
-                <h1>자리있어?</h1>
-                <label>Email</label>
-                <input type='email' value={email} onChange={onEmailHandler}/>
-                <label>ID</label>
-                <input value={username} onChange={onNameHandler}/>
-                <label>Password</label>
-                <input type='password' value={password} onChange={onPasswordHandler}/>
-                <label>Confirm Password</label>
-                <input type='password' value={ConfirmPassword} onChange={onConfirmPasswordHandler}/>
-                <br />
-                <button onClick={(handlePostRegister)}>
-                    회원가입
-                </button>
+                <div style={{
+                    justifyItems: 'center', justifyContent: 'center', alignItems: 'center', paddingTop: '140px'
+                    }}>
+
+                    <img src='/logo1.svg' alt='logo' style={{
+                        width: '105px', height: '55px', justifyContent: 'center', alignItems:'center'
+                    }}/>
+
+                </div>
+                
+                <div style={{
+                    display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems:'center'
+                }}>
+                    <input className='user_id_input' placeholder='EMAIL' type='email' value={email} onChange={onEmailHandler}/>
+                    <input className='user_id_input' placeholder='ID' value={username} onChange={onNameHandler}/>
+                    <input className='user_id_input' placeholder='PASSWORD' type='password' value={password} onChange={onPasswordHandler}/>
+                    <input className='user_id_input' placeholder='CONFIRM PASSWORD' type='password' value={ConfirmPassword} onChange={onConfirmPasswordHandler}/>
+                    <button className='login_button' onClick={(handlePostRegister)} style={{marginTop: '40px'}}>
+                        회원가입
+                    </button>
+                </div>
+
+                <div style={{
+                    width: '90%', marginBottom: '40px'
+                }}>
+                    <button 
+                    className='buttom_button'
+                    onClick={(navigateToLogin)} >BACK</button>
+                </div>
+
+
                 {access_token && <div>{JSON.stringify(access_token)}</div>}
             </form>
         </div>
