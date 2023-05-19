@@ -2,7 +2,7 @@ import React, { useState,useEffect } from "react";
 import Form from 'react-bootstrap/Form';
 import InputGroup from 'react-bootstrap/InputGroup';
 import Table from 'react-bootstrap/Table';
-import { getBusListByName, getBusStopByBusId } from '../api.js';
+import { getBusListByName, getBusStopByBusId, addFavoriteBus } from '../api.js';
 
 function BusNumList(){
 
@@ -17,9 +17,11 @@ function BusNumList(){
     const [busId, setBusId] =useState(null)
     const [busName, setBusName] = useState(null)
     const [arrayNull, setArrayNull] = useState(false)
+    const [token, setToken] = useState('')
     let [busInfo, setBusInfo] =useState(false)
     let [detail, setDetail] = useState(false)
     let [selected, setSelected] = useState(-1);
+    
 
     useEffect(() => {
       if (busId) {
@@ -70,6 +72,17 @@ function BusNumList(){
           setArrayNull(true);
         }
       }
+      async function handleAddFavoriteBus(bus_id) {
+        try {
+          console.log(bus_id)
+          setToken(localStorage.getItem('token'))
+          const data = await addFavoriteBus(localStorage.getItem("token"), bus_id);
+          console.log("add")
+          console.log(data)
+        } catch (error) {
+          console.error('Error fetching bus stop data:', error.message);
+        }
+      }
 
 
   
@@ -115,6 +128,11 @@ function BusNumList(){
             handleGetBusStopByBusId();
             }}>{busName}</td>
           <td>{busStationArr[index]}</td>
+          <td 
+          onClick={()=>{
+            setBusId((busIdListArr[index]))
+            handleAddFavoriteBus(busIdListArr[index]);
+          }}>즐찾</td>
       </tr>
       ))
     ) : (
