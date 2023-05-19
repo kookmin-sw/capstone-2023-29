@@ -1,24 +1,33 @@
-import {React, useState} from 'react';
-import Table from 'react-bootstrap/Table';
+import {React, useState} from "react";
+import Container from 'react-bootstrap/Container';
+import Nav from 'react-bootstrap/Nav';
+import Navbar from 'react-bootstrap/Navbar';
+import Tab from 'react-bootstrap/Tab';
+import Tabs from 'react-bootstrap/Tabs';
+import BusNumList from "./BusNumList.js";
+import BusStopList from "./BusStopList.js";
+import Header from '../Header'; // Import the Header component
+import BusNumFavList from './BusNumFavList.js'
+import BusStopFavList from "./BusStopFavList.js";
 
 function Bookmark(){
     return(
         <>
-        <Table style={{
-          backgroundColor: '#E2615B', color: '#FFFFFF', marginTop: '-16px'
-        }}>
-      <thead>
-        <tr>
-          <th style={{textAlign: 'center'}}>버스번호</th>
-          <th style={{textAlign: 'center'}}>정류장</th>
-          <th style={{textAlign: 'center'}}><img src='/star_white.svg' alt='star' style={{maxBlockSize: '25px'}} /></th>
-        </tr>
-      </thead>
-      <tbody style={{backgroundColor: '#ECECEC'}}>
-        <tr>
-         </tr>
-        </tbody>
-    </Table>
+        <Tabs
+            defaultActiveKey="busNum"
+            id="fill-tab-example"
+            className="mb-3"
+            fill
+          >
+            <Tab eventKey="busNum" title="버스번호" style={{backgroundColor: '#FFFFFF', borderRadius:'12px', marginTop:'-16px'}}>
+              <div style={{backgroundColor: '#ECECEC'}}>
+              <BusNumFavList/>
+              </div>
+            </Tab>
+            <Tab eventKey="busStop" title="정류장" style={{backgroundColor: '#FFFFFF', borderRadius:'12px', marginTop:'-16px'}}>
+              <BusStopFavList/>
+            </Tab>
+          </Tabs>
         </>
     )
 }

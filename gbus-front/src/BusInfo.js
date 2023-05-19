@@ -1,5 +1,5 @@
 import {React, useState} from 'react';
-import { getBusByName, getBusListByBusStop, getBusStopByName, getBusListByName, getStationListByName, getBusStopByBusId, getBusListByStationId, getBusArrivalList, postLogin, postRegister, fetchData } from './api.js';
+import { getBusByName, getBusListByBusStop, getBusStopByName, getBusListByName, getStationListByName, getBusStopByBusId, getBusListByStationId, getBusArrivalList, postLogin, postRegister, fetchData, getFavorites } from './api.js';
 
 
 
@@ -113,7 +113,7 @@ function BusInfo(){
 
   async function handleFetchData() {
     try {
-      const data = await fetchData(localStorage.getItem('token'));
+      const data = await getFavorites(localStorage.getItem('token'));
       console.log(data)
     } catch (error) {
       console.error('Error fetching bus stop data:', error.message);

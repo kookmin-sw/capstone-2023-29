@@ -2,7 +2,7 @@ import React, { useState} from "react";
 import Form from 'react-bootstrap/Form';
 import InputGroup from 'react-bootstrap/InputGroup';
 import Table from 'react-bootstrap/Table';
-import { getStationListByName, getBusArrivalList } from '../api.js';
+import { getStationListByName, getBusArrivalList, addFavoriteStation } from '../api.js';
 
 
 function BusStopList(){
@@ -27,6 +27,7 @@ function BusStopList(){
     const [detail, setDetail] = useState(false)
     const [selected, setSelected] = useState(-1)
     const [arrayNull, setArrayNull] = useState(false)
+    const [token, setToken] = useState(null)
 
     
     function handleSubmit(e){
@@ -79,6 +80,18 @@ function BusStopList(){
       }
     }
 
+    async function handleAddFavoriteStation(bus_id) {
+      try {
+        console.log(bus_id)
+        setToken(localStorage.getItem('token'))
+        const data = await addFavoriteStation(localStorage.getItem("token"), bus_id);
+        console.log("add")
+        console.log(data)
+      } catch (error) {
+        console.error('Error fetching bus stop data:', error.message);
+      }
+    }
+
 
 
 
@@ -122,6 +135,10 @@ function BusStopList(){
                           console.log(stationId)
                           }}>{busStopName}</td>
                         <td>{busStopWayArr[index]}</td>
+                        <td onClick={()=>{
+                          setStationId((busStopIdArr[index]))
+                          handleAddFavoriteStation(busStopIdArr[index])
+                        }}>즐찾</td>
                     </tr>
                     ))
                   ) : (

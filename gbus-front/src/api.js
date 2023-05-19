@@ -175,33 +175,8 @@ export async function postRegister(username, email, password) {
   }
 }
 
-export async function requestFavorite(username, password) {
-  try {
-    console.log(username, password);
-    const response = await fetch(`${API_BASE_URL}/v1/favorites`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        username: username,
-        password: password
-      })
-    });
-    const data = await response.json();
-    if (response.ok) {
-      return data;
-    } else {
-      throw new Error(data.message || 'An error occurred while fetching the bus data.');
-    }
-  } catch (error) {
-    console.error('Error fetching bus data:', error.message);
-    throw error;
-  }
-}
 
-
-export async function fetchData(access_token){
+export async function getFavorites(access_token){
   try {
     console.log(access_token);
     const response = await fetch(`${API_BASE_URL}/v1/favorites`, {
@@ -210,6 +185,105 @@ export async function fetchData(access_token){
         'Authorization': `Bearer ${access_token}`,
         'Content-Type': 'application/json'
       }
+    });
+    if (response.ok) {
+      const result = await response.json();
+      console.log(result) 
+    } else {
+      console.log('Error:', response.statusText);
+    }
+  } catch (error) {
+    console.log('Error:', error.message);
+  }
+};
+export async function addFavoriteBus(access_token, bus_id){
+  try {
+    console.log(access_token, bus_id);
+    const response = await fetch(`${API_BASE_URL}/v1/favorite/bus`, {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${access_token}`,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+          bus_id : bus_id
+        })
+    });
+    if (response.ok) {
+      const result = await response.json();
+      console.log(result) 
+      return result
+    } else {
+      console.log('Error:', response.statusText);
+    }
+  } catch (error) {
+    console.log('Error:', error.message);
+  }
+};
+
+
+export async function addFavoriteStation(access_token, station_id){
+  try {
+    console.log(access_token);
+    const response = await fetch(`${API_BASE_URL}/v1/favorite/station`, {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${access_token}`,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+          station_id : station_id
+        })
+    });
+    if (response.ok) {
+      const result = await response.json();
+      console.log(result) 
+    } else {
+      console.log('Error:', response.statusText);
+    }
+  } catch (error) {
+    console.log('Error:', error.message);
+  }
+};
+
+
+export async function deleteFavoriteBus(access_token, bus_id){
+  try {
+    console.log(access_token);
+    const response = await fetch(`${API_BASE_URL}/v1/favorite/bus`, {
+      method: 'DELETE',
+      headers: {
+        'Authorization': `Bearer ${access_token}`,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+          bus_id : bus_id
+        })
+    });
+    if (response.ok) {
+      const result = await response.json();
+      console.log(result) 
+    } else {
+      console.log('Error:', response.statusText);
+    }
+  } catch (error) {
+    console.log('Error:', error.message);
+  }
+};
+
+
+export async function deleteFavoriteStation(access_token, station_id){
+  try {
+    console.log(access_token);
+    const response = await fetch(`${API_BASE_URL}/v1/favorite/bus`, {
+      method: 'DELETE',
+      headers: {
+        'Authorization': `Bearer ${access_token}`,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+          station_id : station_id
+        })
     });
     if (response.ok) {
       const result = await response.json();
