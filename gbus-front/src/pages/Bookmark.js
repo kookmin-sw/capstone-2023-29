@@ -19,12 +19,12 @@ function Bookmark(){
             className="mb-3"
             fill
           >
-            <Tab eventKey="busNum" title="버스번호" style={{backgroundColor: '#FFFFFF', borderRadius:'12px', marginTop:'-16px'}}>
+            <Tab eventKey="busNum" title="버스번호" style={{backgroundColor: '#ECECEC', borderRadius:'12px', marginTop:'-16px'}}>
               <div style={{backgroundColor: '#ECECEC'}}>
               <BusNumFavList/>
               </div>
             </Tab>
-            <Tab eventKey="busStop" title="정류장" style={{backgroundColor: '#FFFFFF', borderRadius:'12px', marginTop:'-16px'}}>
+            <Tab eventKey="busStop" title="정류장" style={{backgroundColor: '#ECECEC', borderRadius:'12px', marginTop:'-16px'}}>
               <BusStopFavList/>
             </Tab>
           </Tabs>
