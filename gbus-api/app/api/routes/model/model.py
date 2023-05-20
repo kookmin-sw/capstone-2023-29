@@ -1,17 +1,20 @@
-import requests
-from fastapi import APIRouter
+from fastapi import APIRouter, Depends
+
+from app.services.model import ModelService
 
 router = APIRouter()
 
 
-@router.post("/predict/{route_id}")
-def predict(route_id: str):
-    url = "http://127.0.0.1:3030"
-    route_id = "219000013"
+@router.post("/predict")
+def predict(route_id: str, model_service: ModelService = Depends(ModelService)):
+    result = model_service.get_bus_window_data(route_id=route_id)
+    predictions = {}
 
-    payload = {"route_id": route_id}
-    headers = {"Content-Type": "application/json"}
+    for plate_no, values in result.items():
+        plate_predictions = []
+        print(plate_no, values)
+        inference_result = model_service.inference(values)
+        plate_predictions.append(inference_result)
 
-    response = requests.post(url + "/v1/predict")
-    results = response.json()
-    return results
+        predictions[plate_no] = plate_predictions
+    return {"predictions": predictions}
