@@ -68,22 +68,24 @@ function BusNumFavList(){
       {!busInfo ?
       (
         <>
-        <Table style={{backgroundColor: '#FFFFFF', marginTop: '-16px'}}>
-  <thead style={{backgroundColor: '#E2615B'}}>
-    <tr style={{}}>
-      <th style={{color: '#FFFFFF', width:'40%'}}>버스번호</th>
-      <th style={{color: '#FFFFFF', width:'40%'}}>방면 (종점)</th>
-      <th><img src="/star_white.svg" alt='non_selected_stat' style={{maxWidth:'25px'}}></img></th>
-    </tr>
-    </thead>
-    <tbody style={{borderRadius: '25px', height:'100px'}}>
-    <tr>
-        <td>{busNameListArr[0]}</td>
-        <td></td>
-        <td>즐찾해제</td>
-    </tr>
-    </tbody>
-    </Table>
+        <Table style={{backgroundColor: '#FFFFFF', width: '100%', display: 'flex', flexDirection: 'column', justifyContent:'center'}}>
+          <thead style={{backgroundColor: '#E2615B', display: 'flex', flexDirection: 'row', width: '100%'}}>
+            <tr style={{backgroundColor: '#E2615B', display: 'flex', flexDirection: 'row', width: '100%'}}>
+              <th style={{color: '#FFFFFF', width:'30%', textAlign: 'center', height: '100%'}}>버스번호</th>
+              <th style={{color: '#FFFFFF', width:'40%', textAlign: 'center', height: '100%'}}>방면 (종점)</th>
+              <th><img src="/star_white.svg" alt='non_selected_stat' style={{maxWidth:'25px'}}></img></th>
+            </tr>
+          </thead>
+          
+          <div style={{width: '100%', marginTop: '20px', display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
+              {busListArr.map((bus, index) => (
+                  <div key={index} style={{ width: '90%', height: '15%', backgroundColor: '#ECECEC', borderRadius: '10px', padding: '10px', marginBottom: '10px' }}>
+                      <p>Bus Number: {bus.bus_id}</p>
+                      <p>Bus Name: {bus.bus_name}</p>
+                  </div>
+              ))}
+          </div>
+        </Table>
 
 
         </>

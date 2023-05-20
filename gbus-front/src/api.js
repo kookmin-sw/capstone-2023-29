@@ -1,7 +1,7 @@
 import queryString from 'query-string';
 import { useState } from 'react';
 
-const API_BASE_URL = 'http://220.117.11.63:5001';
+const API_BASE_URL = 'http://0.0.0.0:5001';
 
 
 export async function getBusByName(busName) {
@@ -189,6 +189,7 @@ export async function getFavorites(access_token){
     if (response.ok) {
       const result = await response.json();
       console.log(result) 
+      return result
     } else {
       console.log('Error:', response.statusText);
     }
@@ -295,3 +296,18 @@ export async function deleteFavoriteStation(access_token, station_id){
     console.log('Error:', error.message);
   }
 };
+
+export async function busLocationList(bus_id) {
+  try {
+    const response = await fetch(`${API_BASE_URL}/v1/bus_location_list?bus_id=${bus_id}`);
+    const data = await response.json();
+    if (response.ok) {
+      return data;
+    } else {
+      throw new Error(data.message || 'An error occurred while fetching the bus data.');
+    }
+  } catch (error) {
+    console.error('Error fetching bus location list:', error.message);
+    throw error;
+  }
+}

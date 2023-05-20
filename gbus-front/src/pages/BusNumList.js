@@ -2,7 +2,7 @@ import React, { useState,useEffect } from "react";
 import Form from 'react-bootstrap/Form';
 import InputGroup from 'react-bootstrap/InputGroup';
 import Table from 'react-bootstrap/Table';
-import { getBusListByName, getBusStopByBusId, addFavoriteBus } from '../api.js';
+import { getBusListByName, getBusStopByBusId, addFavoriteBus, busLocationList } from '../api.js';
 
 function BusNumList(){
 
@@ -18,6 +18,7 @@ function BusNumList(){
     const [busName, setBusName] = useState(null)
     const [arrayNull, setArrayNull] = useState(false)
     const [token, setToken] = useState('')
+    const [locationList, setLocationList] = useState([])
     let [busInfo, setBusInfo] =useState(false)
     let [detail, setDetail] = useState(false)
     let [selected, setSelected] = useState(-1);
@@ -84,6 +85,18 @@ function BusNumList(){
         }
       }
 
+      async function handleBusLocationList(bus_id) {
+        try {
+          setLocationList([]);
+          const data = await busLocationList(bus_id);
+          console.log({data})
+          const busLocationArr = JSON.parse(JSON.stringify(data));
+          setLocationList(data);
+        } catch (error) {
+          console.error('Error bus_location_list : ', error.message)
+        }
+      }
+
 
   
     return(
@@ -124,6 +137,7 @@ function BusNumList(){
             setBusInfo(true)
             setBusName((busNameListArr[index]))
             setBusId((busIdListArr[index]))
+            handleBusLocationList((busIdListArr[index]))
             console.log(busId)
             handleGetBusStopByBusId();
             }}>{busName}</td>
@@ -131,7 +145,7 @@ function BusNumList(){
           <td 
           onClick={()=>{
             setBusId((busIdListArr[index]))
-            handleAddFavoriteBus(busIdListArr[index]);
+            handleAddFavoriteBus(busIdListArr[index])
           }}>즐찾</td>
       </tr>
       ))
@@ -153,40 +167,34 @@ function BusNumList(){
         </>
       ):(
         <>
-        <span onClick={()=>{setBusInfo(false)}}>
-        <h2>{busName}</h2>
+        <span onClick={()=>{setBusInfo(false)}} style={{backgroundColor: '#FFFFFF'}}>
+        <h2 style={{backgroundColor: '#FFFFFF'}}>{busName}</h2>
         </span>
         {busStopListData && (
-          <Table>
-            <thead>
-              <tr>
-                <th>busStop</th>
-              </tr>
+          <Table style={{marginTop: '-7px'}}>
+            <thead style={{backgroundColor: '#FFFFFF'}}>
+              
             </thead>
-            <tbody>
-              {busStopListArr.map((busStop, index) => (
-                <tr key={index}>
-                  <td onClick={() => {
-                    setSelected(index)
-                    setDetail(true)
-                  }}>
-                    {busStop}{' '}
-                    {detail && index === selected && (
-                      <span>
-                        <br />
-                        <span onClick={() => { setDetail(false) }}>Additional Information:</span>
-                        <br />
-                        <ul>
-                          <li>Bus stop number: 1234</li>
-                          <li>Location: 5th Street</li>
-                          <li>Next bus arriving in: 10 minutes</li>
-                        </ul>
-                      </span>
-                    )}
+            <tbody style={{backgroundColor: '#FFFFFF'}}>
+                {busStopListArr.map((busStop, index) => (
+                  <tr key={index}>
+                    <td style={{width: '20%'}}>
+                      {locationList.find(bus => bus.station_name === busStop && bus.stationSeq === index+1) ?
+                      <img src="/bus_logo.svg" alt="Bus is here" /> : null}
+                    </td>
+                    <td onClick={() => {
+                      setSelected(index)
+                      setDetail(true)
+                      console.log(index)
+                      console.log(locationList)
+                      console.log(busStop)
+                    }}>
+                      {busStop}{' '}
+                    </td>
+                  </tr>
+                ))}
 
-                  </td>
-                </tr>
-              ))}
+            
             </tbody>
           </Table>
         )}
