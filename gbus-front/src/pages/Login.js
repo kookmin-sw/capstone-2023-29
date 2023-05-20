@@ -76,7 +76,7 @@ function Login() {
                     <input className='user_id_input' placeholder='PASSWORD' type='password' value={password} onChange={onPasswordHandler}/>
                     <br />
                     <button className='login_button' onClick={(handlePostLogin)}>
-                        LOGIN
+                        로그인
                     </button>
                 </div>
 
@@ -87,10 +87,10 @@ function Login() {
                     <button 
                     className='buttom_button'
                     onClick={(navigateToLogin)}>
-                        START
+                        일단 시작!
                     </button>
                     <button className='buttom_button' onClick={(navigateToSignup)}>
-                        SIGN UP
+                        회원가입
                     </button>
 
                 </div>  

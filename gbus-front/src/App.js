@@ -29,8 +29,8 @@ function App() {
           <>
             {/*header */}
             <Header token={token} setToken={setToken}/> {/* Replace your previous header with this line */}
-            
-            <div style={{display: 'flex', flexDirection: 'column', margin: '0'}}>
+    
+            <div style={{display: 'flex', flexDirection: 'column', margin: '0', backgroundColor: '#FFFFFF'}}>
               <Tabs
                 defaultActiveKey="bookMark"
                 id="fill-tab-example"
@@ -38,7 +38,7 @@ function App() {
                 fill
                 style={{margin: '0', border: 'none'}}
               >
-                <Tab eventKey="bookMark" title="즐겨찾기">
+                <Tab eventKey="bookMark" title="즐겨찾기" style={{marginTop:'-15px', backgroundColor: '#ECECEC'}}>
                   <Bookmark />
                 </Tab>
               </Tabs>
