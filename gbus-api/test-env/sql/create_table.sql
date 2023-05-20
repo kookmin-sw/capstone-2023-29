@@ -33,14 +33,16 @@ CREATE TABLE favorite_bus (
     id serial PRIMARY KEY,
     user_id INTEGER NOT NULL,
     bus_id VARCHAR NOT NULL,
-    bus_name VARCHAR NOT NULL
+    bus_name VARCHAR NOT NULL,
+    last_station VARCHAR NOT NULL
 );
 
 CREATE TABLE favorite_station (
     id serial PRIMARY KEY,
     user_id INTEGER NOT NULL,
     station_id VARCHAR NOT NULL,
-    station_name VARCHAR NOT NULL
+    station_name VARCHAR NOT NULL,
+    next_station VARCHAR NOT NULL
 );
 
 CREATE TABLE bus_data (

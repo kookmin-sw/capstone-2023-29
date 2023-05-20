@@ -6,10 +6,15 @@ import pandas as pd
 
 # LSTM Model architecture
 class LSTMModel(nn.Module):
-    def __init__(
-        self, input_size, hidden_size, num_layers, dropout, n_steps, output_size
-    ):
+    def __init__(self):
         super(LSTMModel, self).__init__()
+        self.window_size = 5
+        self.input_size = 6
+        self.hidden_size = 64
+        self.num_layers = 5
+        self.dropout = 0.1
+        self.n_steps = 4
+        output_size = 1
         self.hidden_size = hidden_size
         self.num_layers = num_layers
 
@@ -41,9 +46,10 @@ class LSTMModel(nn.Module):
         return out
 
     def inference(self, input_data):
+        print("input_data: ", input_data)
         input_data = (
             torch.tensor(input_data)
-            .reshape(1, window_size, input_size)
+            .reshape(1, self.window_size, self.input_size)
             .to(device)
             .float()
         )
@@ -64,10 +70,8 @@ n_steps = 4
 output_size = 1
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-model = LSTMModel(
-    input_size, hidden_size, num_layers, dropout, n_steps, output_size
-).to(device)
-model.load_state_dict(torch.load("219000013_mult_window.pth"))
+model = LSTMModel().to(device)
+model.load_state_dict(torch.load("app/api/routes/model/219000013_mult_window.pth"))
 model = model.to("cuda")
 
 input_data = [

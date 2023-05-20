@@ -48,7 +48,9 @@ def add_favorite_bus(
     service: FavoriteService = Depends(FavoriteService),
     user_info: UserResponse = Depends(get_user_info),
 ):
-    return service.add_favorite_bus(user_id=user_info.id, bus_id=form.bus_id)
+    return service.add_favorite_bus(
+        user_id=user_info.id, bus_id=form.bus_id, last_station=form.last_station
+    )
 
 
 @router.post("/favorite/station", response_model=FavoriteStationResponse)
@@ -58,7 +60,7 @@ def add_favorite_station(
     user_info: UserResponse = Depends(get_user_info),
 ):
     return service.add_favorite_station(
-        user_id=user_info.id, station_id=form.station_id
+        user_id=user_info.id, station_id=form.station_id, next_station=form.next_station
     )
 
 

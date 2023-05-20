@@ -11,6 +11,7 @@ class TblFavoriteBus(Base):
     user_id = Column(Integer, nullable=False)
     bus_id = Column(String, nullable=False)
     bus_name = Column(String, nullable=False)
+    last_station = Column(String, nullable=False)
 
 
 class TblFavoriteStation(Base):
@@ -20,3 +21,4 @@ class TblFavoriteStation(Base):
     user_id = Column(Integer, nullable=False)
     station_id = Column(String, nullable=False)
     station_name = Column(String, nullable=False)
+    next_station = Column(String, nullable=False)
