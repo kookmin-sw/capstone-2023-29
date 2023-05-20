@@ -49,17 +49,19 @@ class FavoriteService:
         ]
         return result
 
-    def add_favorite_bus(self, user_id: int, bus_id: str) -> FavoriteBusResponse:
+    def add_favorite_bus(
+        self, user_id: int, bus_id: str, last_station: str
+    ) -> FavoriteBusResponse:
         favorite_bus = self.favorite_repository.add_favorite_bus(
-            user_id=user_id, bus_id=bus_id
+            user_id=user_id, bus_id=bus_id, last_station=last_station
         )
         return FavoriteBusResponse.from_orm(favorite_bus)
 
     def add_favorite_station(
-        self, user_id: int, station_id: str
+        self, user_id: int, station_id: str, next_station: str
     ) -> FavoriteStationResponse:
         favorite_station = self.favorite_repository.add_favorite_station(
-            user_id=user_id, station_id=station_id
+            user_id=user_id, station_id=station_id, next_station=next_station
         )
         return FavoriteStationResponse.from_orm(favorite_station)
 
