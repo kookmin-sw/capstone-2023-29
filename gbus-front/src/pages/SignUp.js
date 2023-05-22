@@ -88,7 +88,7 @@ function SignUp(props) {
                 }}>
                     <button 
                     className='buttom_button'
-                    onClick={(navigateToLogin)} >BACK</button>
+                    onClick={(navigateToLogin)} >뒤로!</button>
                 </div>
 
 
