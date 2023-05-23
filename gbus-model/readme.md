@@ -19,3 +19,6 @@ class InputData() 함수에서 입력 인자의 형태를 수정해주세요.
 ### 3. Auto_training.py
 각 노선별 모델 학습을 자동화하기 위한 코드입니다.
 
+### 4. Data_Preprocessing.ipynb
+크롤링한 데이터를 가공해 모델에 넘길 feature을 추가해줍니다. 또한 각 노선별 모델 학습을 위해 데이터를 각 노선별로 나눠줍니다.
+
