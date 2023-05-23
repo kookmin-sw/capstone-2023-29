@@ -5,6 +5,9 @@ import requests
 import xml.etree.ElementTree as ET
 import xmljson as xmljson
 
+from fastapi import HTTPException
+from collections import OrderedDict
+
 from app.models.domain.bus_arrival import (
     BusArrivalDto,
     BusLocationDto,
@@ -43,46 +46,88 @@ class BusArrivalRepository:
         xml_element = ET.fromstring(xml_str)
         json_data = xmljson.parker.data(xml_element)
 
+        if json_data['msgHeader']['resultCode'] == 4:
+            return []
+
         result = []
-        for data in json_data["msgBody"]["busArrivalList"]:
+
+        if isinstance(json_data["msgBody"]["busArrivalList"], list):
+            # 데이터가 리스트인 경우
+            for data in json_data["msgBody"]["busArrivalList"]:
+                if data is None:
+                    continue
+
+                bus_id = data["routeId"]
+                bus_name = self.route_map.get(str(bus_id))
+                if bus_name is None:
+                    continue
+
+                predictTime1 = data["predictTime1"]
+                predictTime2 = data["predictTime2"]
+                remainSeatCnt1 = data["remainSeatCnt1"]
+                remainSeatCnt2 = data["remainSeatCnt2"]
+
+                result.append({
+                    "bus_id": bus_id,
+                    "bus_name": bus_name,
+                    "predictTime1": predictTime1,
+                    "predictTime2": predictTime2,
+                    "remainSeatCnt1": remainSeatCnt1,
+                    "remainSeatCnt2": remainSeatCnt2
+                })
+
+        elif isinstance(json_data["msgBody"]["busArrivalList"], OrderedDict):
+            # 데이터가 OrderedDict인 경우
+            data = json_data["msgBody"]["busArrivalList"]
             if data is None:
-                continue
+                return result
+
             bus_id = data["routeId"]
-            bus_name = self.route_map[str(bus_id)]
+            bus_name = self.route_map.get(str(bus_id))
+            if bus_name is None:
+                return result
+
             predictTime1 = data["predictTime1"]
             predictTime2 = data["predictTime2"]
             remainSeatCnt1 = data["remainSeatCnt1"]
             remainSeatCnt2 = data["remainSeatCnt2"]
-            result.append(
-                BusArrivalDto(
-                    bus_id=bus_id,
-                    bus_name=bus_name,
-                    predictTime1=predictTime1,
-                    predictTime2=predictTime2,
-                    remainSeatCnt1=remainSeatCnt1,
-                    remainSeatCnt2=remainSeatCnt2,
-                )
-            )
+
+            result.append({
+                "bus_id": bus_id,
+                "bus_name": bus_name,
+                "predictTime1": predictTime1,
+                "predictTime2": predictTime2,
+                "remainSeatCnt1": remainSeatCnt1,
+                "remainSeatCnt2": remainSeatCnt2
+            })
+
         return result
+
 
     def get_bus_location(self, bus_id: str) -> BusLocationResponseDto:
         url = "http://openapi.gbis.go.kr/ws/rest/buslocationservice"
         params = {"serviceKey": "1234567890", "routeId": bus_id}
 
         response = requests.get(url, params=params)
-
         xml_str = response.text
 
         # Convert the response from xml to json
         xml_element = ET.fromstring(xml_str)
         json_data = xmljson.parker.data(xml_element)
 
+        print(json_data)
         result = []
         for data in json_data["msgBody"]["busLocationList"]:
             if data is None:
                 continue
+
+            if isinstance(data, str):
+                print("continue")
+                continue
+
             end_bus = data["endBus"]
             plateType = data["plateType"]
+            plateNo = data["plateNo"]
             remainSeatCnt = data["remainSeatCnt"]
             bus_id = data["routeId"]
             bus_name = self.route_map[str(bus_id)]
@@ -93,6 +138,7 @@ class BusArrivalRepository:
                 BusLocationDto(
                     end_bus=end_bus,
                     plateType=plateType,
+                    plateNo=plateNo,
                     remainSeatCnt=remainSeatCnt,
                     bus_id=bus_id,
                     bus_name=bus_name,

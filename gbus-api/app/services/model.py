@@ -9,3 +9,6 @@ class ModelService:
 
     def get_bus_window_data(self, route_id: str):
         return self.model_repository.get_latest_buses_by_route_and_plate(route_id)
+
+    def get_station_data(self, route_id: str):
+        return self.model_repository.get_station_data(route_id)

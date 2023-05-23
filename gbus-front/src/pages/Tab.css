@@ -1,0 +1,10 @@
+/* App.css */
+
+.nav-tabs .nav-link {
+    color: #959595; /* non-active tabs will have this color */
+}
+
+.nav-tabs .nav-link.active {
+    background-color: #ECECEC;
+    color: #000000; /* active tab will have this color */
+}

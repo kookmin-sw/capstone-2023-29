@@ -2,7 +2,7 @@
 import torch
 import torch.nn as nn
 import pandas as pd
-
+import os
 
 # LSTM Model architecture
 class LSTMModel(nn.Module):
@@ -13,7 +13,7 @@ class LSTMModel(nn.Module):
         self.hidden_size = 64
         self.num_layers = 5
         self.dropout = 0.1
-        self.n_steps = 4
+        self.n_steps = 5
         output_size = 1
         self.hidden_size = hidden_size
         self.num_layers = num_layers
@@ -27,7 +27,7 @@ class LSTMModel(nn.Module):
         )
 
         # Fully connected layer
-        self.fc = nn.Linear(hidden_size, n_steps * output_size)
+        self.fc = nn.Linear(hidden_size, self.n_steps * output_size)
 
     def forward(self, x):
         batch_size = x.size(0)
@@ -45,8 +45,18 @@ class LSTMModel(nn.Module):
 
         return out
 
-    def inference(self, input_data):
-        print("input_data: ", input_data)
+    def inference(self, input_data, route_id):
+
+        model_path = f"app/api/routes/model/models/{route_id}.pth"
+        
+        try:
+            model.load_state_dict(torch.load(model_path))
+        except (FileNotFoundError, RuntimeError) as e:
+            raise e 
+
+        # input_data.reverse()
+        # print(input_data)
+
         input_data = (
             torch.tensor(input_data)
             .reshape(1, self.window_size, self.input_size)
@@ -59,20 +69,20 @@ class LSTMModel(nn.Module):
         predictions = [int(num) for num in predictions]
         return predictions
 
-
 # Hyper parpameter
 window_size = 5
 input_size = 6
 hidden_size = 64
 num_layers = 5
 dropout = 0.1
-n_steps = 4
+n_steps = 5
 output_size = 1
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 model = LSTMModel().to(device)
-model.load_state_dict(torch.load("app/api/routes/model/219000013_mult_window.pth"))
-model = model.to("cuda")
+# model.load_state_dict(torch.load("app/api/routes/model/219000013_mult_window.pth"))
+# model = model.to("cuda")
+
 
 input_data = [
     [57, 16, 0, 3, 4, 0],
@@ -81,5 +91,3 @@ input_data = [
     [63, 16, 1, 3, 4, 0],
     [63, 16, 1, 3, 4, 0],
 ]
-pred = model.inference(input_data)
-print(pred)

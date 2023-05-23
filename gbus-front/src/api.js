@@ -1,7 +1,7 @@
 import queryString from 'query-string';
 import { useState } from 'react';
 
-const API_BASE_URL = 'http://0.0.0.0:5001';
+const API_BASE_URL = 'http://220.117.11.63:5001';
 
 
 export async function getBusByName(busName) {
@@ -197,7 +197,7 @@ export async function getFavorites(access_token){
     console.log('Error:', error.message);
   }
 };
-export async function addFavoriteBus(access_token, bus_id){
+export async function addFavoriteBus(access_token, bus_id, last_station){
   try {
     console.log(access_token, bus_id);
     const response = await fetch(`${API_BASE_URL}/v1/favorite/bus`, {
@@ -207,7 +207,8 @@ export async function addFavoriteBus(access_token, bus_id){
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-          bus_id : bus_id
+          bus_id : bus_id,
+          last_station : last_station
         })
     });
     if (response.ok) {
@@ -251,15 +252,12 @@ export async function addFavoriteStation(access_token, station_id){
 export async function deleteFavoriteBus(access_token, bus_id){
   try {
     console.log(access_token);
-    const response = await fetch(`${API_BASE_URL}/v1/favorite/bus`, {
+    const response = await fetch(`${API_BASE_URL}/v1/favorite/bus/${bus_id}`, {
       method: 'DELETE',
       headers: {
         'Authorization': `Bearer ${access_token}`,
         'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-          bus_id : bus_id
-        })
+      }
     });
     if (response.ok) {
       const result = await response.json();
@@ -308,6 +306,24 @@ export async function busLocationList(bus_id) {
     }
   } catch (error) {
     console.error('Error fetching bus location list:', error.message);
+    throw error;
+  }
+}
+
+export async function predict(bus_id) {
+  try {
+    const response = await fetch(`${API_BASE_URL}/v1/predict?route_id=${bus_id}`, {
+      method: "POST"
+    });
+    const data = await response.json();
+    if (response.ok) {
+      return data
+    } else {
+      throw new Error(data.message || 'An error occurred while fetching the predict data.');
+    }
+
+  } catch (error) {
+    console.error('Error fetching predict', error.message);
     throw error;
   }
 }

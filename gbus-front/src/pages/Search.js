@@ -13,7 +13,7 @@ function Search({token, setToken}){
     return(
         <>
         <Header token={token} setToken={setToken}/> {/* Use the Header component here */}
-        <div style={{backgroundColor: '#ECECEC'}}>
+        <div style={{backgroundColor: '#FFFFFF'}}>
           <Tabs
             defaultActiveKey="busNum"
             id="fill-tab-example"
@@ -21,9 +21,7 @@ function Search({token, setToken}){
             fill
           >
             <Tab eventKey="busNum" title="버스번호" style={{backgroundColor: '#FFFFFF', borderRadius:'12px', marginTop:'-16px'}}>
-              <div style={{backgroundColor: '#ECECEC'}}>
               <BusNumList/>
-              </div>
             </Tab>
             <Tab eventKey="busStop" title="정류장" style={{backgroundColor: '#FFFFFF', borderRadius:'12px', marginTop:'-16px'}}>
               <BusStopList/>

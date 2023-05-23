@@ -85,16 +85,20 @@ class FavoriteRepository:
         return favorite_station
 
     def delete_favorite_bus(self, user_id: int, bus_id: str) -> bool:
-        favorite_bus = (
-            self._session.query(TblFavoriteBus)
-            .filter(TblFavoriteBus.user_id == user_id, TblFavoriteBus.bus_id == bus_id)
-            .first()
-        )
-        if not favorite_bus:
+        try:
+            favorite_bus = (
+                self._session.query(TblFavoriteBus)
+                .filter(TblFavoriteBus.user_id == user_id, TblFavoriteBus.bus_id == bus_id)
+                .first()
+            )
+            if not favorite_bus:
+                raise ValueError("No favorite bus found with provided user_id and bus_id")
+            self._session.delete(favorite_bus)
+            self._session.commit()
+            return True
+        except Exception as e:
+            print(f"Error occurred: {e}")
             return False
-        self._session.delete(favorite_bus)
-        self._session.commit()
-        return True
 
     def delete_favorite_station(self, user_id: int, station_id: str) -> bool:
         favorite_station = (

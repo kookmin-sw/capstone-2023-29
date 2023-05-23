@@ -7,6 +7,7 @@ function Login() {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [access_token, setAccess_token] = useState(null)
+    const [loginError, setLoginError] = useState(false)
 
     const navigate = useNavigate();
 
@@ -26,10 +27,6 @@ function Login() {
     const onSubmitHandler = (event) => {
         // 버튼만 누르면 리로드 되는것을 막아줌
         event.preventDefault();
-
-        console.log('username', username);
-        console.log('Password', password);
-        
         }
 
     async function handlePostLogin() {
@@ -47,6 +44,7 @@ function Login() {
 
         } catch (error) {
           console.error('Error fetching bus stop data:', error.message);
+          setLoginError(true)
         }
     }
 
@@ -78,6 +76,7 @@ function Login() {
                     <button className='login_button' onClick={(handlePostLogin)}>
                         로그인
                     </button>
+                    {loginError && <div style={{color: '#FFFFFF', paddingTop: '30px', textAlign: 'center'}}>로그인에 실패하였습니다. <br/>아이디와 비밀번호를 확인해주세요.</div>}
                 </div>
 
 

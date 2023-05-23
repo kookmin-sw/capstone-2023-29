@@ -21,7 +21,7 @@ def login_for_access_token(
     user = user_service.authenticate_user(form_data.username, form_data.password)
     if not user:
         raise HTTPException(status_code=400, detail="Incorrect username or password")
-    access_token_expires = timedelta(minutes=30)
+    access_token_expires = timedelta(minutes=3000)
     access_token = user_service.create_access_token(
         data={"sub": user.id},
         expires_delta=access_token_expires,

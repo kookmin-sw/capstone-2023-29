@@ -23,25 +23,15 @@ function App() {
   }, [token]);
 
   return (
-    <div className="App">
+    <div className="App" style={{height: '100vh', backgroundColor: '#ECECEC'}}>
       <Routes>
         <Route path="/" element={
           <>
             {/*header */}
             <Header token={token} setToken={setToken}/> {/* Replace your previous header with this line */}
     
-            <div style={{display: 'flex', flexDirection: 'column', margin: '0', backgroundColor: '#FFFFFF'}}>
-              <Tabs
-                defaultActiveKey="bookMark"
-                id="fill-tab-example"
-                className="mb-3"
-                fill
-                style={{margin: '0', border: 'none'}}
-              >
-                <Tab eventKey="bookMark" title="즐겨찾기" style={{marginTop:'-15px', backgroundColor: '#ECECEC'}}>
-                  <Bookmark />
-                </Tab>
-              </Tabs>
+            <div style={{display: 'flex', flexDirection: 'column', margin: '0', backgroundColor: '#ECECEC', height: '100%'}}>
+              <Bookmark />  
             </div>
           </>
         }></Route>

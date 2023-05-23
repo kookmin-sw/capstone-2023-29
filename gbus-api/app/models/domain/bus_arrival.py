@@ -15,6 +15,7 @@ class BusArrivalDto(BaseModel):
 class BusLocationDto(BaseModel):
     end_bus: str
     plateType: int
+    plateNo: str
     remainSeatCnt: int
     bus_id: str
     bus_name: str

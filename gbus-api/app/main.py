@@ -12,7 +12,7 @@ def get_application() -> FastAPI:
     settings = get_app_settings()
     application.include_router(api_router)
 
-    origins = ["http://localhost", "http://localhost:80", "http://localhost:3000", "http://www.jarih.net", "http://jarih.net", "jarih.net"]
+    origins = ["http://localhost", "http://localhost:80", "http://localhost:3000", "http://www.jarih.net", "http://jarih.net", "http://220.117.11.63:3000"]
 
     application.add_middleware(
         CORSMiddleware,
