@@ -23,19 +23,19 @@ We designed a predictive model by collecting data by crawling directly through a
 ### 3) 기술 소개
 
 #### DATA CRAWLING
-<img width="1000" alt="image" src="https://github.com/kookmin-sw/capstone-2023-29/assets/105616772/2cbd6916-c932-413a-b2c7-fdd3d55c1975">
+<img width="800" alt="image" src="https://github.com/kookmin-sw/capstone-2023-29/assets/105616772/2cbd6916-c932-413a-b2c7-fdd3d55c1975">
 
 #### MODEL TRAINING
-<img width="1000" alt="image" src="https://github.com/kookmin-sw/capstone-2023-29/assets/105616772/1af6f91b-693f-43c6-96e3-112e3e4bbadd">
+<img width="800" alt="image" src="https://github.com/kookmin-sw/capstone-2023-29/assets/105616772/1af6f91b-693f-43c6-96e3-112e3e4bbadd">
 
 
 ### 4) 프로젝트 구성도
 
-<img width="1000" alt="image" src="https://github.com/kookmin-sw/capstone-2023-29/assets/105616772/acc08218-3f20-498c-8e80-641e45d0f0cb">
+<img width="800" alt="image" src="https://github.com/kookmin-sw/capstone-2023-29/assets/105616772/acc08218-3f20-498c-8e80-641e45d0f0cb">
 
 
 ### 5) 프로젝트 포스터
-<img width="1000" alt="image" src="https://github.com/kookmin-sw/capstone-2023-29/assets/105616772/b119e6ef-c30d-4656-b315-04366a9fd0f8">
+<img width="800" alt="image" src="https://github.com/kookmin-sw/capstone-2023-29/assets/105616772/b119e6ef-c30d-4656-b315-04366a9fd0f8">
 
 
 ## 2. 소개 영상
@@ -45,7 +45,7 @@ We designed a predictive model by collecting data by crawling directly through a
 
 ## 3. 프로젝트 실행 화면
 
-<img width="1000" alt="image" src="https://github.com/kookmin-sw/capstone-2023-29/assets/105616772/81bfd404-2ded-42ba-b121-fb9c2bbf2580">
+<img width="800" alt="image" src="https://github.com/kookmin-sw/capstone-2023-29/assets/105616772/81bfd404-2ded-42ba-b121-fb9c2bbf2580">
 
 ## 4. 프로젝트 사용법
 
