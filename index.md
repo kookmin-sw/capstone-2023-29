@@ -1,8 +1,6 @@
-<<<<<<< HEAD
+
 [![Open in Visual Studio Code](https://classroom.github.com/assets/open-in-vscode-c66648af7eb3fe8bc4f294546bfd86ef473780cde1dea487d3c4ff354943c9ae.svg)](https://classroom.github.com/online_ide?assignment_repo_id=10029066&assignment_repo_type=AssignmentRepo)
 
-=======
->>>>>>> c312a71dbd841a6fe235cf40621076e61730f81f
 # 자리있어? : 경기도 광역버스 잔여 좌석 예측 시스템
 
 ![B_S_11](https://github.com/kookmin-sw/capstone-2023-29/assets/105616772/f3039ed4-e014-478d-bae8-d893b2e2f893)
@@ -44,17 +42,6 @@ We designed a predictive model by collecting data by crawling directly through a
 
 ## 2. 소개 영상
 
-
-
-
-=======
-
-## 2. 소개 영상
-
-
-
-
->>>>>>> c312a71dbd841a6fe235cf40621076e61730f81f
 ## 3. 프로젝트 실행 화면
 
 <img width="800" alt="image" src="https://github.com/kookmin-sw/capstone-2023-29/assets/105616772/81bfd404-2ded-42ba-b121-fb9c2bbf2580">
@@ -64,11 +51,7 @@ We designed a predictive model by collecting data by crawling directly through a
 <img width="123" alt="image" src="https://github.com/kookmin-sw/capstone-2023-29/assets/105616772/c4cb549f-d6d3-4628-bd00-83cd90313091">
 
 1. QR코드 및 [http://jarih.net]에 접속하여 홈페이지에 접속 
-<<<<<<< HEAD
-2. 모바일로 홈 화면에 추가하기를 통하여 홈 화면에 자리있어 아이콘이 추가 됨
-=======
 2. 모바일로 홈 화면에 추가하기를 통하여 홈 화면에 자리있어 아이콘이 추가됨
->>>>>>> c312a71dbd841a6fe235cf40621076e61730f81f
 3. 회원가입 및 로그인
 4. 평소에 사용하는 버스 및 정류장을 검색 후 즐겨찾기에 추가
 5. 즐겨찾기 화면에서 해당 탭을 터치하면, 해당 버스의 예측 좌석 수를 보여주게 됨
@@ -90,8 +73,4 @@ We designed a predictive model by collecting data by crawling directly through a
 - 이정안
   - 학번 : **1293
   - 역할 : 프론트엔드 개발
- 
-<<<<<<< HEAD
 
-=======
->>>>>>> c312a71dbd841a6fe235cf40621076e61730f81f
