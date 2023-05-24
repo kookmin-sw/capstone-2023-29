@@ -5,36 +5,6 @@ from app.api.routes.model.use_model import LSTMModel
 router = APIRouter()
 
 
-# @router.post("/predict")
-# def predict(
-#     route_id: str,
-#     model_service: ModelService = Depends(ModelService),
-#     model: LSTMModel = Depends(LSTMModel),
-# ):
-#     result = model_service.get_bus_window_data(route_id=route_id)
-#     predictions = {}
-
-#     for plate_no, values in result.items():
-#         plate_predictions = []
-#         pre_values = []
-
-#         for value in values:
-#             new_value = value[:6]  # 첫 번째 5개의 값 추출
-#             pre_values.append(new_value)
-        
-#         print(plate_no, values)
-#         station_id = values[-1][6]
-#         station_seq = values[-1][0]
-#         prediction_values = model.inference(pre_values, route_id)
-#         plate_predictions.append({
-#                 "predictions": prediction_values,
-#                 "station_id": station_id,
-#                 "station_seq": station_seq
-#             })
-#         predictions[plate_no] = plate_predictions
-#     predictions = dict(sorted(predictions.items(), key=lambda item: item[1][0]['station_seq']))
-#     return {"predictions": predictions}
-
 @router.post("/predict")
 def predict(
     route_id: str,
@@ -60,7 +30,7 @@ def predict(
         for i, v in enumerate(prediction_values):
             if station_seq+i >= station_datas["length"]:
                 break
-            station_sequences[station_seq+i].append(v)    
+            station_sequences[station_seq+i].insert(0, v)    
         # # Add the prediction to its corresponding station sequence
         # station_sequences[station_seq-1].append({
         #     "predictions": [{'index': i, 'remainingSeat': v} for i, v in enumerate(prediction_values)],

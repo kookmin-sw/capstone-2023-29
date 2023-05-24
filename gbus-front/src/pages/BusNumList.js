@@ -120,6 +120,7 @@ function BusNumList(){
       }
 
       async function handlePredict(bus_id) {
+        setPredictArr([])
         const data = await predict(bus_id)
         setPredictArr(data)
         console.log("predict")

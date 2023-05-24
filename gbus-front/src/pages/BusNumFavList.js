@@ -83,6 +83,7 @@ function BusNumFavList(){
       }
 
       async function handlePredict(bus_id) {
+        setPredictArr([])
         const data = await predict(bus_id)
         const responsePredict = JSON.parse(JSON.stringify(data));
         setPredictArr(data)
