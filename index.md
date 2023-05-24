@@ -1,15 +1,59 @@
-# 🚎 자리있어? 🚎 - 경기도 광역버스 좌석 예측 시스템
+# 자리있어? : 경기도 광역버스 좌석 예측 시스템
+
+![B_S_11](https://github.com/kookmin-sw/capstone-2023-29/assets/105616772/f3039ed4-e014-478d-bae8-d893b2e2f893)
+
 
 ## 1. 프로젝트 소개
 
-최근 경기도 광역버스의 입석이 금지되어 경기도에서 출퇴근 하시는 많은 분들이 불편함을 겪고 있습니다. 
+### 프로젝트 설명
+2022년 말 경기도 광역 버스의 입석이 실질적으로 금지 됨으로 경기도 광역버스를 타고 출퇴근 하는 사람들이 많은 불편함에 처하게 되었습니다. 입석이 금지된 현재, 다수의 사람들이 불안한 출퇴근 혹은 등하교에 노출 되었다고 볼 수 있습니다. 많은 사람들의 이러한 불안함 혹은 불편함을 해결하고자 프로젝트가 시작되었습니다. 
 
-저희의 서비스 **_자리있어?_**는 이러한 불편함을 겪고 계시는 분들의 불편함을 해소해드리고자 합니다.
-**정확하게는 광역버스가 내가 타고 싶은 정류장에 왔을 때 몇좌석이 남아있을지 예측해드립니다!**
-현재 버스 좌석을 보여주는 서비스들은 내가 버스를 타야하는 정류장이 아닌 버스의 현재 좌석을 알려줍니다. 저희는 현재 버스 좌석이 아닌 내가 타고 싶은 버스가 내가 타야하는 정류장에 왔을 때 몇 자리가 남았을지 예측해 드립니다!
+저희의 서비스 **"자리있어?"**는 이러한 불편함을 겪고 계시는 분들의 불편함을 해소해드리고자 합니다.
+경기도 버스 포털에서 현재 좌석 수를 알려주는 API를 통해 직접 크롤링하여 데이터를 수집해, 예측모델을 설계하였습니다. "자리있어?"는 학습으로 얻어진 모델을 통해 예측한 잔여 좌석 값을 사용자에게 제공합니다. 
+
+### ABSTRACT
+At the end of 2022, standing on Gyeonggi-do wide-area buses was practically prohibited, causing many people to commute by Gyeonggi-do wide-area buses. Now that standing seats are prohibited, many people are exposed to anxious commuting or commuting to and from school. The project was launched to address this anxiety or discomfort of many people.
+
+Our service **"Do you have a seat?"** wants to relieve the inconvenience of those who are experiencing this inconvenience.
+We designed a predictive model by collecting data by crawling directly through an API that informs the current number of seats on the Gyeonggi-do bus portal. "Do you have a seat?" provides the user with the residual seat values predicted by the model obtained from the learning.
 
 
-## 2. 팀 소개
+### 기술 소개
+
+#### DATA CRAWLING
+<img width="514" alt="image" src="https://github.com/kookmin-sw/capstone-2023-29/assets/105616772/2cbd6916-c932-413a-b2c7-fdd3d55c1975">
+
+#### MODEL TRAINING
+<img width="615" alt="image" src="https://github.com/kookmin-sw/capstone-2023-29/assets/105616772/1af6f91b-693f-43c6-96e3-112e3e4bbadd">
+
+
+### 프로젝트 구성도
+<img width="572" alt="image" src="https://github.com/kookmin-sw/capstone-2023-29/assets/105616772/de1c7546-55b8-47c1-ba8b-2f8f68d395b1">
+
+
+### 프로젝트 포스터
+<img width="423" alt="image" src="https://github.com/kookmin-sw/capstone-2023-29/assets/105616772/b119e6ef-c30d-4656-b315-04366a9fd0f8">
+
+
+## 2. 시연 영상
+
+---
+
+## 3. 프로젝트 실행 화면
+
+<img width="523" alt="image" src="https://github.com/kookmin-sw/capstone-2023-29/assets/105616772/81bfd404-2ded-42ba-b121-fb9c2bbf2580">
+
+## 4. 프로젝트 사용법
+
+<img width="123" alt="image" src="https://github.com/kookmin-sw/capstone-2023-29/assets/105616772/c4cb549f-d6d3-4628-bd00-83cd90313091">
+
+1. QR코드 및 [http://jarih.net]에 접속하여 홈페이지에 접속 
+2. 모바일로 홈 화면에 추가하기를 통하여 홈 화면에 자리있어 아이콘이 추가됨
+3. 회원가입 및 로그인
+4. 평소에 사용하는 버스 및 정류장을 검색 후 즐겨찾기에 추가
+5. 즐겨찾기 화면에서 해당 탭을 터치하면, 해당 버스의 예측 좌석 수를 보여주게 됨
+
+## 4. 팀 소개
 
 - 백소양 
   - 학번 : **0092
@@ -26,24 +70,4 @@
 - 이정안
   - 학번 : **1293
   - 역할 : 프론트엔드 개발
-
-
-## 3. 소개영상
-
-**1. *영상 추후 업데이트 예정**
-
-
-**2. 서비스 스크린 샷**
-
-- Frontend
-  
-![실행화면1234](https://user-images.githubusercontent.com/105616772/228748891-f049f4e2-b8ab-43cc-b3ec-b272db0ba248.jpg)
-
-  1. 초기 화면에 검색폼, 즐겨찾기한 버스번호와 최근검색어 탭이 나타납니다.
-  2. 해당 숫자를 검색하면 버스 번호에 해당 숫자를 포함하는 버스 데이터들이 나타납니다.
-  3. 버스를 누르면, 버스 노선이 뜹니다. (3-1추가 예정) 해당 정류장을 누르면 버스의 도착 정보와 착석 가능 확률을 보여줍니다.)
-  4. 검색했던 버스는 최근 검색어 목록에 저장됩니다.
-
-- Backend
-
-- DataBase & Modeling 
+ 
