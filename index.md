@@ -1,4 +1,4 @@
-# 자리있어? : 경기도 광역버스 좌석 예측 시스템
+# 자리있어? : 경기도 광역버스 잔여 좌석 예측 시스템
 
 ![B_S_11](https://github.com/kookmin-sw/capstone-2023-29/assets/105616772/f3039ed4-e014-478d-bae8-d893b2e2f893)
 
@@ -21,28 +21,29 @@ We designed a predictive model by collecting data by crawling directly through a
 ### 3) 기술 소개
 
 #### DATA CRAWLING
-<img width="514" alt="image" src="https://github.com/kookmin-sw/capstone-2023-29/assets/105616772/2cbd6916-c932-413a-b2c7-fdd3d55c1975">
+<img width="615" alt="image" src="https://github.com/kookmin-sw/capstone-2023-29/assets/105616772/2cbd6916-c932-413a-b2c7-fdd3d55c1975">
 
 #### MODEL TRAINING
 <img width="615" alt="image" src="https://github.com/kookmin-sw/capstone-2023-29/assets/105616772/1af6f91b-693f-43c6-96e3-112e3e4bbadd">
 
 
 ### 4) 프로젝트 구성도
-<img width="572" alt="image" src="https://github.com/kookmin-sw/capstone-2023-29/assets/105616772/de1c7546-55b8-47c1-ba8b-2f8f68d395b1">
+
+<img width="615" alt="image" src="https://github.com/kookmin-sw/capstone-2023-29/assets/105616772/acc08218-3f20-498c-8e80-641e45d0f0cb">
 
 
 ### 5) 프로젝트 포스터
-<img width="423" alt="image" src="https://github.com/kookmin-sw/capstone-2023-29/assets/105616772/b119e6ef-c30d-4656-b315-04366a9fd0f8">
+<img width="615" alt="image" src="https://github.com/kookmin-sw/capstone-2023-29/assets/105616772/b119e6ef-c30d-4656-b315-04366a9fd0f8">
 
 
-## 2. 시연 영상
+## 2. 소개 영상
 
 
 
 
 ## 3. 프로젝트 실행 화면
 
-<img width="523" alt="image" src="https://github.com/kookmin-sw/capstone-2023-29/assets/105616772/81bfd404-2ded-42ba-b121-fb9c2bbf2580">
+<img width="615" alt="image" src="https://github.com/kookmin-sw/capstone-2023-29/assets/105616772/81bfd404-2ded-42ba-b121-fb9c2bbf2580">
 
 ## 4. 프로젝트 사용법
 
