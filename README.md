@@ -52,7 +52,7 @@ We designed a predictive model by collecting data by crawling directly through a
 <img width="123" alt="image" src="https://github.com/kookmin-sw/capstone-2023-29/assets/105616772/c4cb549f-d6d3-4628-bd00-83cd90313091">
 
 1. QR코드 및 [http://jarih.net]에 접속하여 홈페이지에 접속 
-2. 모바일로 홈 화면에 추가하기를 통하여 홈 화면에 자리있어 아이콘이 추가됨
+2. 모바일로 홈 화면에 추가하기를 통하여 홈 화면에 자리있어 아이콘이 추가 됨
 3. 회원가입 및 로그인
 4. 평소에 사용하는 버스 및 정류장을 검색 후 즐겨찾기에 추가
 5. 즐겨찾기 화면에서 해당 탭을 터치하면, 해당 버스의 예측 좌석 수를 보여주게 됨
