@@ -16,8 +16,8 @@
 ### 2) ABSTRACT
 At the end of 2022, standing on Gyeonggi-do wide-area buses was practically prohibited, causing many people to commute by Gyeonggi-do wide-area buses. Now that standing seats are prohibited, many people are exposed to anxious commuting or commuting to and from school. The project was launched to address this anxiety or discomfort of many people.
 
-Our service **"Do you have a seat?"** wants to relieve the inconvenience of those who are experiencing this inconvenience.
-We designed a predictive model by collecting data by crawling directly through an API that informs the current number of seats on the Gyeonggi-do bus portal. "Do you have a seat?" provides the user with the residual seat values predicted by the model obtained from the learning.
+Our service **"Any Seats?"** wants to relieve the inconvenience of those who are experiencing this inconvenience.
+We designed a predictive model by collecting data by crawling directly through an API that informs the current number of seats on the Gyeonggi-do bus portal. "Any Seats?" provides the user with the residual seat values predicted by the model obtained from the learning.
 
 
 ### 3) 기술 소개
