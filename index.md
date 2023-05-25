@@ -38,19 +38,16 @@ We designed a predictive model by collecting data by crawling directly through a
 ### 5) 프로젝트 포스터
 <img width="800" alt="image" src="https://github.com/kookmin-sw/capstone-2023-29/assets/105616772/b119e6ef-c30d-4656-b315-04366a9fd0f8">
 
-<<<<<<< HEAD
 
-## 2. 소개 영상
-
-## 3. 프로젝트 실행 화면
+## 2. 프로젝트 실행 화면
 
 <img width="800" alt="image" src="https://github.com/kookmin-sw/capstone-2023-29/assets/105616772/81bfd404-2ded-42ba-b121-fb9c2bbf2580">
 
-## 4. 프로젝트 사용법
+## 3. 프로젝트 사용법
 
 <img width="123" alt="image" src="https://github.com/kookmin-sw/capstone-2023-29/assets/105616772/c4cb549f-d6d3-4628-bd00-83cd90313091">
 
-1. QR코드 및 [http://jarih.net]에 접속하여 홈페이지에 접속 
+1. QR코드를 촬영하여 홈페이지에 접속 
 2. 모바일로 홈 화면에 추가하기를 통하여 홈 화면에 자리있어 아이콘이 추가됨
 3. 회원가입 및 로그인
 4. 평소에 사용하는 버스 및 정류장을 검색 후 즐겨찾기에 추가
