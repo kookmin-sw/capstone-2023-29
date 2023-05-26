@@ -1,4 +1,3 @@
-
 [![Open in Visual Studio Code](https://classroom.github.com/assets/open-in-vscode-c66648af7eb3fe8bc4f294546bfd86ef473780cde1dea487d3c4ff354943c9ae.svg)](https://classroom.github.com/online_ide?assignment_repo_id=10029066&assignment_repo_type=AssignmentRepo)
 
 # 자리있어? : 경기도 광역버스 잔여 좌석 예측 시스템
@@ -45,10 +44,10 @@ We designed a predictive model by collecting data by crawling directly through a
 
 ## 3. 프로젝트 사용법
 
-<img width="123" alt="image" src="https://github.com/kookmin-sw/capstone-2023-29/assets/105616772/c4cb549f-d6d3-4628-bd00-83cd90313091">
+![image](https://github.com/kookmin-sw/capstone-2023-29/assets/105616772/6ab08b68-6f08-45bd-b299-aa748e236072)
 
 1. QR코드를 촬영하여 홈페이지에 접속 
-2. 모바일로 홈 화면에 추가하기를 통하여 홈 화면에 자리있어 아이콘이 추가됨
+2. 모바일로 홈 화면에 추가하기를 통하여 홈 화면에 자리있어 아이콘이 추가 됨
 3. 회원가입 및 로그인
 4. 평소에 사용하는 버스 및 정류장을 검색 후 즐겨찾기에 추가
 5. 즐겨찾기 화면에서 해당 탭을 터치하면, 해당 버스의 예측 좌석 수를 보여주게 됨
@@ -70,4 +69,5 @@ We designed a predictive model by collecting data by crawling directly through a
 - 이정안
   - 학번 : **1293
   - 역할 : 프론트엔드 개발
+ 
 
