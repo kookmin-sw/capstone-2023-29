@@ -39,8 +39,10 @@ We designed a predictive model by collecting data by crawling directly through a
 
 
 ## 2. 프로젝트 실행 화면
+![시연 사진1](https://github.com/kookmin-sw/capstone-2023-29/assets/105616772/88fd2f5e-8669-4de7-a613-d73c2937c4fd)
+![시연사진2](https://github.com/kookmin-sw/capstone-2023-29/assets/105616772/2e8f592d-b6ef-4e13-8c6e-944585a26aa3)
 
-<img width="800" alt="image" src="https://github.com/kookmin-sw/capstone-2023-29/assets/105616772/81bfd404-2ded-42ba-b121-fb9c2bbf2580">
+
 
 ## 3. 프로젝트 사용법
 
@@ -69,6 +71,3 @@ We designed a predictive model by collecting data by crawling directly through a
 - 이정안
   - 학번 : **1293
   - 역할 : 프론트엔드 개발
- 
- 
-
