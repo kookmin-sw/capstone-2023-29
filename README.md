@@ -44,7 +44,7 @@ We designed a predictive model by collecting data by crawling directly through a
 
 ## 3. 프로젝트 사용법
 
-<img width="123" alt="image" src="https://github.com/kookmin-sw/capstone-2023-29/assets/105616772/c4cb549f-d6d3-4628-bd00-83cd90313091">
+![image](https://github.com/kookmin-sw/capstone-2023-29/assets/105616772/6ab08b68-6f08-45bd-b299-aa748e236072)
 
 1. QR코드를 촬영하여 홈페이지에 접속 
 2. 모바일로 홈 화면에 추가하기를 통하여 홈 화면에 자리있어 아이콘이 추가 됨
