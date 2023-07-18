@@ -39,12 +39,14 @@ We designed a predictive model by collecting data by crawling directly through a
 
 
 ## 2. 프로젝트 실행 화면
+![시연 사진1](https://github.com/kookmin-sw/capstone-2023-29/assets/105616772/88fd2f5e-8669-4de7-a613-d73c2937c4fd)
+![시연사진2](https://github.com/kookmin-sw/capstone-2023-29/assets/105616772/2e8f592d-b6ef-4e13-8c6e-944585a26aa3)
 
-<img width="800" alt="image" src="https://github.com/kookmin-sw/capstone-2023-29/assets/105616772/81bfd404-2ded-42ba-b121-fb9c2bbf2580">
+
 
 ## 3. 프로젝트 사용법
 
-<img width="123" alt="image" src="https://github.com/kookmin-sw/capstone-2023-29/assets/105616772/c4cb549f-d6d3-4628-bd00-83cd90313091">
+![image](https://github.com/kookmin-sw/capstone-2023-29/assets/105616772/6ab08b68-6f08-45bd-b299-aa748e236072)
 
 1. QR코드를 촬영하여 홈페이지에 접속 
 2. 모바일로 홈 화면에 추가하기를 통하여 홈 화면에 자리있어 아이콘이 추가 됨
@@ -69,5 +71,3 @@ We designed a predictive model by collecting data by crawling directly through a
 - 이정안
   - 학번 : **1293
   - 역할 : 프론트엔드 개발
- 
-
