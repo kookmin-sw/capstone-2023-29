@@ -1,236 +1,183 @@
-import React, { useState,useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import Form from 'react-bootstrap/Form';
 import InputGroup from 'react-bootstrap/InputGroup';
 import Table from 'react-bootstrap/Table';
 import BusInformation from "./BusInfomation.js";
-import { getBusListByName, getBusStopByBusId, addFavoriteBus, busLocationList, getBusListByBusStop, getFavorites, deleteFavoriteBus, predict } from '../api.js';
+import {
+  getBusListByName,
+  getBusStopByBusId,
+  addFavoriteBus,
+  busLocationList,
+  getFavorites,
+  deleteFavoriteBus,
+  predict
+} from '../api.js';
 
-function BusNumList(){
+function BusNumList() {
+  const [inputValue, setInputValue] = useState('');
+  const [busList, setBusList] = useState([]);
+  const [busId, setBusId] = useState(null);
+  const [busName, setBusName] = useState(null);
+  const [busStopList, setBusStopList] = useState([]);
+  const [locationList, setLocationList] = useState([]);
+  const [favoriteBusIdArr, setFavoriteBusIdArr] = useState([]);
+  const [predictArr, setPredictArr] = useState([]);
+  const [busInfo, setBusInfo] = useState(false);
 
-    const [inputValue, setInputValue] = useState('')
-    const [busListData, setBusListData] = useState('')
-    const [busListArr, setBusListArr] = useState([])
-    const [busNameListArr, setBusNameListArr] = useState([])
-    const [busIdListArr, setBusIdListArr] =useState([])
-    const [busStopListData,setBusStopListData] = useState(null)
-    const [busStationArr, setBusStationArr] = useState(null)
-    const [busStopListArr, setBusStopListArr] =useState([])
-    const [busId, setBusId] =useState(null)
-    const [busName, setBusName] = useState(null)
-    const [arrayNull, setArrayNull] = useState(false)
-    const [token, setToken] = useState('')
-    const [locationList, setLocationList] = useState([])
-    const [lastStation, setLastStation] = useState('')
-    const [favoriteBusIdArr, setFavoriteBusIdArr] = useState([])
-    const [predictArr, setPredictArr] = useState([])
-    let [busInfo, setBusInfo] =useState(false)
-    let [detail, setDetail] = useState(false)
-    let [selected, setSelected] = useState(-1);
-    
-
-    useEffect(() => {
-      if (busId) {
-        handleGetBusStopByBusId();
-      }
-    }, [busId]);
-
-    function handleSubmit(e){
-        e.preventDefault();
-        console.log(inputValue);
-        handleGetBusListbyName();
-        handleGetFavorites();
+  useEffect(() => {
+    if (busId) {
+      handleGetBusStopByBusId(busId);
     }
+  }, [busId]);
 
-    function handleInputChange(e){
-        setInputValue(e.target.value)
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    await handleGetBusListByName(inputValue);
+    await handleGetFavorites();
+  }
+
+  const handleInputChange = (e) => {
+    setInputValue(e.target.value)
+  }
+
+  const handleGetBusListByName = async (name) => {
+    const data = await getBusListByName(name);
+    console.log("data:  ", data)
+    if(data.message){
+      setBusList([])
     }
+    else{
+      setBusList(data);
+    }
+  }
 
+  const handleGetBusStopByBusId = async (id) => {
+    const data = await getBusStopByBusId(id);
+    setBusStopList(data);
+  }
 
-    async function handleGetBusListbyName() {
-        try {
-          setBusNameListArr([]);
-          setBusStationArr([]);
-          setArrayNull(false);
-          const data = await getBusListByName(inputValue);
-          setBusListData(data);
-          const busListArr = JSON.parse(JSON.stringify(data));
-          setBusListArr(busListArr)
-          console.log(busListArr)
-          setBusNameListArr(busListArr.map(bus => bus.bus_name))
-          setBusIdListArr(busListArr.map(bus => bus.bus_id))
-          setBusStationArr(busListArr.map(bus => bus.station_name))
-        } catch (error) {
-          console.error('Error fetching bus stop data:', error.message);
-          setArrayNull(true);
-        }
-      }
+  const handleAddFavoriteBus = async (bus_id, last_station) => {
+    await addFavoriteBus(localStorage.getItem("token"), bus_id, last_station);
+  }
 
-      async function handleGetBusStopByBusId() {
-        try {
-          setArrayNull(false);
-          const data = await getBusStopByBusId(busId);
-          setBusStopListData(data);
-          const busStopListArr = JSON.parse(JSON.stringify(data));
-          setBusStopListArr(busStopListArr)
-        } catch (error) {
-          console.error('Error fetching bus stop data:', error.message);
-          setArrayNull(true);
-        }
-      }
-      async function handleAddFavoriteBus(bus_id, last_station) {
-        try {
-          console.log(bus_id)
-          setToken(localStorage.getItem('token'))
-          const data = await addFavoriteBus(localStorage.getItem("token"), bus_id, last_station);
-          console.log("add")
-          console.log(data)
-        } catch (error) {
-          console.error('Error fetching bus stop data:', error.message);
-        }
-      }
+  const handleBusLocationList = async (bus_id) => {
+    const data = await busLocationList(bus_id);
+    setLocationList(data);
+  }
 
-      async function handleBusLocationList(bus_id) {
-        try {
-          setLocationList([]);
-          const data = await busLocationList(bus_id);
-          console.log({data})
-          const busLocationArr = JSON.parse(JSON.stringify(data));
-          setLocationList(data);
-        } catch (error) {
-          console.error('Error bus_location_list : ', error.message)
-        }
-      }
-      
-      async function handleGetFavorites() {
-        try {
-          setArrayNull(false);
-          const data = await getFavorites(localStorage.getItem('token'));
-          const favoriteBusIdArr = JSON.parse(JSON.stringify(data));
-          setFavoriteBusIdArr(favoriteBusIdArr.map(bus => bus.bus_id));
-          console.log(favoriteBusIdArr)
-        
-        } catch (error) {
-          console.error('Error fetching bus stop data:', error.message);
-          setArrayNull(true);
-        }
-      }
+  const handleGetFavorites = async () => {
+    const data = await getFavorites(localStorage.getItem('token'));
+    console.log("handle! : ", data)
+    setFavoriteBusIdArr(data.map(bus => bus.bus_id));
+  }
 
-      async function handleDeleteFavorites(bus_id) {
-        await deleteFavoriteBus(localStorage.getItem('token'), bus_id)
-      }
+  const handleDeleteFavorites = async (bus_id) => {
+    await deleteFavoriteBus(localStorage.getItem('token'), bus_id)
+  }
 
-      async function handlePredict(bus_id) {
-        setPredictArr([])
-        const data = await predict(bus_id)
-        setPredictArr(data)
-        console.log("predict")
-        console.log(predictArr)
-      }
+  const handlePredict = async (bus_id) => {
+    const data = await predict(bus_id)
+    setPredictArr(data)
+  }
 
+  const handleStarButtonClick = async (busId, busStation) => {
+    if (favoriteBusIdArr.includes(busId)) {
+      await handleDeleteFavorites(busId);
+    } else {
+      await handleAddFavoriteBus(busId, busStation);
+    }
+    await handleGetFavorites();
+  }
 
-  
-    return(
-      <>
+  const handleRefresh = async () => {
+    if (!busId) {
+      return;
+    }
+    await handleGetBusStopByBusId(busId);
+    await handleBusLocationList(busId);
+    await handlePredict(busId);
+  }
+
+  const handleRowClick = async (bus) => {
+    setBusInfo(true)
+    setBusName(bus.bus_name)
+    setBusId(bus.bus_id)
+    await handleBusLocationList(bus.bus_id)
+    await handlePredict(bus.bus_id)
+    await handleGetBusStopByBusId(bus.bus_id)
+  }
+
+  if (!busList) {
+     return <div>Loading...</div>; // 로딩 상태를 표시할 컴포넌트나 메시지를 반환합니다.
+  }
+
+  return (
+    <>
       {!busInfo ?
-      (
-        <>
-        <Form onSubmit={handleSubmit}>
-        <InputGroup 
-        className="mb-3">
-          <InputGroup.Text id="inputGroup-sizing-default">
-              Search
-          </InputGroup.Text>
-          <Form.Control
-            aria-label="Default"
-            aria-describedby="inputGroup-sizing-default"
-            placeholder="버스번호"
-            value={inputValue}
-            onChange={handleInputChange}
-          />
-        </InputGroup>
-        </Form>
+        (
+          <>
+            <Form onSubmit={handleSubmit}>
+              <InputGroup className="mb-3">
+                <InputGroup.Text id="inputGroup-sizing-default">Search</InputGroup.Text>
+                <Form.Control
+                  aria-label="Default"
+                  aria-describedby="inputGroup-sizing-default"
+                  placeholder="버스번호"
+                  value={inputValue}
+                  onChange={handleInputChange}
+                />
+              </InputGroup>
+            </Form>
 
-        <Table style={{backgroundColor: '#ECECEC', marginTop: '-16px'}}>
-          <thead style={{backgroundColor: '#E2615B'}}>
-            <tr style={{}}>
-              <th style={{color: '#FFFFFF', width:'40%'}}>버스번호</th>
-              <th style={{color: '#FFFFFF', width:'40%'}}>방면 (종점)</th>
-              <th><img src="/star_white.svg" alt='non_selected_stat' style={{maxWidth:'25px'}}></img></th>
-            </tr>
-          </thead>
-          <tbody style={{borderRadius: '25px', height:'100px'}}>
-            {busNameListArr.length > 0 ? (
-              busNameListArr.map((busName, index) => (
-                <tr key={index}>
-                  <td
-                    onClick={()=>{
-                    setBusInfo(true)
-                    setBusName((busNameListArr[index]))
-                    setBusId((busIdListArr[index]))
-                    handleBusLocationList((busIdListArr[index]))
-                    console.log(busId)
-                    handlePredict(busIdListArr[index])
-                    handleGetBusStopByBusId();
-                    console.log(busStopListArr)
-                    }}>{busName}</td>
-                  <td>{busStationArr[index]}</td>
-                  <td>
-                    <img 
-                      src={
-                        favoriteBusIdArr.includes(busIdListArr[index]) 
-                        ? "/star_yellow.svg" 
-                        : "/star_white.svg"
-                      } 
-                      alt={favoriteBusIdArr.includes(busIdListArr[index]) 
-                        ? 'selected_star' 
-                        : 'non_selected_star'} 
-                      style={{maxWidth:'25px'}}
-                      onClick={()=>{
-                        setBusId(busIdListArr[index]);
-                        setLastStation(busNameListArr[index]);
-                        if (favoriteBusIdArr.includes(busIdListArr[index])) {
-                          handleDeleteFavorites(busIdListArr[index]);
-                        } else {
-                          handleAddFavoriteBus(busIdListArr[index], 
-                          busStationArr[index],
-                          );
+            <div style={{ backgroundColor: '#ECECEC', marginTop: '-16px' }}>
+              <div style={{ backgroundColor: '#E2615B', display: 'flex', flexDirection: 'row', width: '100%', height: '45px', alignItems: 'center'}}>
+                <th style={{ color: '#FFFFFF', width:'30%', textAlign: 'center', fontFamily: 'Inter' }}>버스번호</th>
+                <th style={{ color: '#FFFFFF', width:'51%', textAlign: 'center', fontFamily: 'Inter' }}>방면 (종점)</th>
+                <th><img src="/star_white.svg" alt='non_selected_stat' style={{ maxWidth: '20px' }} /></th>
+              </div>
+              <div style={{ borderRadius: '25px', width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
+                {busList && busList.map((bus, index) => (
+                  <div key={index} style={{display: 'flex', flexDirection: 'row', backgroundColor: '#FFFFFF', width: "95%", height: '80px', padding: '10px', borderRadius: '10px', marginTop: '20px'}}>
+                    <p style={{width: '24%', color: '#E2615B', fontSize: '24px', textAlign: 'center', justifyContent: 'center', alignItems: 'center', margin: '0px', fontWeight:'500', paddingTop: '10px'}} onClick={() => handleRowClick(bus)}>{bus.bus_name}</p>
+                    <p style={{width: '60%', fontSize: '14px', textAlign: 'center', justifyContent: 'center', alignItems: 'center', margin: '0px', fontWeight: '500', paddingTop: '18px'}} onClick={() => handleRowClick(bus)}>{bus.station_name}</p>
+                    <p style={{justifyContent: 'center', alignItems: 'center', margin: '0px', marginBottom:'5px', paddingTop: '15px'}}>
+                      <img
+                        src={
+                          favoriteBusIdArr.includes(bus.bus_id)
+                            ? "/star_yellow.svg"
+                            : "/star_1.svg"
                         }
-                        handleGetFavorites();
-                      }}
-                    />
-                  </td>
-              </tr>
-              ))
-            ) : (
-              arrayNull && (
-                <tr>
-                  <td colSpan="3">
-                    검색 결과가 없습니다.
-                    {/* 이 위치에 원하는 이미지를 추가하세요. 예: */}
-                    {/* <img src="/path/to/your/image.png" alt="No results" /> */}
-                  </td>
-                </tr>
-              )
-            )}
-          </tbody>
-        </Table>
-
-
-        </>
-      ):(
-        <BusInformation
-          busName={busName}
-          busId={busId}
-          busStopListData={busStopListData}
-          busStopListArr={busStopListArr}
-          locationList={locationList}
-          setBusInfo={setBusInfo}
-          busPredictArr={predictArr}
-    />
-      )}
-      </>
-      
-    )
+                        alt={favoriteBusIdArr.includes(bus.bus_id)
+                          ? 'selected_star'
+                          : 'non_selected_star'}
+                        style={{ maxWidth: '20px' }}
+                        onClick={() => handleStarButtonClick(bus.bus_id, bus.station_name)}
+                      />
+                    </p>
+                  </div>
+                ))}
+                {busList.length === 0 && (
+                  <tr>
+                    <td colSpan="3">검색 결과가 없습니다.</td>
+                  </tr>
+                )}
+              </div>
+            </div>
+          </>
+        ) : (
+          <BusInformation
+            busName={busName}
+            busId={busId}
+            busStopList={busStopList}
+            locationList={locationList}
+            setBusInfo={setBusInfo}
+            busPredictArr={predictArr}
+            handleRefresh={handleRefresh}
+          />
+        )
+      }
+    </>
+  )
 }
 
 export default BusNumList;

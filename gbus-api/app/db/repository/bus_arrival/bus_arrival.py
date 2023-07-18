@@ -20,10 +20,13 @@ class BusArrivalRepository:
     def __init__(self):
         route_map_path = os.path.join(os.path.dirname(__file__), "route.json")
         station_map_path = os.path.join(os.path.dirname(__file__), "station.json")
+        bus_stop_path = os.path.join(os.path.dirname(__file__), "bus_stop.json")
         with open(route_map_path, "r") as f:
             self.route_map = json.load(f)
         with open(station_map_path, "r") as f:
             self.station_map = json.load(f)
+        with open(bus_stop_path, "r") as f:
+            self.bus_stop_map = json.load(f)
 
     def get_bus_arrival_list(
         self, service_key, station_id, route_id=None, sta_order=None
@@ -45,36 +48,43 @@ class BusArrivalRepository:
         # Convert the response from xml to json
         xml_element = ET.fromstring(xml_str)
         json_data = xmljson.parker.data(xml_element)
-
-        if json_data['msgHeader']['resultCode'] == 4:
+        print(json_data)
+        if json_data["msgHeader"]["resultCode"] == 4:
             return []
 
-        result = []
+        print(self.bus_stop_map.get("227000016", {}).get("227000205"))
 
+        print(self.bus_stop_map.get("208000027").get(station_id))
+        result = []
         if isinstance(json_data["msgBody"]["busArrivalList"], list):
             # 데이터가 리스트인 경우
             for data in json_data["msgBody"]["busArrivalList"]:
                 if data is None:
                     continue
 
-                bus_id = data["routeId"]
+                bus_id = str(data["routeId"])
                 bus_name = self.route_map.get(str(bus_id))
                 if bus_name is None:
                     continue
+
+                next_stop = self.bus_stop_map.get(bus_id).get(station_id)
 
                 predictTime1 = data["predictTime1"]
                 predictTime2 = data["predictTime2"]
                 remainSeatCnt1 = data["remainSeatCnt1"]
                 remainSeatCnt2 = data["remainSeatCnt2"]
 
-                result.append({
-                    "bus_id": bus_id,
-                    "bus_name": bus_name,
-                    "predictTime1": predictTime1,
-                    "predictTime2": predictTime2,
-                    "remainSeatCnt1": remainSeatCnt1,
-                    "remainSeatCnt2": remainSeatCnt2
-                })
+                result.append(
+                    {
+                        "bus_id": bus_id,
+                        "bus_name": bus_name,
+                        "next_stop": next_stop,
+                        "predictTime1": predictTime1,
+                        "predictTime2": predictTime2,
+                        "remainSeatCnt1": remainSeatCnt1,
+                        "remainSeatCnt2": remainSeatCnt2,
+                    }
+                )
 
         elif isinstance(json_data["msgBody"]["busArrivalList"], OrderedDict):
             # 데이터가 OrderedDict인 경우
@@ -82,27 +92,31 @@ class BusArrivalRepository:
             if data is None:
                 return result
 
-            bus_id = data["routeId"]
+            bus_id = str(data["routeId"])
             bus_name = self.route_map.get(str(bus_id))
             if bus_name is None:
                 return result
+
+            next_stop = self.bus_stop_map.get(bus_id).get(station_id)
 
             predictTime1 = data["predictTime1"]
             predictTime2 = data["predictTime2"]
             remainSeatCnt1 = data["remainSeatCnt1"]
             remainSeatCnt2 = data["remainSeatCnt2"]
 
-            result.append({
-                "bus_id": bus_id,
-                "bus_name": bus_name,
-                "predictTime1": predictTime1,
-                "predictTime2": predictTime2,
-                "remainSeatCnt1": remainSeatCnt1,
-                "remainSeatCnt2": remainSeatCnt2
-            })
+            result.append(
+                {
+                    "bus_id": bus_id,
+                    "bus_name": bus_name,
+                    "next_stop": next_stop,
+                    "predictTime1": predictTime1,
+                    "predictTime2": predictTime2,
+                    "remainSeatCnt1": remainSeatCnt1,
+                    "remainSeatCnt2": remainSeatCnt2,
+                }
+            )
 
         return result
-
 
     def get_bus_location(self, bus_id: str) -> BusLocationResponseDto:
         url = "http://openapi.gbis.go.kr/ws/rest/buslocationservice"

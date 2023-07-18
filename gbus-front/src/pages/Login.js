@@ -57,7 +57,7 @@ function Login() {
                 onSubmit={onSubmitHandler}
             >
                 <div style={{
-                    justifyItems: 'center', justifyContent: 'center', alignItems: 'center', paddingTop: '140px'
+                    justifyItems: 'center', justifyContent: 'center', alignItems: 'center', paddingTop: '80px'
                     }}>
 
                     <img src='/logo1.svg' alt='logo' style={{
@@ -81,7 +81,7 @@ function Login() {
 
 
                 <div style={{
-                    display: 'flex', justifyContent: 'space-between', paddingBottom: '40px', width: '80%'
+                    display: 'flex', justifyContent: 'space-between', paddingBottom: '120px', width: '80%'
                 }}>
                     <button 
                     className='buttom_button'

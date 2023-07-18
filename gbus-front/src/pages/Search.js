@@ -7,6 +7,7 @@ import Tabs from 'react-bootstrap/Tabs';
 import BusNumList from "./BusNumList.js";
 import BusStopList from "./BusStopList.js";
 import Header from '../Header'; // Import the Header component
+import BusSearch from "./BusSearch.js";
 
 function Search({token, setToken}){
 

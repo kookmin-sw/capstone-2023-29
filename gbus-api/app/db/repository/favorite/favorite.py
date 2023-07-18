@@ -66,17 +66,17 @@ class FavoriteRepository:
     def add_favorite_station(
         self, user_id: int, station_id: str, next_station: str
     ) -> TblFavoriteStation:
-        station = (
-            self._session.query(TblStation)
-            .filter(TblStation.station_id == station_id)
-            .one_or_none()
-        )
+        print(station_id, next_station)
+        station = self._session.query(TblStation).filter(TblStation.station_id == station_id).all()
+        print(station_id)
         if station is None:
             raise ValueError(f"Station with id {station} not found")
+        
+        print(station_id, next_station)
         favorite_station = TblFavoriteStation(
             user_id=user_id,
-            station_id=station.station_id,
-            station_name=station.station_name,
+            station_id=station[0].station_id,
+            station_name=station[0].station_name,
             next_station=next_station,
         )
         self._session.add(favorite_station)

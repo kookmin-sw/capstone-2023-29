@@ -1,6 +1,6 @@
 // App.js
 import { React, useState, useEffect } from 'react';
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, Switch } from 'react-router-dom';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Tab, Tabs } from 'react-bootstrap';
@@ -10,6 +10,8 @@ import BusInfo from './BusInfo';
 import Bookmark from './pages/Bookmark';
 import Signup from './pages/SignUp';
 import Header from './Header'; // Add this line
+import BusStopList from './pages/BusStopList';
+import BusNumList from './pages/BusNumList';
 
 function App() {
   const [token, setToken] = useState(localStorage.getItem('token'));
@@ -36,6 +38,7 @@ function App() {
           </>
         }></Route>
 
+        <Route path="/busnumlist/:busName" component={BusNumList} />
         <Route path="/login" element={<Login />} />
         <Route path="/search" element={<Search token={token} setToken={setToken} />} />
         <Route path="/businfo" element={<BusInfo />} />

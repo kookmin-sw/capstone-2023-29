@@ -197,6 +197,53 @@ export async function getFavorites(access_token){
     console.log('Error:', error.message);
   }
 };
+
+
+export async function getFavoriteBus(access_token){
+  try {
+    console.log(access_token);
+    const response = await fetch(`${API_BASE_URL}/v1/favorite/bus`, {
+      method: 'GET',
+      headers: {
+        'Authorization': `Bearer ${access_token}`,
+        'Content-Type': 'application/json'
+      }
+    });
+    if (response.ok) {
+      const result = await response.json();
+      console.log(result) 
+      return result
+    } else {
+      console.log('Error:', response.statusText);
+    }
+  } catch (error) {
+    console.log('Error:', error.message);
+  }
+};
+
+
+export async function getFavoriteStation(access_token){
+  try {
+    console.log(access_token);
+    const response = await fetch(`${API_BASE_URL}/v1/favorite/station`, {
+      method: 'GET',
+      headers: {
+        'Authorization': `Bearer ${access_token}`,
+        'Content-Type': 'application/json'
+      }
+    });
+    if (response.ok) {
+      const result = await response.json();
+      console.log(result) 
+      return result
+    } else {
+      console.log('Error:', response.statusText);
+    }
+  } catch (error) {
+    console.log('Error:', error.message);
+  }
+};
+
 export async function addFavoriteBus(access_token, bus_id, last_station){
   try {
     console.log(access_token, bus_id);
@@ -224,9 +271,9 @@ export async function addFavoriteBus(access_token, bus_id, last_station){
 };
 
 
-export async function addFavoriteStation(access_token, station_id){
+export async function addFavoriteStation(access_token, station_id, next_stop){
   try {
-    console.log(access_token);
+    console.log(access_token, station_id);
     const response = await fetch(`${API_BASE_URL}/v1/favorite/station`, {
       method: 'POST',
       headers: {
@@ -234,7 +281,8 @@ export async function addFavoriteStation(access_token, station_id){
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-          station_id : station_id
+          station_id : station_id,
+          next_station : next_stop
         })
     });
     if (response.ok) {
@@ -274,15 +322,12 @@ export async function deleteFavoriteBus(access_token, bus_id){
 export async function deleteFavoriteStation(access_token, station_id){
   try {
     console.log(access_token);
-    const response = await fetch(`${API_BASE_URL}/v1/favorite/bus`, {
+    const response = await fetch(`${API_BASE_URL}/v1/favorite/station/${station_id}`, {
       method: 'DELETE',
       headers: {
         'Authorization': `Bearer ${access_token}`,
         'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-          station_id : station_id
-        })
+      }
     });
     if (response.ok) {
       const result = await response.json();

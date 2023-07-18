@@ -59,6 +59,7 @@ def add_favorite_station(
     service: FavoriteService = Depends(FavoriteService),
     user_info: UserResponse = Depends(get_user_info),
 ):
+    print(form.station_id)
     return service.add_favorite_station(
         user_id=user_info.id, station_id=form.station_id, next_station=form.next_station
     )

@@ -1,146 +1,120 @@
-import React, { useState} from "react";
-import Form from 'react-bootstrap/Form';
-import InputGroup from 'react-bootstrap/InputGroup';
+import React, { useState, useEffect } from "react";
+import { getFavoriteStation, deleteFavoriteStation, getBusArrivalList, addFavoriteStation } from '../api.js';
 import Table from 'react-bootstrap/Table';
-import { getStationListByName, getBusArrivalList, addFavoriteStation } from '../api.js';
+import BusStopInformation from "./BusStopInformation.js";
 
+function BusStopFavList() {
+    const [stationList, setStationList] = useState([]);
+    const [busArrivalList, setBusArrivalList] = useState([]);
+    const [selectedStation, setSelectedStation] = useState(null);
+    const [busStopList, setBusStopList] = useState([]);
+    const [selectedBusStop, setSelectedBusStop] = useState(null);
+    const [busList, setBusList] = useState([]);
+    const [isLoading, setIsLoading] = useState(false);
+    const [error, setError] = useState(null);
 
+    useEffect(() => {
+        if (localStorage.getItem('token')) {
+            handleGetFavoriteStation();
+        }
+    }, []);
 
-function BusStopFavList(){
+    useEffect(() => {
+        if (selectedBusStop) {
+          setIsLoading(true);
+          getBusArrivalList(selectedBusStop.station_id)
+            .then(data => {
+              setBusList(data);
+              setError(null);
+            })
+            .catch(error => setError(error.message))
+            .finally(() => setIsLoading(false));
+        }
+      }, [selectedBusStop]);
 
-   const [inputValue, setInputValue] =useState('')
-    const [busStopData, setBusStopData] =useState('')
-    const [busStopArr, setBusStopArr] = useState([])
-    const [busStopNameArr, setBusStopNameArr] = useState([])
-    const [busStopWayArr, setBusStopWayArr] = useState([])
-    const [busListData, setBusListData] = useState(null)
-    const [busListArr, setBusListArr] = useState([])
-    const [busStopId, setBusStopId] =useState(null)
-    const [busStopIdArr,setBusStopIdArr] = useState(null)
-    const [busIdArr, setBusIdArr] = useState(null)
-    const [predictTime1Arr, setPredictTime1Arr] = useState(null)
-    const [predictTime2Arr, setPredictTime2Arr] = useState(null)
-    const [remainSeat1Arr, setRemainSeat1Arr] = useState(null)
-    const [remainSeat2Arr, setRemainSeat2Arr] = useState(null)
-    const [stationId, setStationId] = useState('')
-    const [busStopName, setBusStopName] = useState(null)
-    let [busStopInfo, setBusStopInfo] = useState(false)
-    const [detail, setDetail] = useState(false)
-    const [selected, setSelected] = useState(-1)
-    const [arrayNull, setArrayNull] = useState(false)
-    const [token, setToken] = useState(null)
-
-
-
-    async function handleGetBusArrivalListByStationId() {
-      try {
-        setBusStopArr([]);
-        setBusStopNameArr([]);
-        setArrayNull(false);
-        const data = await getBusArrivalList(stationId);
-        setBusListData(data);
-        const busListArr = JSON.parse(JSON.stringify(data))
-        setBusListArr(busListArr)
-        setBusIdArr(busListArr.map(bus => bus.bus_name))
-        setPredictTime1Arr(busListArr.map(predict1 => predict1.predictTime1))
-        setPredictTime2Arr(busListArr.map(predict2 => predict2.predictTime2))
-        setRemainSeat1Arr(busListArr.map(seat1 => seat1.remainSeatCnt1))
-        setRemainSeat2Arr(busListArr.map(seat2 => seat2.remainSeatCnt2))
-      } catch (error) {
-        console.error('Error fetching bus data:', error.message);
-        setArrayNull(true);
-      }
+    async function handleGetFavoriteStation() {
+        try {
+            const data = await getFavoriteStation(localStorage.getItem('token'));
+            console.log(data)
+            setStationList(data);
+        } catch (error) {
+            console.error('Error fetching favorite station data:', error.message);
+        }
     }
 
-    async function handleAddFavoriteStation(bus_id) {
-      try {
-        console.log(bus_id)
-        setToken(localStorage.getItem('token'))
-        const data = await addFavoriteStation(localStorage.getItem("token"), bus_id);
-        console.log("add")
-        console.log(data)
-      } catch (error) {
-        console.error('Error fetching bus stop data:', error.message);
-      }
+    async function handleDeleteFavoriteStation(station_id) {
+        try {
+            await deleteFavoriteStation(localStorage.getItem('token'), station_id);
+            handleGetFavoriteStation();
+        } catch (error) {
+            console.error('Error deleting favorite station:', error.message);
+        }
     }
 
+    async function handleGetBusArrivalList(station_id) {
+        try {
+            const data = await getBusArrivalList(station_id);
+            setSelectedStation(stationList.find(station => station.station_id === station_id));
+            setBusArrivalList(data);
+            setBusList(data); 
+        } catch (error) {
+            console.error('Error fetching bus arrival data:', error.message);
+        }
+    }
 
+    const handleAddFavoriteStation = async (station_id, next_station) => {
+        try {
+          const token = localStorage.getItem('token')
+          await addFavoriteStation(token, station_id, next_station);
+          console.log("Added to favorites.");
+        } catch (error) {
+          console.log(`Error adding to favorites: ${error.message}`);
+        }
+      }
 
+      const handleSelectBusStop = async (busStop) => {
+        console.log("busStop : ", busStop)
+        setSelectedBusStop(busStop);
+        const busList = await handleGetBusArrivalList(busStop.station_id);
+        console.log("busList : ", busList)
+        setBusList(busList);
+      }
 
-    return(
-      <>
-      {!busStopInfo ? (
-             <>
-             <Table style={{backgroundColor: '#FFFFFF', marginTop: '-16px'}}>
-              <thead style={{backgroundColor: '#E2615B'}}>
-                <tr>
-                  <th style={{color: '#FFFFFF', width: '40%'}}>정류장</th>
-                  <th style={{color: '#FFFFFF', width: '40%'}}>방면</th>
-                  <th><img src="/star_white.svg" alt='non_selected_stat' style={{maxWidth:'25px'}}></img></th>
-                </tr>
-              </thead>
-              <tbody style={{borderRadius: '25px', height:'100px'}}>
-                  {busStopNameArr.length > 0 ? (
-                    busStopNameArr.map((busStopName, index) => (
-                      <tr key={index}>
-                        <td onClick={()=>{
-                          setBusStopInfo(true)
-                          setBusStopName(busStopNameArr[index])
-                          setStationId(busStopIdArr[index])
-                          handleGetBusArrivalListByStationId();
-                          console.log(stationId)
-                          }}>{busStopName}</td>
-                        <td>{busStopWayArr[index]}</td>
-                        <td onClick={()=>{
-                          setStationId((busStopIdArr[index]))
-                          handleAddFavoriteStation(busStopIdArr[index])
-                        }}>즐찾</td>
-                    </tr>
-                    ))
-                  ) : (
-                    arrayNull && (
-                      <tr>
-                        <td colSpan="3">
-                          검색 결과가 없습니다.
-                          {/* 이 위치에 원하는 이미지를 추가하세요. 예: */}
-                          {/* <img src="/path/to/your/image.png" alt="No results" /> */}
-                        </td>
-                      </tr>
-                    )
-                  )}
-              </tbody>
-            </Table>
-             </>
-
-      ):(
+    return (
         <>
-        <span onClick={()=>{setBusStopInfo(false)}}>
-        <h2>{busStopName}</h2>
-        </span>
-        <Table>
-          <thead>
-            <tr>
-              <th>Bus</th>
-              <th>Time</th>
-              <th>Seat</th>
-            </tr>
-          </thead>
-          <tbody>
-            {busIdArr && busIdArr.map((busId, index) => (
-              <tr key={index}>
-                <td>{busId}</td>
-                <td>{predictTime1Arr[index]}, {predictTime2Arr[index] && predictTime2Arr[index]}</td>
-                <td>{remainSeat1Arr[index]}, {remainSeat2Arr[index]}</td>
-              </tr>
-            ))} 
-          </tbody>
-          
-        </Table>
+            {selectedStation === null ? (
+                <div style={{backgroundColor: '#ECECEC', width: '100%', display: 'flex', flexDirection: 'column', justifyContent:'center'}}>
+                    <div style={{backgroundColor: '#E2615B', display: 'flex', flexDirection: 'row', width: '100%', height: '45px', alignItems: 'center'}}>
+                        <th style={{color: '#FFFFFF', width:'30%', textAlign: 'center', fontFamily: 'Inter'}}>정류장 이름</th>
+                        <th style={{color: '#FFFFFF', width:'50%', textAlign: 'center', fontFamily: 'Inter'}}>방면</th>
+                        <img src="/star_white.svg" alt='non_selected_stat' style={{maxWidth:'20px'}}></img>
+                    </div>
+                    <div style={{width: '100%', marginTop: '20px', display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
+                        {stationList.map((station, index) => (
+                            <div key={index} style={{ width: '95%', height: '80px', backgroundColor: '#FFFFFF', borderRadius: '10px', padding: '10px', marginBottom: '10px', display: 'flex', flexDirection: 'row', alignItems: 'center'}} onClick={() => handleSelectBusStop(station)}>
+                                <p style={{width: '24%', color: '#E2615B', fontSize: '14px', textAlign: 'center', justifyContent: 'center', alignItems: 'center', margin: '0px', fontWeight:'500'}} >{station.station_name}</p>
+                                <p style={{width: '60%', fontSize: '14px', textAlign: 'center', justifyContent: 'center', alignItems: 'center', margin: '0px', fontWeight: '500'}} >{station.next_station}</p>
+                                <p style={{justifyContent: 'center', alignItems: 'center', margin: '0px', marginBottom:'5px'}} onClick={(e) => {
+                                    e.stopPropagation();
+                                    handleDeleteFavoriteStation(station.station_id);
+                                }}><img src="/star_yellow.svg" alt="selected_star"></img></p>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            ) : (
+                // The detailed page of a station
+                // ...
+                <>
+                    {<BusStopInformation
+                        selectedBusStop={selectedBusStop}
+                        busList={busList}
+                        onBack={() => setSelectedStation(null)}
+                    />}
+                </>
+            )}
         </>
-      )}
-      
-      </>
-    )
+    );
 }
 
 export default BusStopFavList;
